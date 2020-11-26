@@ -5,7 +5,31 @@
     --menu-bg: #253145ff;
 }
 
+html{
+    height: 100%;
+}
 body {
     margin: 0;
     background-color: var(--main-bg);
+}
+
+#container{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+#navbar{
+    display: flex;
+    background-color: var(--navbar-bg);
+    width: 100%;
+    padding: 0%;
+
+
+}
+#menu{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--menu-bg);
+    width: 7%;
+    height: 100% 
 }
