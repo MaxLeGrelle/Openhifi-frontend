@@ -26,5 +26,8 @@
   },
   "main": "webpack.config.js",
   "keywords": [],
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "exports-loader": "^1.1.1"
+  }
 }
