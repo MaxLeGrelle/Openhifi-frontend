@@ -20,7 +20,6 @@
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "style-loader": "^2.0.0",
-    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
@@ -28,6 +27,15 @@
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
-    "exports-loader": "^1.1.1"
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "exports-loader": "^1.1.1",
+    "postcss": "^8.1.10",
+    "postcss-loader": "^4.1.0",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0",
+    "webpack": "^4.44.2"
   }
 }
