@@ -9,35 +9,3 @@ body {
     margin: 0;
     background-color: var(--main-bg);
 }
-/*Page acceuil*/
-.container {
-    display: grid;
-    grid-template-columns: 150px 6fr;
-    grid-template-rows: 1fr 6fr;
-    grid-template-areas: 
-        "logo navbar"
-        "menuNavbar main";
-}
-
-/*Navbar*/
-.navbar {
-    grid-area: navbar;
-    background-color: var(--navbar-bg);
-}
-
-.logo {
-    grid-area: logo;
-    background-color: var(--navbar-bg);
-}
-
-/*Main*/
-.main {
-    grid-area: main;
-}
-
-/*Menu*/
-.menu {
-    grid-area: menuNavbar;
-    background-color: var(--menu-bg);
-
-}
