@@ -1,0 +1,30 @@
+{
+  "name": "step2",
+  "version": "1.0.0",
+  "description": "Migration vers Webpack",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server"
+  },
+  "author": "e-baron",
+  "dependencies": {
+    "@babel/core": "^7.12.7",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.1",
+    "bootstrap": "^4.5.3",
+    "css-loader": "^5.0.1",
+    "customizable-analog-clock": "^1.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "main": "webpack.config.js",
+  "keywords": [],
+  "license": "ISC"
+}
