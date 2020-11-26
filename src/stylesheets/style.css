@@ -1,35 +1,43 @@
-html, body {
-    height: 100%;
+/*Variables*/
+:root {
+    --main-bg: #1b212c;
+    --navbar-bg: #253145ff;
+    --menu-bg: #253145ff;
 }
 
-html {    
-    background-image : url(../img/pizza.jpg);
-    background-size : cover;
+body {
+    margin: 0;
+    background-color: var(--main-bg);
+}
+/*Page acceuil*/
+.container {
+    display: grid;
+    grid-template-columns: 150px 6fr;
+    grid-template-rows: 1fr 6fr;
+    grid-template-areas: 
+        "logo navbar"
+        "menuNavbar main";
 }
 
-body { 
-    /*to easily deal with sticky footer*/
-    display: flex;
-    flex-direction: column;
+/*Navbar*/
+.navbar {
+    grid-area: navbar;
+    background-color: var(--navbar-bg);
 }
 
-
-header{
-    text-align: center;
+.logo {
+    grid-area: logo;
+    background-color: var(--navbar-bg);
 }
 
-main{
-    text-align: center;
-     /*to easily deal with sticky footer:
-     grow the main to fill the space*/
-    flex: 1 0 auto;
+/*Main*/
+.main {
+    grid-area: main;
 }
 
-footer{
-    text-align: center;    
-}
+/*Menu*/
+.menu {
+    grid-area: menuNavbar;
+    background-color: var(--menu-bg);
 
-#myClock {
-    margin-left: auto;
-    margin-right: auto;
 }
