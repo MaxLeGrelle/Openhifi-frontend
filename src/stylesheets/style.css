@@ -7,6 +7,8 @@
     --navbar-bg: #253145ff;
     --menu-bg: #253145ff;
 }
+
+/*Body/HTML/contenair*/
 html *{
     font-family: 'Montserrat', sans-serif;
 }
@@ -24,31 +26,25 @@ body {
     flex-wrap: wrap;
 }
 
+
+/*NavBar*/
 #navbar{
     display: flex;
     background-color: var(--navbar-bg);
     width: 100%;
     padding: 0%;
-
-
-}
-#menu{
-    float: left;
-    display: flex;
-    background-color: var(--menu-bg);
-    width: 7%;
-    height: 100% ; 
 }
 
 #search{
     align-self: center;
     margin-left: 4%;
-    
 }
+
 #add{
     align-self: center;
     margin-left: 10%;
 }
+
 .btn-bluegradient{
     background-image: linear-gradient(to right, #0761ebff 13%, cyan 106%);
     color: white !important; /* prend la prioritée sur la classe btn bootstrap */
@@ -58,8 +54,7 @@ body {
     font-size: 1.25em !important;
     overflow:hidden;
     border-radius:15px !important;
-    font-weight: bold !important;
-    
+    font-weight: bold !important; 
 }
 
 #profile{
@@ -70,8 +65,52 @@ body {
     -moz-border-radius:50px;
     border-radius:50px;
 }
+
+input{
+    background-color: var(--main-bg) !important;
+    border-color: #0761ebff !important;
+}
+
+
+/*Menu*/
+#menu{
+    float: left;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--menu-bg);
+    width: 9%;
+    height: 100% ; 
+    color: white;
+}
+
+#menu a{
+    color: white;
+}
+
+#menu a:hover {
+    color: #0761ebff;
+  }
+
+#favorite, #trends{
+    
+    padding-left: 10px;
+    color: white;
+}
+
+#favorite{
+    margin-top: 100%;
+}
+
+#trends{
+    margin-top: 50%;
+}
+
+
+/*Main*/
 #main{
-width: 93%;
+    display: flex;
+    flex-direction: column;
+    width: 91%;
 
 }
 #main > .display-4{
@@ -79,3 +118,27 @@ width: 93%;
     color: white;
 }
 
+
+#recently{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+}
+#carouselExampleControls{
+    width:100% !important;
+}
+.carousel-inner{
+    width: 100% !important;
+}
+#recently img{
+    margin-left: 9%;
+    margin-right: 0.5%;
+}
+#main h2{
+    color : white;
+    padding-top: 7%;
+    padding-left: 9%;
+    padding-bottom: 2%;
+}
