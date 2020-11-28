@@ -1,3 +1,4 @@
+
 import "./stylesheets/style.css";
 import "bootstrap"
 import logo from "./img/open-hifi-logo-transparent2.png"
@@ -10,38 +11,72 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import Login from "./Components/Login";
+
+const container = document.getElementById("page");
+const loginBtn = document.getElementById("loginBtn");
+const loginPage = document.getElementById("login");
+loginBtn.addEventListener("click", onLoginClick);
 
 //set up for import fas, far
 library.add(fas,far)
 dom.watch()
 
+function onLoginClick() {
+  console.log("affiche login");
+  page.innerHTML = "";
+  page.innerHTML += `<div id = "texte"> </div>`;
+  Login();
+}
+
+
 function displayAcceuil() {
-    displayNavBar()
-    displayMenu()
-    displayMain()
+  page.innerHTML = "";
+  console.log("affiche accueil");
+  $("#page").append(`<div id = "container"> </div>`)
+  $("#container").append( `<div id="navbar">
+  <div id="logo"></div>
+  <div id="search"></div>
+  <div id="add"></div>
+  <div id="profile"></div>
+</div>
+<div id="menu">
+  <div id="favorite"></div>
+  <div id="trends"></div>
+</div>
+<div id="main">
+  <div class="display-4">Bienvenue Pepito, quelle agréable journée pour écouter votre playlist country</div>
+  <h2>Écouté recemment :</h2>
+  <div id="recently"></div>
+  <h2>À Découvrir :</h2>
+  <div id="discover"></div>`);
+
+displayNavBar()
+displayMenu()
+displayMain()
 }
 
 //HTML for the navbar
 function displayNavBar(){
 
-  //logo on top left
-  $('#logo').append(`<div class="row">
-  <div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
+//logo on top left
+$('#logo').append(`<div class="row">
+<div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
 
-  //seach bar on top
-  $("#search").append(`
-  <div class="input-group md-form form-sm form-2 pl-0">
-    <input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
-    <div class="input-group-append">
-      <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
-    </div>
-  </div>`)
-  //add button on top
-  $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
+//seach bar on top
+$("#search").append(`
+<div class="input-group md-form form-sm form-2 pl-0">
+<input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
+<div class="input-group-append">
+  <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
+</div>
+</div>`)
+//add button on top  
+$('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
 
-  //profil picture on top right
-  $('#profile').append(`<div class="row">
-  <div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
+//profil picture on top right
+$('#profile').append(`<div class="row">
+<div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
 }
 
 
@@ -94,5 +129,4 @@ function displayMain(){
 </div>
 </div>`)
 }
-
-displayAcceuil()
+displayAcceuil();
