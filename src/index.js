@@ -1,3 +1,4 @@
+
 import "./stylesheets/style.css";
 import "bootstrap"
 import logo from "./img/open-hifi-logo-transparent2.png"
@@ -10,10 +11,44 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import Login from "./Components/Login";
 
+const container = document.getElementById("page");
+const loginBtn = document.getElementById("loginBtn");
+const loginPage = document.getElementById("login");
+loginBtn.addEventListener("click", onLoginClick);
+
+
+
+function onLoginClick() {
+  console.log("affiche login");
+  page.innerHTML = "";
+  page.innerHTML += `<div id = "texte"> </div>`;
+  Login();
+}
 
 
 function displayAcceuil() {
+  page.innerHTML = "";
+  console.log("affiche accueil");
+  $("#page").append(`<div id = "container"> </div>`)
+  $("#container").append( `<div id="navbar">
+  <div id="logo"></div>
+  <div id="search"></div>
+  <div id="add"></div>
+  <div id="profile"></div>
+</div>
+<div id="menu">
+  <div id="favorite"></div>
+  <div id="trends"></div>
+</div>
+<div id="main">
+  <div class="display-4">Bienvenue Pepito, quelle agréable journée pour écouter votre playlist country</div>
+  <h2>Écouté recemment :</h2>
+  <div id="recently"></div>
+  <h2>À Découvrir :</h2>
+  <div id="discover"></div>`);
+
     //set up for import fas
     library.add(fas,far)
     dom.watch()
@@ -64,5 +99,4 @@ function displayAcceuil() {
   //$('#r4').append(`<img src="${r2}" alt="logo" height="200px" width="200px"/>`)
   
 }
-
-displayAcceuil()
+displayAcceuil();
