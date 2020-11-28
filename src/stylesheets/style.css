@@ -30,10 +30,11 @@ body {
 /*NavBar*/
 #navbar{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: var(--navbar-bg);
     width: 100%;
     padding: 0%;
+    margin-left: 0%;
 }
 
 #search{
@@ -43,13 +44,12 @@ body {
 
 #add{
     align-self: center;
-    margin-left: 10%;
-    margin-right: 5%;
+
 }
 
 .btn-bluegradient{
     background-image: linear-gradient(to right, #0761ebff 13%, cyan 106%);
-    color: white !important; /* prend la prioritée sur la classe btn bootstrap */
+    color: white !important; /* take priority on bootstrap css */
     border-width: 0px !important;
     height: 40px;
     font-size: 1.25em !important;
@@ -59,12 +59,10 @@ body {
 }
 
 #profile{
-    margin-right: 5%;
     align-self: center;
-    overflow:hidden;
-    -webkit-border-radius:10%;
-    -moz-border-radius:10%;
-    border-radius:10%;
+    overflow:hidden;/* make the picture round */
+    border-radius:30px;
+    margin-right:20px ;
 }
 
 input{
@@ -147,16 +145,17 @@ input{
     width: 100% !important;
 }
 
+/*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
     #main img, #logo img{
-        width: 120px !important;
-        height: 120px !important;
+        width: 120px ;
+        height: 120px ;
     }
 }
 @media (max-width: 1600px){
     #profile img{
-        width: 50px !important;
-        height: 50px !important;
+        width: 50px ;
+        height: 50px ;
     }
 }
 @media (max-width: 1600px){
@@ -164,6 +163,22 @@ input{
         width: 90px !important;
         height: 35px !important;
         font-size: 0.8em !important;
+    }
+}
+
+@media (max-width: 1600px){
+    #trends , #favorite {
+        font-size: 0.7em ;
+    }
+}
+@media (max-width: 1600px){
+    #search input {
+        width: 450px ;
+    }
+}
+@media (max-width: 1600px){
+    .display-4 {
+        font-size: 1.5em !important;
     }
 }
 

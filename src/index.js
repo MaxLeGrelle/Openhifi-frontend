@@ -24,8 +24,11 @@ function displayAcceuil() {
 //HTML for the navbar
 function displayNavBar(){
 
+  //logo on top left
   $('#logo').append(`<div class="row">
   <div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
+
+  //seach bar on top
   $("#search").append(`
   <div class="input-group md-form form-sm form-2 pl-0">
     <input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
@@ -33,21 +36,30 @@ function displayNavBar(){
       <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
     </div>
   </div>`)
-$('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
-$('#profile').append(`<div class="row">
-<div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
+  //add button on top
+  $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
+
+  //profil picture on top right
+  $('#profile').append(`<div class="row">
+  <div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
 }
 
 
 //HTML for the vertical menu
 function displayMenu(){
+
+  //trends button/link on middle left (star)
   $('#trends').append(`<a href="url"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+
+  //favorite button/link on middle left (heart)
   $('#favorite').append(`<a href="url"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 }
 
 
 //HTML for the main page
 function displayMain(){
+
+  //carrousel made with bootstrap 
   $('#recently').append(`
   <div class="row">
   <div class="col-md">
