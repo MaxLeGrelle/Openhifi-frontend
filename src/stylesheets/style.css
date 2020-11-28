@@ -131,10 +131,12 @@ input{
 .carousel-inner{
     width: 100% !important;
 }
-#recently img{
-    margin-left: 9%;
-    margin-right: 0.5%;
+
+.carousel-item{
+    display: flex !important;
+    justify-content: space-around !important;
 }
+
 #main h2{
     color : white;
     padding-top: 7%;
