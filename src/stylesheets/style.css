@@ -130,7 +130,9 @@ input{
 }
 .carousel-inner{
     width: 100% !important;
+    margin-left: 5%;
 }
+
 #recently img{
     margin-left: 9%;
     margin-right: 0.5%;
