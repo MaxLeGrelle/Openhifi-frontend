@@ -1,3 +1,4 @@
+
 import "./stylesheets/style.css";
 import "bootstrap"
 import logo from "./img/open-hifi-logo-transparent2.png"
@@ -10,26 +11,93 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import Login from "./Components/Login";
+
+
+$("#loginBtn").on("click", onLoginClick)
+
+//set up for import fas, far
+library.add(fas,far)
+dom.watch()
+
+function onLoginClick() {
+  $("#page").empty();
+  $("#page").append(`<div id = "login"> </div>`)
+  $("#login").append(` <div id = "registration">  </div> <div id = "connection"> </div>`)
+
+  Login();
+}
 
 
 
 function displayAcceuil() {
-    //set up for import fas
-    library.add(fas,far)
-    dom.watch()
-    $('#logo').append(`<img src="${logo}" alt="logo" height="100px" width="100px"/>`)
-    $("#search").append(`
-    <div class="input-group md-form form-sm form-2 pl-0">
-      <input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
-      <div class="input-group-append">
-        <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
-      </div>
-    </div>`)
-  $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
-  $('#profile').append(`<img src="${profile}" alt="logo" height="60px" width="60px"/>`)
+  $("#page").empty();
+  console.log("affiche accueil");
+  $("#page").append(`<div id = "container"> </div>`)
+  $("#container").append( `<div id="navbar">
+  <div id="logo"></div>
+  <div id="search"></div>
+  <div id="add"></div>
+  <div id="profile"></div>
+</div>
+<div id="menu">
+  <div id="favorite"></div>
+  <div id="trends"></div>
+</div>
+<div id="main">
+  <div class="display-4">Bienvenue Pepito, quelle agréable journée pour écouter votre playlist country</div>
+  <h2>Écouté recemment :</h2>
+  <div id="recently"></div>
+  <h2>À Découvrir :</h2>
+  <div id="discover"></div>`);
+
+displayNavBar()
+displayMenu()
+displayMain()
+}
+
+//HTML for the navbar
+function displayNavBar(){
+
+//logo on top left
+$('#logo').append(`<div class="row">
+<div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
+
+//seach bar on top
+$("#search").append(`
+<div class="input-group md-form form-sm form-2 pl-0">
+<input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
+<div class="input-group-append">
+  <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
+</div>
+</div>`)
+//add button on top  
+$('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
+
+//profil picture on top right
+$('#profile').append(`<div class="row">
+<div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
+}
+
+
+//HTML for the vertical menu
+function displayMenu(){
+
+  //trends button/link on middle left (star)
   $('#trends').append(`<a href="url"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+
+  //favorite button/link on middle left (heart)
   $('#favorite').append(`<a href="url"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
+}
+
+
+//HTML for the main page
+function displayMain(){
+
+  //carrousel made with bootstrap 
   $('#recently').append(`
+  <div class="row">
+  <div class="col-md">
   <div id="carouselExampleControls" class="carousel slide" data-interval="false">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -57,12 +125,8 @@ function displayAcceuil() {
       <span class="sr-only">Next</span>
     </a>
   </div>
+</div>
+</div>
 </div>`)
-  //$('#r1').append(``)
-  //$('#r2').append(`<img src="${r2}" alt="logo" height="200px" width="200px"/>`)
-  //$('#r3').append(`<img src="${r1}" alt="logo" height="200px" width="200px"/>`)
-  //$('#r4').append(`<img src="${r2}" alt="logo" height="200px" width="200px"/>`)
-  
 }
-
-displayAcceuil()
+displayAcceuil();
