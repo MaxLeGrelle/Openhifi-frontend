@@ -13,18 +13,15 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import Login from "./Components/Login";
 
-const container = document.getElementById("page");
-const loginBtn = document.getElementById("loginBtn");
-const loginPage = document.getElementById("login");
-loginBtn.addEventListener("click", onLoginClick);
+
+$("#loginBtn").on("click", onLoginClick)
 
 //set up for import fas, far
 library.add(fas,far)
 dom.watch()
 
 function onLoginClick() {
-  console.log("affiche login");
-  page.innerHTML = "";
+  $("#page").empty();
   $("#page").append(`<div id = "login"> </div>`)
   $("#login").append(` <div id = "registration">  </div> <div id = "connection"> </div>`)
 
@@ -34,7 +31,7 @@ function onLoginClick() {
 
 
 function displayAcceuil() {
-  page.innerHTML = "";
+  $("#page").empty();
   console.log("affiche accueil");
   $("#page").append(`<div id = "container"> </div>`)
   $("#container").append( `<div id="navbar">
