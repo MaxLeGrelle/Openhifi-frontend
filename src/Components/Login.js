@@ -1,6 +1,8 @@
-
 import {setUserDataStorage} from '../Utils/storage.js';
 import { redirectUrl } from './Router.js';
+
+const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
+
 function Login() {
 
   displayConnection();
@@ -11,19 +13,19 @@ function displayRegistration() {
     <form  id= "formRegistration">
     <div class="form-group">
       <label for="formGroupExampleInput">Email :</label>
-      <input type="text" class="form-control" id="emailRegistration" placeholder="Email">
+      <input type="text" class="form-control" id="emailRegistration" placeholder="Email" pattern="${EMAIL_REGEX}" required">
     </div>
     <div class="form-group">
       <label for="formGroupExampleInput2">Pseudonyme :</label>
-      <input type="text" class="form-control" id="pseudoRegistration" placeholder="Pseudonyme">
+      <input type="text" class="form-control" id="pseudoRegistration" placeholder="Pseudonyme" required>
     </div>
     <div class="form-group">
     <label for="formGroupExampleInput2">Mot de passe :</label>
-    <input type="password" class="form-control" id="passwordRegistration" placeholder="Mot de passe">
+    <input type="password" class="form-control" id="passwordRegistration" placeholder="Mot de passe" required>
   </div>
   <div class="form-group">
   <label for="formGroupExampleInput2">Confirmer mot de passe :</label>
-  <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation">
+  <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation" required>
 </div>
 <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="homme">
@@ -59,11 +61,11 @@ function displayConnection() {
     <form id="formConnection">
     <div class="form-group">
       <label for="formGroupExampleInput">Email :</label>
-      <input type="text" class="form-control" id="emailConnection" placeholder="Email">
+      <input type="text" class="form-control" id="emailConnection" placeholder="Email" pattern="${EMAIL_REGEX}" required>
     </div>
     <div class="form-group">
       <label for="formGroupExampleInput2">Mot de passe :</label>
-      <input type="password" class="form-control" id="passwordConnection" placeholder="Mot de passe">
+      <input type="password" class="form-control" id="passwordConnection" placeholder="Mot de passe" required>
     </div>
     <button type="submit" class="btn btn-primary" id = "connection"> Se connecter</button>
   </form>
@@ -114,7 +116,7 @@ function onRegister(e){
 
 //TODO
 function onErrorRegistration(err){
-  $("#errorRegistration").append(`<p class="alert alert-danger"> ${err.message} </p>`);
+  $("#errorRegistration").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
 function onRegistration(data){

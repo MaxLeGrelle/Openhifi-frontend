@@ -38,7 +38,7 @@ function displayNavBar() {
     </div>`)
     //add button on top  
     $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> 
-    <a class = "btn btn-primary" id="loginBtn" href= "#" data-url ="/login">Login</a>`)
+    <a class = "btn btn-primary" id="loginBtn" href= "#" data-url ="/logout">Logout</a>`)
 
     //profil picture on top right
     $('#profile').append(`<div class="row">
