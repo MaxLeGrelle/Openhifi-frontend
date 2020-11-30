@@ -9,6 +9,7 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import {onNavigate} from './Router.js'
 
 //set up for import fas, far
 library.add(fas, far)
@@ -36,7 +37,8 @@ function displayNavBar() {
     </div>
     </div>`)
     //add button on top  
-    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button>`)
+    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> 
+    <a class = "btn btn-primary" id="loginBtn" href= "#" data-url ="/login">Login</a>`)
 
     //profil picture on top right
     $('#profile').append(`<div class="row">
@@ -96,7 +98,7 @@ function displayAccueil() {
     $("#page").empty();
     console.log("affiche accueil");
     $("#page").append(`<div id = "container"> </div>`)
-    $("#container").append(`<a class = "btn btn-primary" id="loginBtn" href= "${window.location}login">Login</a> 
+    $("#container").append(` 
         <div id="navbar">
         <div id="logo"></div>
         <div id="search"></div>
@@ -114,7 +116,9 @@ function displayAccueil() {
         <h2>À Découvrir :</h2>
         <div id="discover"></div>`);
 
+    $("#navbar").on("click", onNavigate)
     Accueil();
+    
 }
 
 export default displayAccueil;

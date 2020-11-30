@@ -1,7 +1,6 @@
 
-//import 'bootstrap';
-//import 'bootstrap/dist/css/bootstrap.min.css';
-
+import setUserDataStorage from '../Utils/storage.js';
+import { redirectUrl } from './Router.js';
 function Login() {
 
   displayConnection();
@@ -9,7 +8,7 @@ function Login() {
 }
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>
-    <form  id= "formRegistration" method = "POST" action = "/">
+    <form  id= "formRegistration">
     <div class="form-group">
       <label for="formGroupExampleInput">Email :</label>
       <input type="text" class="form-control" id="emailRegistration" placeholder="Email">
@@ -52,11 +51,12 @@ function displayRegistration() {
 </select>
 </div>
 <button type="submit" class="btn btn-primary">S'inscrire</button>
-  </form>`);
+  </form>
+  <div id ="errorRegistration" ></div>`);
 }
 function displayConnection() {
   $("#connection").append(`<p>Connectez-vous !</p>
-    <form method = "POST" action="${window.location}">
+    <form>
     <div class="form-group">
       <label for="formGroupExampleInput">Email :</label>
       <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
@@ -82,12 +82,40 @@ function displayLogin() {
 
 function onRegister(e){
   e.preventDefault();
-
-  let user = {
-    email : $("#emailRegistration").val(),
-    pseudo : $("#pseudoRegistration").val(),
-    password : $("#passwordRegistration").val()
+  if($("#passwordRegistrationVerif").val() === $("#passwordRegistration").val()){
+    let user = {
+      email : $("#emailRegistration").val(),
+      pseudo : $("#pseudoRegistration").val(),
+      password : $("#passwordRegistration").val()
+      
+    }
+    fetch("/api/users/register/" , {
+      method : "POST" , 
+      body : JSON.stringify(user),
+      headers: {
+        "Content-Type" : "application/json",
+      },
+    })
+    .then((response) =>{
+      if(!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+      return response.json();
+    })
+    .then((data) => onRegistration(data))
+    .catch((err) => onError(err));
   }
+  else {
+    onError(new Error("La confirmation du mot de passe est erronée"));
+  }
+
 }
 
+//TODO
+function onError(err){
+  $("#errorRegistration").append(`<p class="alert alert-danger"> ${err.message} </p>`);
+}
+function onRegistration(data){
+  setUserDataStorage(data);
+  redirectUrl("/");
+
+}
 export default displayLogin;
