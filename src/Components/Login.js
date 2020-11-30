@@ -1,5 +1,5 @@
 
-import setUserDataStorage from '../Utils/storage.js';
+import {setUserDataStorage} from '../Utils/storage.js';
 import { redirectUrl } from './Router.js';
 function Login() {
 
@@ -19,11 +19,11 @@ function displayRegistration() {
     </div>
     <div class="form-group">
     <label for="formGroupExampleInput2">Mot de passe :</label>
-    <input type="text" class="form-control" id="passwordRegistration" placeholder="Mot de passe">
+    <input type="password" class="form-control" id="passwordRegistration" placeholder="Mot de passe">
   </div>
   <div class="form-group">
   <label for="formGroupExampleInput2">Confirmer mot de passe :</label>
-  <input type="text" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation">
+  <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation">
 </div>
 <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="homme">
@@ -56,17 +56,18 @@ function displayRegistration() {
 }
 function displayConnection() {
   $("#connection").append(`<p>Connectez-vous !</p>
-    <form>
+    <form id="formConnection">
     <div class="form-group">
       <label for="formGroupExampleInput">Email :</label>
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
+      <input type="text" class="form-control" id="emailConnection" placeholder="Email">
     </div>
     <div class="form-group">
       <label for="formGroupExampleInput2">Mot de passe :</label>
-      <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Mot de passe">
+      <input type="password" class="form-control" id="passwordConnection" placeholder="Mot de passe">
     </div>
     <button type="submit" class="btn btn-primary" id = "connection"> Se connecter</button>
-  </form>`);
+  </form>
+  <div id ="errorConnection" ></div>`);
 
 }
 
@@ -77,11 +78,13 @@ function displayLogin() {
 
   Login();
   $("#formRegistration").on("submit", onRegister);
+  $("#formConnection").on("submit", onLogin);
 
 }
 
 function onRegister(e){
   e.preventDefault();
+  $("#errorRegistration").empty()
   if($("#passwordRegistrationVerif").val() === $("#passwordRegistration").val()){
     let user = {
       email : $("#emailRegistration").val(),
@@ -101,21 +104,57 @@ function onRegister(e){
       return response.json();
     })
     .then((data) => onRegistration(data))
-    .catch((err) => onError(err));
+    .catch((err) => onErrorRegistration(err));
   }
   else {
-    onError(new Error("La confirmation du mot de passe est erronée"));
+    onErrorRegistration(new Error("La confirmation du mot de passe est erronée"));
   }
 
 }
 
 //TODO
-function onError(err){
+function onErrorRegistration(err){
   $("#errorRegistration").append(`<p class="alert alert-danger"> ${err.message} </p>`);
 }
+
 function onRegistration(data){
   setUserDataStorage(data);
   redirectUrl("/");
 
+}
+
+function onLogin(e) {
+  e.preventDefault();
+  $("#errorConnection").empty()
+  let userCo = {
+    email : $("#emailConnection").val(),
+    password : $("#passwordConnection").val()
+  }
+  fetch("/api/users/login/", {
+      method : "POST" , 
+      body : JSON.stringify(userCo),
+      headers: {
+        "Content-Type" : "application/json",
+    },
+  },)
+  .then((response) => {
+    if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+    return response.json();
+  })
+  .then((data) => onConnection(data))
+  .catch((err) => onErrorLogin(err))
+}
+
+function onConnection(data) {
+  setUserDataStorage(data);
+  redirectUrl("/");
+}
+
+function onErrorLogin(err) {
+  let errorMessage;
+  if (err.message.includes("401")) errorMessage = "Mauvais mot de passe ou email";
+  else errorMessage = err.message;
+  $("#errorConnection").append(`<p class="alert alert-danger"> ${errorMessage} </p>`);
+  
 }
 export default displayLogin;

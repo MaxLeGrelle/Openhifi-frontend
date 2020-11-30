@@ -1,6 +1,8 @@
 import displayAccueil from "./Accueil.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
+import logout from "./Logout.js";
+import { getUserStorageData } from "../Utils/storage.js";
 
 let pageToRender;
 
@@ -8,6 +10,7 @@ let navbar;
 const routes = {
     "/": displayAccueil,
     "/login": displayLogin,
+    "/logout" : logout,
     "/error" : displayError
 }
 
@@ -15,6 +18,7 @@ function router(){
     
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
+        if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
         if(!pageToRender){
             displayError(new Error(`l'url ${window.location.pathname} n'existe pas`));
             return;
