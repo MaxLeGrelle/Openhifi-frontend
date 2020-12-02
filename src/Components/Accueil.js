@@ -42,7 +42,7 @@ function displayNavBar() {
 
     //profil picture on top right
     $('#profile').append(`<div class="row">
-    <div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div>`)
+    <a href= "#" data-url ="/profil"><div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div></a>`)
 }
 
 //HTML for the vertical menu
@@ -121,4 +121,4 @@ function displayAccueil() {
     
 }
 
-export default displayAccueil;
+export {displayNavBar, displayMenu, displayAccueil} ;

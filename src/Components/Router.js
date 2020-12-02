@@ -1,6 +1,7 @@
-import displayAccueil from "./Accueil.js";
+import {displayAccueil} from "./Accueil.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
+import displayProfil from "./Profil.js";
 
 let pageToRender;
 
@@ -8,7 +9,8 @@ let navbar;
 const routes = {
     "/": displayAccueil,
     "/login": displayLogin,
-    "/error" : displayError
+    "/error" : displayError,
+    "/profil" : displayProfil
 }
 
 function router(){
