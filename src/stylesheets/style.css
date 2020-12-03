@@ -233,9 +233,17 @@ Register / Login page
 #error{
     color: var(--blue);
 }
-/*###########################################################################
-Profil page
-###########################################################################*/
+/*Profil page ########################################################################################################################*/
+#BlocProfil{
+    margin : 5%;
+    border : 10px dashed red;
+}
+
+#BlocInfoGeneral{
+    border : 10px dashed olive;
+
+}
+
 #general{
     color: white;
 }
@@ -254,6 +262,11 @@ Profil page
     width: 50%;
     justify-content: space-between;
 }
+
+#Biographie{
+    color: white;
+}
+
 #bio{
     border-color: var(--blue);
     border-width: 2px;
