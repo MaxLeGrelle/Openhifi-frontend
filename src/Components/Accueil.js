@@ -107,210 +107,55 @@ function getAllAlbums() {
 }
 
 function displayDiscover(data) {
-  /*$("#discover").append(`
-  <div class="row">
-    <div class="col-md">
-      <!--Carousel Wrapper-->
-      <div id="multi-item-example" class="carousel slide carousel-multi-item" data-interval="false" data-ride="carousel">
-        <div id="nextDiscover">
-          <a class="carousel-control-prev" href="#multi-item-example" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </div>
-        <div id="prevDiscover">
-          <a class="carousel-control-next" href="#multi-item-example" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-        <div id="discoverCarouselInner" class="carousel-inner d-flex flex-row" role="listbox"></div>
-      </div>
-    </div>
-  </div>`)
-  let i = 0;
-  let j;
-  data.albumList.forEach(album => {
-    if (i%4==0) {
-      j = i;
-      $("#discoverCarouselInner").append(`<div id="discoverCarouselItem${i}" class="carousel-item  w-25"></div>`);
-      $("#discoverCarouselItem0").addClass("active")
-    }
-
-    $(`#discoverCarouselItem${j}`).append(`
-        <div class="card mb-2">
-          <img id="imgCarouselDiscover${i}" src="${data.image64[i]}" alt="coverAlbum" height="150" width="200"/>
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-              card's content.</p>
-            <a class="btn btn-primary">Button</a>
-          </div>
-        </div>`)
-
-    // $(`#divCarouselDiscover${i}`).append(`
-    //     <div class="bg-infoAlbum bg-dark">
-    //       yo
-    // </div>`)
-    
-    // <div id="divCarouselDiscover${i}">
-    //   <div class="bg-dark">
-    //      <span>${album.name}</span>
-    //      <span>de :${album.idCreator}</span>
-    //   </div>
-    // </div>
-
-    // $(`#divCarouselDiscover${i}`).append(`
-    // <div class="bg-infoAlbum">
-    //     <span>${album.name}</span>
-    //     <span>de :${album.idCreator}</span>
-    //     </div>`)
-    i++;
-  });*/
   $("#discover").append(`
   <!--Carousel Wrapper-->
   <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel" data-interval="false">
   
+    <!--Fleches-->
     <div id="nextDiscover">
         <a class="carousel-control-prev" href="#multi-item-example" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-      </div>
-      <div id="prevDiscover">
-        <a class="carousel-control-next" href="#multi-item-example" role="button" data-slide="next">
+    </div>
+    <div id="prevDiscover">
+      <a class="carousel-control-next" href="#multi-item-example" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-        </a>
-      </div>
+      </a>
+    </div>
+    <!--/Fleches-->
   
     <!--Slides-->
     <div class="carousel-inner" role="listbox">
-  
-      <!--First slide-->
-      <div class="carousel-item active">
-  
-        <div class="container-card" style="float:left">
-         <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="container-card" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="container-card" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-        
-         <div class="container-card" style="float:left">
-         <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-      </div>
-      <!--/.First slide-->
-  
-      <!--Second slide-->
-      <div class="carousel-item">
-  
-        <div class="col-md-3" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-3" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-3" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-md-3" style="float:left">
-          <div class="card mb-2">
-            <img class="card-img-top"
-              src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                card's content.</p>
-              <a class="btn btn-primary">Button</a>
-            </div>
-          </div>
-        </div>
-  
-      </div>
-      <!--/.Second slide-->
-  
-     
-  
     </div>
     <!--/.Slides-->
   
   </div>
-  <!--/.Carousel Wrapper-->
-  `)
+  <!--/.Carousel Wrapper-->`)
+  let i = 0;
+  let j;
+  data.albumList.forEach(album => {
+    if (i%4==0) {
+      j = i;
+      $("#discover .carousel-inner").append(`<div id="discoverCarouselItem${i}" class="carousel-item">`);
+      $("#discoverCarouselItem0").addClass("active")
+    }
+
+    $(`#discoverCarouselItem${j}`).append(`
+        <div class="container-card" style="float:left">
+          <div class="card mb-2">
+            <img class="card-img-top" src="${data.image64[i]}" alt="album cover">
+            <div class="card-body">
+              <h4 class="card-title">${album.name}</h4>
+              <p class="card-text">de : ${album.idCreator}</p>
+              <a class="btn btn-primary">Like</a>
+            </div>
+          </div>
+        </div>`
+   )
+   i++;
+  });
 }
 
 function displayAccueil() {

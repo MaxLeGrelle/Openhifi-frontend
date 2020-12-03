@@ -156,16 +156,32 @@ input{
     justify-content: space-evenly;
 } */
 
-#multi-item-example .card {
-    /* width: 100% !important; */
+#discover .card {
+    width: 100% !important;
     margin: 0 !important;
+    border-color: unset;
 }
 
-.container-card {
+#discover .container-card {
     padding: 0 !important;
-    width: 17.5% !important;
-    margin-left: 6% !important;
+    width: 15% !important;
+    margin-left: 4% !important;
 }
+
+#discover .carousel-item {
+    margin-left: 10% !important;
+}
+
+#discover .card-body {
+    background-color: #0d1015;
+    color: white;
+}
+
+/* #discover .carousel img {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+} */
 
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
