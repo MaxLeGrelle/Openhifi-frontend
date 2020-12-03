@@ -36,7 +36,7 @@ function router(){
 function onNavigate(e){
     console.log(e.target);
     let url;
-    if(e.target.tagName === "A"){
+    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
         
         e.preventDefault();
         url = e.target.dataset.url;

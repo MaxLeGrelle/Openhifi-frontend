@@ -24,8 +24,8 @@ function Accueil() {
 function displayNavBar() {
 
     //logo on top left
-    $('#logo').append(`<div class="row">
-    <div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
+    $('#logo').append(`<a href = "#"><div class="row">
+    <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
 
     //seach bar on top
     $("#search").append(`
