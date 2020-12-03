@@ -3,6 +3,7 @@ import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
+import displayAddAlbum from "./addAlbum.js";
 
 let pageToRender;
 
@@ -11,6 +12,7 @@ const routes = {
     "/": displayAccueil,
     "/login": displayLogin,
     "/logout" : logout,
+    "/addAlbum" : displayAddAlbum,
     "/error" : displayError
 }
 

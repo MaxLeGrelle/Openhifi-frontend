@@ -19,6 +19,7 @@ function Accueil() {
     displayNavBar()
     displayMenu()
     displayMain()
+    getAllAlbums()
 }
 
 //HTML for the navbar
@@ -62,7 +63,7 @@ function displayMain() {
     $('#recently').append(`
       <div class="row">
       <div class="col-md">
-      <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+      <div id="carouselRecently" class="carousel slide" data-interval="false">
       <div class="carousel-inner">
         <div class="carousel-item active">
         <img src="${r1}" alt="logo" height="200px" width="200px"/>
@@ -77,14 +78,14 @@ function displayMain() {
         <img src="${r1}" alt="logo" height="200px" width="200px"/>
         </div>
       </div>
-      <div id="next">
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <div id="nextRecently">
+        <a class="carousel-control-prev" href="#carouselRecently" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
       </div>
-      <div id="prev">
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <div id="prevRecently">
+        <a class="carousel-control-next" href="#carouselRecently" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
@@ -92,6 +93,51 @@ function displayMain() {
     </div>
     </div>
     </div>`)
+}
+
+function getAllAlbums() {
+  fetch("/api/albums/")
+    .then((response) => {
+        if (!response.ok)
+          throw new Error("Error code : " + response.status + " : " + response.statusText);
+        return response.json();
+      })
+      .then((data) => displayDiscover(data))
+      // .catch((err) => onErrorAddingAlbum(err));
+}
+
+function displayDiscover(data) {
+  $("#discover").append(`
+  <div class="row">
+    <div class="col-md">
+      <div id="carouselDiscover" class="carousel slide" data-interval="false">
+        <div id="discoverCarouselInner" class="carousel-inner"></div>
+        <div id="nextDiscover">
+          <a class="carousel-control-prev" href="#carouselDiscover" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </div>
+        <div id="prevDiscover">
+          <a class="carousel-control-next" href="#carouselDiscover" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>`)
+  let i = 0;
+  let j;
+  data.albumList.forEach(album => {
+    if (i%4==0) {
+      j = i;
+      $("#discoverCarouselInner").append(`<div id="discoverCarouselItem${i}" class="carousel-item "></div>`);
+      $("#discoverCarouselItem0").addClass("active")
+    }
+    $(`#discoverCarouselItem${j}`).append(`<img src="${data.image64[i]}" alt="logo" height="150" width="200"/>`)
+    i++;
+  });
 }
 
 function displayAccueil() {

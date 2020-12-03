@@ -119,7 +119,7 @@ input{
     margin-top: 40px;
 }
 
-#recently{
+#recently, #discover{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -134,7 +134,7 @@ input{
     margin-left: 5%;
 }
 
-#recently img{
+#recently img, #discover img{
     margin-left: 9%;
     margin-right: 0.5%;
 }
@@ -223,4 +223,8 @@ input{
 
 #error{
     color: var(--blue);
+}
+
+#formAddAlbum *{
+    color: white;
 }
