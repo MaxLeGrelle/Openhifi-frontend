@@ -8,6 +8,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
+import{getUserStorageData} from '../Utils/storage.js'
+const jwt = require("jsonwebtoken")
 
 
 //set up for import fas, far
@@ -103,9 +105,12 @@ function displayMain() {
     </div>
     </div>
     `)
+    
 }
 
 function displayAccueil() {
+    const userLogged = getUserStorageData()
+    const infoUser  = jwt.decode(userLogged.token)
     $("#page").empty();
     console.log("affiche accueil");
     $("#page").append(`<div id = "container"> </div>`)
@@ -122,12 +127,13 @@ function displayAccueil() {
         <div id="trends"></div>
       </div>
       <div id="main">
-        <div class="display-4">Bienvenue Pepito, quelle agréable journée pour écouter votre playlist country</div>
+        <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter votre playlist country</div>
         <h2>Écouté recemment :</h2>
         <div id="recently"></div>
         <h2>À Découvrir :</h2>
         
         <div id="discover"></div>
+        </div>
         `);
 
     $("#navbar").on("click", onNavigate)

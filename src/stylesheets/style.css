@@ -12,6 +12,7 @@
 /*Body/HTML/contenair*/
 html *{
     font-family: 'Montserrat', sans-serif;
+   
 }
 body, html, #container, #page{
     width: 100%;
@@ -20,6 +21,7 @@ body, html, #container, #page{
 body {
     margin: 0;
     background-color: var(--main-bg) !important;
+    overflow-x:hidden
 }
 
 #container{
@@ -135,13 +137,11 @@ input{
     width: 100%;
 
 }
-#carouselExampleControls{
-    width:100% !important;
-}
+
 .carousel-inner{
-    width: 100% !important;
     margin-left: 5%;
 }
+
 
 #recently img{
     margin-left: 9%;
