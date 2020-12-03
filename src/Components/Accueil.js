@@ -135,6 +135,7 @@ function displayDiscover(data) {
   <!--/.Carousel Wrapper-->`)
   let i = 0;
   let j;
+  console.log(data)
   data.albumList.forEach(album => {
     if (i%4==0) {
       j = i;
@@ -145,10 +146,10 @@ function displayDiscover(data) {
     $(`#discoverCarouselItem${j}`).append(`
         <div class="container-card" style="float:left">
           <div class="card mb-2">
-            <img class="card-img-top" src="${data.image64[i]}" alt="album cover">
+            <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
             <div class="card-body">
               <h4 class="card-title">${album.name}</h4>
-              <p class="card-text">de : ${album.idCreator}</p>
+              <p class="card-text">de : ${data.creatorList[i]}</p>
               <a class="btn btn-primary">Like</a>
             </div>
           </div>
