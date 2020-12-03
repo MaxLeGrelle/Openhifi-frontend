@@ -129,12 +129,12 @@ input{
 #carouselExampleControls{
     width:100% !important;
 }
-.carousel-inner{
+#recently .carousel-inner{
     width: 100% !important;
     margin-left: 5%;
 }
 
-#recently img, #discover img{
+#recently img{
     margin-left: 9%;
     margin-right: 0.5%;
 }
@@ -147,6 +147,24 @@ input{
 }
 #main  .row{
     width: 100% !important;
+}
+/*carousel discover*/
+
+/* #discoverCarouselInner .active, .carousel-item-left, .carousel-item-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
+#multi-item-example .card {
+    /* width: 100% !important; */
+    margin: 0 !important;
+}
+
+.container-card {
+    padding: 0 !important;
+    width: 17.5% !important;
+    margin-left: 6% !important;
 }
 
 /*When the page is minimize or on a small screen all element are smaller*/
