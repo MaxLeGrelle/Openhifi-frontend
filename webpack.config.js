@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require("webpack");
 
+
 module.exports = {
   
   mode: "none",
@@ -20,7 +21,7 @@ module.exports = {
     historyApiFallback: true, // serve index.html instead of routes leading to no specific ressource
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:9090",
         //pathRewrite: {'^/api' : ''}
       },
     },

@@ -6,11 +6,13 @@
     --main-bg: #1b212c;
     --navbar-bg: #253145ff;
     --menu-bg: #253145ff;
+    --blue : #0761ebff;
 }
 
 /*Body/HTML/contenair*/
 html *{
     font-family: 'Montserrat', sans-serif;
+   
 }
 body, html, #container, #page{
     width: 100%;
@@ -19,6 +21,7 @@ body, html, #container, #page{
 body {
     margin: 0;
     background-color: var(--main-bg) !important;
+    overflow-x:hidden
 }
 
 #container{
@@ -48,7 +51,7 @@ body {
 }
 
 .btn-bluegradient{
-    background-image: linear-gradient(to right, #0761ebff 13%, cyan 106%);
+    background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
     color: white !important; /* take priority on bootstrap css */
     border-width: 0px !important;
     height: 40px;
@@ -58,18 +61,27 @@ body {
     font-weight: bold !important; 
 }
 
-#profile{
-    align-self: center;
-    overflow:hidden;/* make the picture round */
-    border-radius:30px;
-    margin-right:20px ;
+#photoProfil{
+    
+    overflow:hidden !important;/* make the picture round */
+    border-radius:30px !important;  
+}
+
+.dropdown{
+    
+    z-index: 1;
+    margin-left: 20px;
+
 }
 
 input{
     background-color: var(--main-bg) !important;
-    border-color: #0761ebff !important;
+    border-color: var(--blue) !important;
 }
-
+#profile{
+    align-self: center;
+    margin-right: 2%;
+}
 
 /*Menu*/
 #menu{
@@ -87,7 +99,7 @@ input{
 }
 
 #menu a:hover {
-    color: #0761ebff;
+    color: var(--blue);
   }
 
 #favorite, #trends{
@@ -125,13 +137,11 @@ input{
     width: 100%;
 
 }
-#carouselExampleControls{
-    width:100% !important;
-}
+
 .carousel-inner{
-    width: 100% !important;
     margin-left: 5%;
 }
+
 
 #recently img{
     margin-left: 9%;
@@ -150,7 +160,7 @@ input{
 
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
-    #main img, #logo img{
+    .row img, #logo img{
         width: 120px ;
         height: 120px ;
     }
@@ -184,22 +194,22 @@ input{
         font-size: 1.5em !important;
     }
 }
-
-
-
+/*###########################################################################
+Register / Login page
+###########################################################################*/
 #login{
     display:flex;
     color: white;
     margin-top: 10%;
 
 }
-#registration{
+#connection{
     display: flex;
     flex-direction: column;
     margin-right: 30%;
     margin-left: 10%;
     border: solid;
-    border-color:  #0761ebff;
+    border-color:  var(--blue);
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 5%;
@@ -207,15 +217,87 @@ input{
     border-radius:15px;
     
 }
-#connection{
+#registration{
     display: flex;
     flex-direction: column;
     border: solid;
-    border-color:  grey;
+    border-color:  var(--blue);
     overflow:hidden;
     border-radius:15px;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 5%;
     
+}
+
+#error{
+    color: var(--blue);
+}
+/*Profil page ########################################################################################################################*/
+
+
+#BlocProfil{
+    margin : 5%;
+    /*border : 10px dashed red;*/
+}
+
+#BlocInfoGeneral{
+    display: flex;
+    justify-content: space-around;
+}
+
+#photoDuProfile{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
+}
+
+#general{
+    color: white;
+    width: 500px;
+}
+
+#inputPhoto{
+    width: 200px;
+}
+
+#actualPassword{
+    margin-right: 16.5%;
+}
+
+#general hr{
+    border-color: var(--blue);
+}
+#whiteHR{
+    border-color: white !important;
+}
+#newPasswordRegistration, #actualPassword{
+    width: 200px;
+}
+.aligneRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#Biographie{
+    color: white;
+}
+
+#bio{
+    border-color: var(--blue);
+    border-width: 2px;
+    background-color: var(--main-bg);
+    color: white;
+    width: 25%;
+    height: 20%;
+    border-radius: 15px;
+}
+
+#blue .fa-star {
+    color: var(--blue) !important;
+}
+#blue .fa-heart{
+    color: var(--blue) !important;
 }
