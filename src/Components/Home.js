@@ -59,10 +59,10 @@ function displayNavBar() {
 function displayMenu() {
 
     //trends button/link on middle left (star)
-    $('#trends').append(`<a href="url"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
 
     //favorite button/link on middle left (heart)
-    $('#favorite').append(`<a href="url"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
+    $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 }
 
 
@@ -131,6 +131,7 @@ function displayAccueil() {
         `);
 
     $("#navbar").on("click", onNavigate)
+    $("#menu").on("click", onNavigate)
     Accueil();
     
 }

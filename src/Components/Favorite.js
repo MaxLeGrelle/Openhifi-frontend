@@ -1,9 +1,9 @@
 import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
-function Trends(){
+function Favorite(){
     displayMain()
   }
-  function displayTrends() {
+  function displayFavorite() {
       $("#page").empty();
       console.log("affiche profil");
       $("#page").append(`<div id = "container"> </div>`)
@@ -26,14 +26,14 @@ function Trends(){
       $("#menu").on("click", onNavigate)
       displayMenu()
       displayNavBar()
-      $("#trends").empty();
-      $("#trends").append(`<div id ="blue"><a href="#" data-url="/trends"> Tendances <i class="fas fa-star fa-2x"></i> </a></div>`)
-      Trends()
+      $("#favorite").empty();
+      $("#favorite").append(`<div id ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
+      Favorite()
       
   }
   function displayMain(){
-    $("#main").append(`<div id = "general"><div class="display-4">Musiques populaires :</div>
+    $("#main").append(`<div id = "general"><div class="display-4">Musiques favorite :</div>
     
     `)
   }
-  export default displayTrends;
+  export default displayFavorite;

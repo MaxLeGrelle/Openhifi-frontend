@@ -263,3 +263,10 @@ Profil page
     height: 20%;
     border-radius: 15px;
 }
+
+#blue .fa-star {
+    color: var(--blue) !important;
+}
+#blue .fa-heart{
+    color: var(--blue) !important;
+}

@@ -1,4 +1,4 @@
-import {displayNavBar,displayMenu} from './Accueil.js'
+import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 function Profil(){
   displayGeneral()
@@ -23,6 +23,7 @@ function displayProfil() {
         </div>`);
 
     $("#navbar").on("click", onNavigate)
+    $("#menu").on("click", onNavigate)
     displayMenu()
     displayNavBar()
     Profil()
