@@ -38,8 +38,7 @@ function displayNavBar() {
     </div>
     </div>`)
     //add button on top  
-    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> 
-    <a class = "btn btn-primary" id="loginBtn" href= "#" data-url ="/logout">Logout</a>`)
+    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> `)
 
     //profil picture on top right
     $('#profile').append(`
@@ -50,7 +49,7 @@ function displayNavBar() {
   
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
       <a class="dropdown-item" href= "#" data-url ="/profil">Profil</a>
-      <a class="dropdown-item" href="#">Se déconnecter</a>
+      <a class="dropdown-item" href="#" data-url ="/logout">Se déconnecter</a>
     </div>
   </div>
       `)
