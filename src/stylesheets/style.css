@@ -160,7 +160,7 @@ input{
 
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
-    #main img, #logo img{
+    .row img, #logo img{
         width: 120px ;
         height: 120px ;
     }
@@ -234,19 +234,38 @@ Register / Login page
     color: var(--blue);
 }
 /*Profil page ########################################################################################################################*/
+
+
 #BlocProfil{
     margin : 5%;
-    border : 10px dashed red;
+    /*border : 10px dashed red;*/
 }
 
 #BlocInfoGeneral{
-    border : 10px dashed olive;
+    display: flex;
+    justify-content: space-around;
+}
 
+#photoDuProfile{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
 }
 
 #general{
     color: white;
+    width: 500px;
 }
+
+#inputPhoto{
+    width: 200px;
+}
+
+#actualPassword{
+    margin-right: 16.5%;
+}
+
 #general hr{
     border-color: var(--blue);
 }
@@ -256,10 +275,9 @@ Register / Login page
 #newPasswordRegistration, #actualPassword{
     width: 200px;
 }
-#aligneRow{
+.aligneRow{
     display: flex;
     flex-direction: row;
-    width: 50%;
     justify-content: space-between;
 }
 
