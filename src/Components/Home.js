@@ -8,6 +8,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
+import{getUserStorageData} from '../Utils/storage.js'
+const jwt = require("jsonwebtoken")
 
 
 //set up for import fas, far
@@ -24,8 +26,8 @@ function Accueil() {
 function displayNavBar() {
 
     //logo on top left
-    $('#logo').append(`<div class="row">
-    <div class="col-md"><img src="${logo}" alt="logo" height="150px" width="150px"/> </div></div>`)
+    $('#logo').append(`<a href = "#"><div class="row">
+    <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
 
     //seach bar on top
     $("#search").append(`
@@ -59,10 +61,10 @@ function displayNavBar() {
 function displayMenu() {
 
     //trends button/link on middle left (star)
-    $('#trends').append(`<a href="url"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
 
     //favorite button/link on middle left (heart)
-    $('#favorite').append(`<a href="url"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
+    $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 }
 
 
@@ -103,9 +105,12 @@ function displayMain() {
     </div>
     </div>
     `)
+    
 }
 
 function displayAccueil() {
+    const userLogged = getUserStorageData()
+    const infoUser  = jwt.decode(userLogged.token)
     $("#page").empty();
     console.log("affiche accueil");
     $("#page").append(`<div id = "container"> </div>`)
@@ -122,15 +127,17 @@ function displayAccueil() {
         <div id="trends"></div>
       </div>
       <div id="main">
-        <div class="display-4">Bienvenue Pepito, quelle agréable journée pour écouter votre playlist country</div>
+        <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter votre playlist country</div>
         <h2>Écouté recemment :</h2>
         <div id="recently"></div>
         <h2>À Découvrir :</h2>
         
         <div id="discover"></div>
+        </div>
         `);
 
     $("#navbar").on("click", onNavigate)
+    $("#menu").on("click", onNavigate)
     Accueil();
     
 }

@@ -1,9 +1,11 @@
-import {displayAccueil} from "./Accueil.js";
+import {displayAccueil} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
+import displayTrends from "./Trends.js";
+import displayFavorite from "./Favorite.js";
 
 let pageToRender;
 
@@ -13,6 +15,8 @@ const routes = {
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
+    "/trends": displayTrends,
+    "/favorite": displayFavorite,
     "/error" : displayError
 }
 
@@ -40,7 +44,7 @@ function router(){
 function onNavigate(e){
     console.log(e.target);
     let url;
-    if(e.target.tagName === "A"){
+    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
         
         e.preventDefault();
         url = e.target.dataset.url;
