@@ -1,15 +1,14 @@
-import "bootstrap"
+
 import logo from "../img/open-hifi-logo-transparent2.png"
 import profile from "../img/default_profile.png"
 import r1 from "../img/rooster.jpg"
 import r2 from "../img/camel.jpg"
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
+
 
 //set up for import fas, far
 library.add(fas, far)
@@ -41,8 +40,19 @@ function displayNavBar() {
     <a class = "btn btn-primary" id="loginBtn" href= "#" data-url ="/login">Login</a>`)
 
     //profil picture on top right
-    $('#profile').append(`<div class="row">
-    <a href= "#" data-url ="/profil"><div class="col-md"><img src="${profile}" alt="logo" height="60px" width="60px"/></div></div></a>`)
+    $('#profile').append(`
+    <div class="dropdown" >
+    <a  href="#" role="button" id="dropdownMenuLink"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="row" ><div class="col-md"><img src="${profile}"  alt="logo" id="photoProfil" height="60px" width="60px"/></div></div>
+    </a>
+  
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" href= "#" data-url ="/profil">Profil</a>
+      <a class="dropdown-item" href="#">Se déconnecter</a>
+    </div>
+  </div>
+      `)
+     
 }
 
 //HTML for the vertical menu
@@ -91,7 +101,8 @@ function displayMain() {
       </div>
     </div>
     </div>
-    </div>`)
+    </div>
+    `)
 }
 
 function displayAccueil() {
@@ -105,6 +116,7 @@ function displayAccueil() {
         <div id="add"></div>
         <div id="profile"></div>
       </div>
+     
       <div id="menu">
         <div id="favorite"></div>
         <div id="trends"></div>
@@ -114,7 +126,9 @@ function displayAccueil() {
         <h2>Écouté recemment :</h2>
         <div id="recently"></div>
         <h2>À Découvrir :</h2>
-        <div id="discover"></div>`);
+        
+        <div id="discover"></div>
+        `);
 
     $("#navbar").on("click", onNavigate)
     Accueil();

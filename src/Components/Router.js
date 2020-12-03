@@ -34,14 +34,17 @@ function router(){
 }
 
 function onNavigate(e){
+    console.log(e.target);
     let url;
     if(e.target.tagName === "A"){
+        
         e.preventDefault();
         url = e.target.dataset.url;
     }
     if(url){
         window.history.pushState({}, url, window.location.origin + url)
         pageToRender = routes[url];
+        
         if(routes[url]){
             pageToRender();
         }
