@@ -7,6 +7,8 @@
     --navbar-bg: #253145ff;
     --menu-bg: #253145ff;
     --blue : #0761ebff;
+    --redAlert : #bf2424;
+    --greenAlert : #218838;
 }
 
 /*Body/HTML/contenair*/
@@ -158,6 +160,16 @@ input{
     width: 100% !important;
 }
 
+.alert-success{
+    background-color: var(--greenAlert) !important;
+    color: white !important;
+}
+
+.alert-danger{
+    background-color: var(--redAlert) !important;
+    color: white !important;
+}
+
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
     .row img, #logo img{
@@ -262,7 +274,7 @@ Register / Login page
     width: 200px;
 }
 
-#actualPassword{
+#oldPassword{
     margin-right: 16.5%;
 }
 
@@ -272,7 +284,7 @@ Register / Login page
 #whiteHR{
     border-color: white !important;
 }
-#newPasswordRegistration, #actualPassword{
+#oldPassword, #newPassword{
     width: 200px;
 }
 .aligneRow{
