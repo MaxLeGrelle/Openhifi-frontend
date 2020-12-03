@@ -59,18 +59,27 @@ body {
     font-weight: bold !important; 
 }
 
-#profile{
-    align-self: center;
-    overflow:hidden;/* make the picture round */
-    border-radius:30px;
-    margin-right:20px ;
+#photoProfil{
+    
+    overflow:hidden !important;/* make the picture round */
+    border-radius:30px !important;  
+}
+
+.dropdown{
+    
+    z-index: 1;
+    margin-left: 20px;
+
 }
 
 input{
     background-color: var(--main-bg) !important;
     border-color: var(--blue) !important;
 }
-
+#profile{
+    align-self: center;
+    margin-right: 2%;
+}
 
 /*Menu*/
 #menu{
@@ -185,9 +194,9 @@ input{
         font-size: 1.5em !important;
     }
 }
-
-
-
+/*###########################################################################
+Register / Login page
+###########################################################################*/
 #login{
     display:flex;
     color: white;
@@ -223,4 +232,34 @@ input{
 
 #error{
     color: var(--blue);
+}
+/*###########################################################################
+Profil page
+###########################################################################*/
+#general{
+    color: white;
+}
+#general hr{
+    border-color: var(--blue);
+}
+#whiteHR{
+    border-color: white !important;
+}
+#newPasswordRegistration, #actualPassword{
+    width: 200px;
+}
+#aligneRow{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-between;
+}
+#bio{
+    border-color: var(--blue);
+    border-width: 2px;
+    background-color: var(--main-bg);
+    color: white;
+    width: 25%;
+    height: 20%;
+    border-radius: 15px;
 }
