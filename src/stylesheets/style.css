@@ -183,6 +183,11 @@ input{
     object-fit: cover;
 } */
 
+/*add album*/
+#formAddMusic *, #formAddAlbum *, #listMusicsToAdd {
+    color : white
+}
+
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
     #main img, #logo img{
