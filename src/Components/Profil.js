@@ -54,13 +54,15 @@ function displayGeneral(){
         <hr>
         <form id ="FormChangePassword">
           <div class="aligneRow">
-            <p>Mot de passe actuel : </p><input type="password" class="form-control" id="actualPassword" placeholder="Mot de passe actuel">
+            <p>Mot de passe actuel : </p><input type="password" class="form-control" id="oldPassword" placeholder="Mot de passe actuel">
           </div>
           <hr>
           <div class="aligneRow">
-            <p>Nouveau mot de passe : </p><input type="password" class="form-control" id="newPasswordRegistration" placeholder="Mot de passe"> <button type="submit" class="btn btn-success">OK</button>
+            <p>Nouveau mot de passe : </p><input type="password" class="form-control" id="newPassword" placeholder="Mot de passe">
+            <button id="BtnEditPassword" type="submit" class="btn btn-success">OK</button>
           </div> 
         </form>
+        <div id= "alertMdp"> </div>
       </div>
     </div>     
     <div id= "Biographie" class="display-4">
@@ -69,11 +71,12 @@ function displayGeneral(){
     <hr id = "whiteHR">
     <textarea id ="bio"name="bioInput" form="formBio">Enter text here...</textarea> 
   </div>`)
-$("#hoverPhoto").on("click", modifierPhoto);
+$("#hoverPhoto").on("click", editPhoto);
+$("#BtnEditPassword").on("click", editPassword);
 
 }
 
-function modifierPhoto (){
+function editPhoto (){
   $("#modifierPhoto").empty();
   $("#modifierPhoto").append(`
   <form>
@@ -83,6 +86,37 @@ function modifierPhoto (){
   `);
 }
 
+function editPassword(e){
+  e.preventDefault();
+  const userLogged = getUserStorageData()
+  const infoUser  = jwt.decode(userLogged.token)
 
+  let userPassword = {
+    newPassword : $("#newPassword").val(),
+    oldPassword : $("#oldPassword").val(),
+    email : infoUser.email
+  }
+
+  console.log($("#newPassword").val())
+  console.log($("#oldPassword").val())
+  console.log(infoUser.email)
+
+  fetch("/api/users/profil/editPw" , {
+    method : "POST" , 
+    body : JSON.stringify(userPassword),
+    headers: {
+      "Content-Type" : "application/json",
+    },
+  }).then((response) =>{
+    if(!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+    return response.json();
+  }).then( () => {
+    $("#alertMdp").empty();
+    $("#alertMdp").append(` </br><p class="alert alert-success"> la modification a été exécutée avec succès </p>`);
+  }).catch((err) => { 
+    $("#alertMdp").empty();
+    $("#alertMdp").append(`</br><p class="alert alert-danger">la modification ne s'est pas bien déroulée </p>`);
+  })
+}
 
 export default displayProfil;
