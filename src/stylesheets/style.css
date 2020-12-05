@@ -301,3 +301,34 @@ Register / Login page
 #blue .fa-heart{
     color: var(--blue) !important;
 }
+
+.hide{
+	display: none;
+}
+
+.time{
+	text-align: right;
+	position: absolute;
+	top: 3px;
+	right: 10px;
+	left: 0;
+	color: #335fb8;
+	z-index: 2;
+}
+.audio-progress{
+	height: 22px;
+	position: relative;
+	margin-top: 15px;
+    background-color: #e5eff1;
+    width: 500px;
+
+}
+#progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 100%;
+	background-color: var(--blue);
+	z-index: 1;
+}
