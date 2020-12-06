@@ -1,6 +1,9 @@
 import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import music from '../sounds/m1.mp3'
+import loop from '../img/loop.png'
+import { Collapse } from 'bootstrap'
+
 const howler = require("howler")
 
 //source : https://codepen.io/astephannie/pen/NaBKLG
@@ -51,33 +54,72 @@ function Lecture(){
     sound.seek(position) // update where the sound is
   }
   function displayMain(){
+    let play = true;
+    let vol = false;
+    
+    $("#main").append(`<div id = "generalLecture"><div class="display-4">Lecture :</div>
+    <button><i class="fas fa-random"></i></button>
+    <button><i class="fas fa-backward"></i></button>
+    <button id='howler-play'><i class="fas fa-play"></i></button>
+
+    <button><i class="fas fa-forward"></i></button>
+    <button id='howler-loop'><img src = "${loop}" href="loop"></button>
+
+    <div id="contenaire-vol">
+    <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
+   </div>
    
-    
-    $("#main").append(`<div id = "general"><div class="display-4">Lecture :</div>
-    
-    <button id='howler-play'>Play</button>
-    <button id='howler-pause'>Pause</button>
-    <button id='howler-stop'>Stop</button>
-    <button id='howler-volup'>Vol+</button>
-    <button id='howler-voldown'>Vol-</button>
-    <button id='howler-loop'>Loop</button>
     <div class="audio-progress">
 	<div id="progress"></div>
 	<div class="time">
 		<span id="timer">0:00 </span>/
-		<span id="duration">0:00</span>
-	</div>
+        <span id="duration">0:00</span>
+        </div>
+
 </div>
     `)
+
+
+
+    $("#howler-play").on("click", function(){
+       
+        $("#howler-play").empty()
+        if(play){
+            play = false
+            $("#howler-play").append(`<i class="fas fa-pause"></i>`)
+            sound.play();
+            }
+        else {
+            play = true
+            $("#howler-play").append(`<i class="fas fa-play">`)
+            sound.pause();
+            }
+        
+    });
+$("#contenaire-vol").on("click",function(){
+    console.log("efvqsijfesdjlg skjfghzs ieuhjfijze'hoitghejo(i'gherustpoidreut!çge'hrtgzqhe'çà " + vol )
+    $("#contenaire-vol").empty()
+    if(vol){
+        vol = false;
+        $("#contenaire-vol").append(`<button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
+    }
+    else{
+        vol = true;
+        $("#contenaire-vol").append(`<div id = "bar-vol"></div>
+        <button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
+        $("#bar-vol").on("click",function(){
+            
+        })
+    }
+
+});
   $(".audio-progress").on("click",barClick)
     $(function(){
 
-        $("#howler-play").on("click", function(){
-            sound.play();
-        });
+
     
         $("#howler-pause").on("click", function(){
-            sound.pause();
+            
         });
     
         $("#howler-stop").on("click", function(){

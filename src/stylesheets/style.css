@@ -323,6 +323,12 @@ Register / Login page
     width: 500px;
 
 }
+#bar-vol{
+    width: 20px;
+	height: 100px;
+    background-color: #e5eff1;
+
+}
 #progress {
 	position: absolute;
 	top: 0;
@@ -331,4 +337,15 @@ Register / Login page
 	height: 100%;
 	background-color: var(--blue);
 	z-index: 1;
+}
+#howler-loop img{
+    background-color: var(--main-bg);
+    height: 30px;
+    width: 30px;
+    
+}
+#generalLecture button{
+    background-color: var(--main-bg);
+    border: none;
+    color: white;
 }
