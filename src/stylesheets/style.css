@@ -378,7 +378,9 @@ Register / Login page
 .hide{
 	display: none;
 }
-
+/*###########################################################################
+Lecture
+###########################################################################*/
 .time{
 	text-align: right;
 	position: absolute;
@@ -386,23 +388,24 @@ Register / Login page
 	right: 10px;
 	left: 0;
 	color: #335fb8;
-	z-index: 2;
+    z-index: 2;
+    border-radius: 5px;
 }
 .audio-progress{
+    
 	height: 22px;
 	position: relative;
-	margin-top: 15px;
     background-color: #e5eff1;
-    width: 500px;
+    width: 600px;
+    margin: 15px;
+    border-radius: 5px;
 
 }
-#bar-vol{
-    bottom: 65%;
-    position: absolute;
-    width: 20px;
-	height: 100px;
-    background-color: #e5eff1;
-
+#player-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   
 }
 #progress {
 	position: absolute;
@@ -411,12 +414,13 @@ Register / Login page
 	width: 0%;
 	height: 100%;
 	background-color: var(--blue);
-	z-index: 1;
+    z-index: 1;
+    border-radius: 5px;
 }
 #howler-loop img{
     background-color: var(--main-bg);
-    height: 30px;
-    width: 30px;
+    height: 22px;
+    width: 22px;
     
 }
 #generalLecture button{
@@ -435,16 +439,10 @@ Register / Login page
 }
 
 #playerBlocInfo{
-    width: 100px;
-    height: 100px;
     margin-right: 15%;
     margin-left: 15%;
 }
 
-#playerBlocCenter{
-    margin-right: 15%;
-    margin-left: 15%;
-}
 #playerButtons{
     display: flex;
     justify-content: space-between;
@@ -458,4 +456,33 @@ Register / Login page
 
 #formAddAlbum *{
     color: white;
+}
+
+#player-bar span{
+    align-self: center;
+    color: white;
+    width: 30px;
+}
+
+/*###########################################################################
+Audio
+###########################################################################*/
+#bar-vol{
+    bottom: 65%;
+    position: absolute;
+    width: 20px;
+	height: 100px;
+    background-color: var(--blue);
+    border-radius: 2px;
+
+}
+#barVolProgress{
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10%;
+	background-color: white;
+    z-index: 1;
+    border-radius: 2px;
 }

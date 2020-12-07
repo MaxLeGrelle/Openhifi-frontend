@@ -2,6 +2,7 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
+import displayLecture from './Player'; 
 const howl = require("howler")
 
 //PEUT PAS RECUP LOGO ???
@@ -27,6 +28,7 @@ function displayAlbum() {
     displayNavBar()
     displayMenu()
     getAlbumData()
+    displayLecture()
 
 }
 
@@ -55,9 +57,9 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-let musics = new Array()
+const musics = new Array()
 function displayAlbumData(data){
-    console.log(data)
+   // console.log(data)
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">${data.name}</p>
@@ -115,10 +117,10 @@ function onListening(e) {
 }
 
 function onPlay(id) {
-    for (let i = 0; i < musics.length; i++) {
-        $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
-        musics[i].stop()
-    }
+    // for (let i = 0; i < musics.length; i++) {
+    //     $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
+    //     musics[i].stop()
+    // }
 }
 
-export default displayAlbum;
+export {displayAlbum, musics};
