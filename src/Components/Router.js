@@ -7,6 +7,8 @@ import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
 import displayLecture from "./Lecture.js";
+import displayAddAlbum from "./addAlbum.js";
+import displayAlbum from "./Album.js";
 
 let pageToRender;
 
@@ -19,12 +21,15 @@ const routes = {
     "/trends": displayTrends,
     "/favorite": displayFavorite,
     "/lecture": displayLecture,
+    "/addAlbum" : displayAddAlbum,
+    "/albums": displayAlbum,
     "/error" : displayError
 }
 
 function router(){
     
     $(window).on("load", () => {
+        console.log("ICI", window.location.pathname)
         pageToRender = routes[window.location.pathname];
         if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
         if(!pageToRender){
@@ -46,13 +51,20 @@ function router(){
 function onNavigate(e){
     console.log(e.target);
     let url;
-    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
-        
+    let id;
+    if(e.target.tagName === "A"){
         e.preventDefault();
         url = e.target.dataset.url;
+    }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P") {
+        e.preventDefault();
+        id = e.target.parentElement.dataset.id;
+        url = e.target.parentElement.dataset.url;
     }
+
     if(url){
-        window.history.pushState({}, url, window.location.origin + url)
+        //if (id) window.history.pushState({}, url, window.location.origin + url + '/' + id)
+        if (id) window.history.pushState({}, url, window.location.origin + url + '?no=' + id) // le url + / + id ne fonctionne pas ? -> charge pas bundle.js
+        else window.history.pushState({}, url, window.location.origin + url)
         pageToRender = routes[url];
         
         if(routes[url]){

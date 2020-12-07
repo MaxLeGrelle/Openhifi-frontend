@@ -16,36 +16,10 @@ const sound  = new howler.Howl({src: [`${music}`],
         requestAnimationFrame(updateTimeTracker.bind(this));},
     volume:0.1,})
 
-function Lecture(){
-    displayMain()
-  }
   function displayLecture() {
-      
-      $("#page").empty();
-      console.log("affiche lecture");
-      $("#page").append(`<div id = "container"> </div>`)
-      $("#container").append(` 
-          <div id="navbar">
-          <div id="logo"></div>
-          <div id="search"></div>
-          <div id="add"></div>
-          <div id="profile"></div>
-        </div>
-        <div id="menu">
-          <div id="favorite"></div>
-          <div id="trends"></div>
-        </div>
-        <div id="main">
-         
-          </div>`);
-  
-      $("#navbar").on("click", onNavigate)
-      $("#menu").on("click", onNavigate)
-      displayMenu()
-      displayNavBar()
-      Lecture()
-      
+    displayMain()   
   }
+
   function barClick(e){
     var position = e.clientX - this.getBoundingClientRect().left; //get the postion of the cursor on the div audio-progress in px
     var duration = sound.duration() // get the duration of the sound played

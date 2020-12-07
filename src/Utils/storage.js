@@ -1,3 +1,4 @@
+const STORAGE_KEY_RECENTLY = "recently_listened";
 const STORAGE_NAME = "user_connected";
 
 function setUserDataStorage(userData){
@@ -13,4 +14,17 @@ function getUserStorageData ()  {
     if (!user) return;
     return JSON.parse(user);
 };
-export {setUserDataStorage, removeAllDataStorage, getUserStorageData};
+
+function setRecentlyStackDataStorage(albumData){
+    localStorage.setItem(STORAGE_KEY_RECENTLY, JSON.stringify(albumData));
+}
+
+function getRecentlyStackStorageData(){
+    const stackAlbumsRecently = localStorage.getItem(STORAGE_KEY_RECENTLY);
+    if (!stackAlbumsRecently) return;
+    return JSON.parse(stackAlbumsRecently);
+}
+
+
+
+export {setUserDataStorage, removeAllDataStorage, getUserStorageData, setRecentlyStackDataStorage, getRecentlyStackStorageData};
