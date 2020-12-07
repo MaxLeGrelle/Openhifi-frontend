@@ -21,11 +21,13 @@ function displayRegistration() {
     </div>
     <div class="form-group">
     <label for="formGroupExampleInput2">Mot de passe :</label>
+
     <input type="password" class="form-control" id="passwordRegistration" placeholder="Mot de passe" required>
   </div>
   <div class="form-group">
   <label for="formGroupExampleInput2">Confirmer mot de passe :</label>
   <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation" required>
+
 </div>
 <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="homme">

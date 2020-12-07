@@ -1,9 +1,11 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-import {displayNavBar,displayMenu} from './Accueil.js'
+import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
+import displayLecture from './Player'; 
 const howl = require("howler")
 
+//PEUT PAS RECUP LOGO ???
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
@@ -26,6 +28,7 @@ function displayAlbum() {
     displayNavBar()
     displayMenu()
     getAlbumData()
+    displayLecture()
 
 }
 
@@ -131,4 +134,4 @@ function onEnd() {
     musics[currentMusicId].play()
 }
 
-export default displayAlbum;
+export {displayAlbum, musics};

@@ -1,10 +1,14 @@
-import {displayAccueil} from "./Accueil.js";
+import {displayAccueil} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
+import displayProfil from "./Profil.js";
+import displayTrends from "./Trends.js";
+import displayFavorite from "./Favorite.js";
+import displayLecture from "./Player.js";
 import displayAddAlbum from "./addAlbum.js";
-import displayAlbum from "./Album.js";
+import {displayAlbum} from "./Album.js";
 
 let pageToRender;
 
@@ -13,6 +17,10 @@ const routes = {
     "/": displayAccueil,
     "/login": displayLogin,
     "/logout" : logout,
+    "/profil" : displayProfil,
+    "/trends": displayTrends,
+    "/favorite": displayFavorite,
+    "/lecture": displayLecture,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
     "/error" : displayError
@@ -41,6 +49,7 @@ function router(){
 }
 
 function onNavigate(e){
+    console.log(e.target);
     let url;
     let id;
     if(e.target.tagName === "A"){
@@ -57,6 +66,7 @@ function onNavigate(e){
         if (id) window.history.pushState({}, url, window.location.origin + url + '?no=' + id) // le url + / + id ne fonctionne pas ? -> charge pas bundle.js
         else window.history.pushState({}, url, window.location.origin + url)
         pageToRender = routes[url];
+        
         if(routes[url]){
             pageToRender();
         }
