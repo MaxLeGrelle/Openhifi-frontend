@@ -39,7 +39,6 @@ function audioClick(e) {
 
 
 function displayPlayer() {
-    let vol = false;
     $("#main").append(`<div id = "generalLecture">
     <div class = "playerPosition">
         <div id = "playerBlocInfo"> 
@@ -69,7 +68,7 @@ function displayPlayer() {
         </div> 
     </div>   
     `)
-    
+
     $("#howler-play").on("click", onListening)
 
     $("#howler-vol").on("click", onChangingVolume);
@@ -121,6 +120,7 @@ function onListening() {
 }
 
 function onChangingVolume() {
+    let vol = false;
     $("#displayBarVol").empty()
     if (vol) {
         vol = false;
