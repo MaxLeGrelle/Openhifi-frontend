@@ -13,7 +13,8 @@ const sound  = new howler.Howl({src: [`${music}`],
         var time = Math.round(sound.duration());
         $('#duration').html(formatTime(time));
         // Start upating the progress of the track.
-        requestAnimationFrame(updateTimeTracker.bind(this));},
+        requestAnimationFrame(updateTimeTracker.bind(this));
+        var volume = sound.volume()},
     volume:0.1,})
 
 function Lecture(){
@@ -48,35 +49,51 @@ function Lecture(){
   }
   function barClick(e){
     var position = e.clientX - this.getBoundingClientRect().left; //get the postion of the cursor on the div audio-progress in px
+    console.log(position)
     var duration = sound.duration() // get the duration of the sound played
-    position = position /500 // division by 500 because the width of the div is 500 (maybe optimized this)
+    position = position /600 // division by 600 because the width of the div is 600 (maybe optimized this)
     position = duration*position // transform the position from pixels to seconds
     sound.seek(position) // update where the sound is
   }
+  function audioClick(e){
+    var position = e.clientY - this.getBoundingClientRect().top;
+    var volume = 1-position/100
+    sound.volume(volume);
+    console.log(volume)
+    barVolProgress.style.height = (100-sound.volume()*100) + '%';
+
+  }
   function displayMain(){
-    let play = true;
     let vol = false;
     
     $("#main").append(`<div id = "generalLecture"><div class="display-4">Lecture :</div>
-    <button><i class="fas fa-random"></i></button>
-    <button><i class="fas fa-backward"></i></button>
-    <button id='howler-play'><i class="fas fa-play"></i></button>
-
-    <button><i class="fas fa-forward"></i></button>
-    <button id='howler-loop'><img src = "${loop}" href="loop"></button>
-
-    <div id="contenaire-vol">
-    <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
-   </div>
-   
-    <div class="audio-progress">
-	<div id="progress"></div>
-	<div class="time">
-		<span id="timer">0:00 </span>/
-        <span id="duration">0:00</span>
+    <div class = "playerPosition">
+        <div id = "playerBlocInfo"> 
         </div>
+        <div id = "playerBlocCenter">
+            <div id= "playerButtons"> 
+                <button><i class="fas fa-random"></i></button>
+                <button><i class="fas fa-backward"></i></button>
+                <button id='howler-play'><i class="fas fa-play"></i></button>
 
-</div>
+                <button><i class="fas fa-forward"></i></button>
+                <button id='howler-loop'><img src = "${loop}" href="loop"></button>
+            </div>
+            <div id="player-bar">
+                <span id="timer">0:00 </span>
+                <div class="audio-progress">
+                    <div id="progress">
+                    </div>
+                </div>
+                <span id="duration">0:00</span>
+            </div>
+        </div>    
+        <div id="contenaire-vol">
+            <div id="displayBarVol"> 
+            </div>
+            <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
+        </div> 
+    </div>   
     `)
 
 
@@ -84,62 +101,34 @@ function Lecture(){
     $("#howler-play").on("click", function(){
        
         $("#howler-play").empty()
-        if(play){
-            play = false
+        if(!(sound.playing())){
             $("#howler-play").append(`<i class="fas fa-pause"></i>`)
             sound.play();
             }
         else {
-            play = true
-            $("#howler-play").append(`<i class="fas fa-play">`)
+            $("#howler-play").append(`<i class="fas fa-play"></i>`)
             sound.pause();
             }
         
     });
-$("#contenaire-vol").on("click",function(){
-    console.log("efvqsijfesdjlg skjfghzs ieuhjfijze'hoitghejo(i'gherustpoidreut!çge'hrtgzqhe'çà " + vol )
-    $("#contenaire-vol").empty()
+$("#howler-vol").on("click",function(){
+    $("#displayBarVol").empty()
     if(vol){
         vol = false;
-        $("#contenaire-vol").append(`<button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
     }
     else{
         vol = true;
-        $("#contenaire-vol").append(`<div id = "bar-vol"></div>
-        <button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
+        $("#displayBarVol").append(`<div id = "bar-vol"><div id="barVolProgress"></div></div>`)
+        barVolProgress.style.height = (100-sound.volume()*100) + '%';
+        $("#bar-vol").on("click",audioClick)
     }
 
 });
+
   $(".audio-progress").on("click",barClick)
     $(function(){
+    
 
-
-    
-        $("#howler-pause").on("click", function(){
-            
-        });
-    
-        $("#howler-stop").on("click", function(){
-            sound.stop();
-        });
-    
-        $("#howler-volup").on("click", function(){
-            var vol = sound.volume();
-            vol += 0.1;
-            if (vol > 1) {
-                vol = 1;
-            }
-            sound.volume(vol);
-        });
-    
-        $("#howler-voldown").on("click", function(){
-            var vol = sound.volume();
-            vol -= 0.1;
-            if (vol < 0) {
-                vol = 0;
-            }
-            sound.volume(vol);
-        });
         $("#howler-loop").on("click", function(){
             if(sound.loop())
                 sound.loop(false)
@@ -168,4 +157,5 @@ function updateTimeTracker  () {
         requestAnimationFrame(updateTimeTracker.bind(self));
     }
 }
+
   export default displayLecture;
