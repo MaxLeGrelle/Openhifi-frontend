@@ -2,7 +2,7 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
-import displayLecture from './Player'; 
+import {displayLecture, onPlay, onEnd, displayPlayer} from './Player'; 
 const howl = require("howler")
 
 //PEUT PAS RECUP LOGO ???
@@ -28,8 +28,7 @@ function displayAlbum() {
     displayNavBar()
     displayMenu()
     getAlbumData()
-    displayLecture()
-
+    displayPlayer();
 }
 
 function getAlbumData() {
@@ -59,7 +58,6 @@ function findGetParameter(parameterName) {
 
 let musics = new Array()
 function displayAlbumData(data){
-    console.log(data)
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">${data.name}</p>
@@ -94,7 +92,7 @@ function displayAlbumData(data){
             <td>${data.name}</td>
             <td>NA</td>
         </tr>`)
-        $(`#music${i}`).on("click", onListening)
+        $(`#music${i}`).on("click", onSelectMusic)
         $(`#music${i}`).on("mouseover", (e) => {
             $(e.target).addClass("musicPlayingHover")
         })
@@ -105,33 +103,14 @@ function displayAlbumData(data){
     });
 }
 
-let currentMusicId;
-
-function onListening(e) {
-    e.preventDefault()
+function onSelectMusic(e) {
+    let orderedMusics = new Array()
     let id = e.target.parentElement.dataset.id
-    if (!musics[id].playing()) {
-        currentMusicId = id
-        musics[id].play();
-        $(e.target).addClass("musicPlayingHover musicPlaying")
-    }else {
-        musics[id].pause()
-        $(e.target).removeClass("musicPlayingHover musicPlaying")
+    for (let i = id; i <= musics.length && orderedMusics.length != musics.length; i++) {
+        if (i == musics.length) i = 0
+        orderedMusics.push(musics[i])
     }
+    displayLecture(orderedMusics)
 }
 
-function onPlay() {
-    for (let i = 0; i < musics.length; i++) {
-        if (currentMusicId == i) continue
-        $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
-        musics[i].stop()
-    }
-}
-
-function onEnd() {
-    if (currentMusicId == musics.length-1) currentMusicId = 0
-    else currentMusicId++
-    musics[currentMusicId].play()
-}
-
-export {displayAlbum, musics};
+export {displayAlbum};
