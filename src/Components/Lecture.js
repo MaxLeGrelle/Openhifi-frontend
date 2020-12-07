@@ -58,25 +58,33 @@ function Lecture(){
     let vol = false;
     
     $("#main").append(`<div id = "generalLecture"><div class="display-4">Lecture :</div>
-    <button><i class="fas fa-random"></i></button>
-    <button><i class="fas fa-backward"></i></button>
-    <button id='howler-play'><i class="fas fa-play"></i></button>
-
-    <button><i class="fas fa-forward"></i></button>
-    <button id='howler-loop'><img src = "${loop}" href="loop"></button>
-
-    <div id="contenaire-vol">
-    <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
-   </div>
-   
-    <div class="audio-progress">
-	<div id="progress"></div>
-	<div class="time">
-		<span id="timer">0:00 </span>/
-        <span id="duration">0:00</span>
+    <div class = "playerPosition">
+        <div id = "playerBlocInfo"> 
         </div>
+        <div id = "playerBlocCenter">
+            <div id= "playerButtons"> 
+                <button><i class="fas fa-random"></i></button>
+                <button><i class="fas fa-backward"></i></button>
+                <button id='howler-play'><i class="fas fa-play"></i></button>
 
-</div>
+                <button><i class="fas fa-forward"></i></button>
+                <button id='howler-loop'><img src = "${loop}" href="loop"></button>
+            </div>
+            <div class="audio-progress">
+                <div id="progress">
+                </div>
+                <div class="time">
+                    <span id="timer">0:00 </span>/
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+        </div>    
+        <div id="contenaire-vol">
+            <div id="displayBarVol"> 
+            </div>
+            <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
+        </div> 
+    </div>   
     `)
 
 
@@ -96,20 +104,14 @@ function Lecture(){
             }
         
     });
-$("#contenaire-vol").on("click",function(){
-    console.log("efvqsijfesdjlg skjfghzs ieuhjfijze'hoitghejo(i'gherustpoidreut!çge'hrtgzqhe'çà " + vol )
-    $("#contenaire-vol").empty()
+$("#howler-vol").on("click",function(){
+    $("#displayBarVol").empty()
     if(vol){
         vol = false;
-        $("#contenaire-vol").append(`<button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
     }
     else{
         vol = true;
-        $("#contenaire-vol").append(`<div id = "bar-vol"></div>
-        <button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
-        $("#bar-vol").on("click",function(){
-            
-        })
+        $("#displayBarVol").append(`<div id = "bar-vol"></div>`)
     }
 
 });

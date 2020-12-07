@@ -336,6 +336,8 @@ Register / Login page
 
 }
 #bar-vol{
+    bottom: 65%;
+    position: absolute;
     width: 20px;
 	height: 100px;
     background-color: #e5eff1;
@@ -360,4 +362,39 @@ Register / Login page
     background-color: var(--main-bg);
     border: none;
     color: white;
+}
+
+.playerPosition{
+    position: fixed;
+    bottom: 0;
+    left: 20%;
+    margin: 1%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerBlocInfo{
+    width: 100px;
+    height: 100px;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+#playerBlocCenter{
+    margin-right: 15%;
+    margin-left: 15%;
+}
+#playerButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+#contenaire-vol{
+    align-self: center;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+#howler-vol{
+
 }
