@@ -9,7 +9,6 @@ import displayFavorite from "./Favorite.js";
 import {displayLecture} from "./Player.js";
 import displayAddAlbum from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
-
 let pageToRender;
 
 let navbar;
@@ -52,7 +51,7 @@ function onNavigate(e){
     console.log(e.target);
     let url;
     let id;
-    if(e.target.tagName === "A"){
+    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
         e.preventDefault();
         url = e.target.dataset.url;
     }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P") {
