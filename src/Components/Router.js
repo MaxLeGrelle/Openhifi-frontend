@@ -6,6 +6,7 @@ import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
+import displayLecture from "./Lecture.js";
 
 let pageToRender;
 
@@ -17,6 +18,7 @@ const routes = {
     "/profil" : displayProfil,
     "/trends": displayTrends,
     "/favorite": displayFavorite,
+    "/lecture": displayLecture,
     "/error" : displayError
 }
 
