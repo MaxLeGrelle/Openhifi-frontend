@@ -146,10 +146,16 @@ function displayDiscover(data) {
     $(`#discoverCarouselItem${j}`).append(`
         <div class="container-card" style="float:left">
           <div class="card mb-2">
-            <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
+            <a href="#" data-url="/albums" data-id="${album.id}">
+              <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
+            </a>
             <div class="card-body">
-              <h4 class="card-title">${album.name}</h4>
-              <p class="card-text">de : ${data.creatorList[i]}</p>
+              <a href="#" data-url="/albums" data-id="${album.id}">
+                <h4 class="card-title">${album.name}</h4>
+              </a>
+              <a href="#" data-url="/albums" data-id="${album.id}">
+                <p class="card-text">de : ${data.creatorList[i]}</p>
+              </a>
               <a class="btn btn-primary">Like</a>
             </div>
           </div>
@@ -157,6 +163,8 @@ function displayDiscover(data) {
    )
    i++;
   });
+  $("#discover .carousel-inner a").on("click", onNavigate)
+  
 }
 
 function displayAccueil() {
@@ -186,4 +194,4 @@ function displayAccueil() {
     
 }
 
-export default displayAccueil;
+export {displayAccueil, displayMenu, displayNavBar, displayMain};

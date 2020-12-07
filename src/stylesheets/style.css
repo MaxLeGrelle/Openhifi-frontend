@@ -188,6 +188,25 @@ input{
     color : white
 }
 
+/*view album*/
+
+#albumDisplay * {
+    color: white;
+}
+
+/* .musicPlay:hover {
+    border-bottom: white;
+} */
+
+.musicPlayingHover {
+    color: var(--blue) !important;
+}
+
+.musicPlaying {
+    color: var(--blue) !important;
+    border-bottom: 2px, medium, var(--blue) !important;
+}
+
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
     #main img, #logo img{
