@@ -2,6 +2,7 @@ import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import music from '../sounds/m1.mp3'
 import loop from '../img/loop.png'
+import loopActive from '../img/loopActive.png'
 import { Collapse } from 'bootstrap'
 
 const howler = require("howler")
@@ -130,10 +131,14 @@ $("#howler-vol").on("click",function(){
     
 
         $("#howler-loop").on("click", function(){
-            if(sound.loop())
+            $("#howler-loop").empty()
+            if(sound.loop()){
+                $("#howler-loop").append(`<img src = "${loop}" href="loop">`)
                 sound.loop(false)
+            }
             else{
                 sound.loop(true)
+                $("#howler-loop").append(`<img src = "${loopActive}" href="loop">`)
             }
         });
     
