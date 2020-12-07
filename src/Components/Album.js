@@ -4,7 +4,6 @@ import {displayNavBar,displayMenu} from './Accueil.js'
 import { onNavigate } from './Router.js';
 const howl = require("howler")
 
-//PEUT PAS RECUP LOGO ???
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
@@ -79,6 +78,7 @@ function displayAlbumData(data){
         musics.push(new howl.Howl({
             src: [data.listMusics64[i]], 
             onplay : onPlay,
+            onend: onEnd,
             preload : true,
         }))
     }
@@ -102,10 +102,13 @@ function displayAlbumData(data){
     });
 }
 
+let currentMusicId;
+
 function onListening(e) {
     e.preventDefault()
     let id = e.target.parentElement.dataset.id
     if (!musics[id].playing()) {
+        currentMusicId = id
         musics[id].play();
         $(e.target).addClass("musicPlayingHover musicPlaying")
     }else {
@@ -114,11 +117,18 @@ function onListening(e) {
     }
 }
 
-// function onPlay(id) {
-//     for (let i = 0; i < musics.length; i++) {
-//         $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
-//         musics[i].stop()
-//     }
-// }
+function onPlay() {
+    for (let i = 0; i < musics.length; i++) {
+        if (currentMusicId == i) continue
+        $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
+        musics[i].stop()
+    }
+}
+
+function onEnd() {
+    if (currentMusicId == musics.length-1) currentMusicId = 0
+    else currentMusicId++
+    musics[currentMusicId].play()
+}
 
 export default displayAlbum;
