@@ -56,7 +56,6 @@ function findGetParameter(parameterName) {
 
 let musics = new Array()
 function displayAlbumData(data){
-    console.log(data)
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">${data.name}</p>
