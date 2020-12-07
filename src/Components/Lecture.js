@@ -107,9 +107,6 @@ $("#contenaire-vol").on("click",function(){
         vol = true;
         $("#contenaire-vol").append(`<div id = "bar-vol"></div>
         <button id='howler-vol'><i class="fas fa-volume-up"></i></button>`)
-        $("#bar-vol").on("click",function(){
-            
-        })
     }
 
 });
