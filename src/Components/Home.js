@@ -39,7 +39,7 @@ function displayNavBar() {
     </div>
     </div>`)
     //add button on top  
-    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> `)
+    $('#add').append(`<a class="btn btn-bluegradient" href="#" data-url="/addAlbum">Ajouter</a> `)
 
     //profil picture on top right
     $('#profile').append(`
