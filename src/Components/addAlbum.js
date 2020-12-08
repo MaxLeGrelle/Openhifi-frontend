@@ -3,6 +3,7 @@ import { getUserStorageData } from "../Utils/storage.js";
 const jwt = require("jsonwebtoken");
 
 function displayAddAlbum() {
+    $("#page").empty()
     $("#page").append(`
     <div class="container">
         <form id="formAddMusic">

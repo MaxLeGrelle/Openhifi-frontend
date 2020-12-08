@@ -48,16 +48,15 @@ function router(){
 }
 
 function onNavigate(e){
-    console.log(e.target);
     let url;
     let id;
     if(e.target.tagName === "A" || e.target.tagName === "IMG"){
         e.preventDefault();
         url = e.target.dataset.url;
     }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P") {
-        e.preventDefault();
         id = e.target.parentElement.dataset.id;
         url = e.target.parentElement.dataset.url;
+        if (!url) url = e.target.dataset.url
     }
 
     if(url){

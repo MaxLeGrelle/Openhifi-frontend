@@ -7,15 +7,24 @@ import {
 } from './Router.js'
 //import music from '../sounds/m1.mp3'
 import loop from '../img/loop.png'
-import loopActive from '../img/loopActive.png'
+import loopActive from '../img/loop-active.png'
+import loopAlbumActive from '../img/loop-album-active.png'
 const howler = require("howler")
 
 let sound;
+let musicsList;
+let vol = false;
+let currentMusicIndex;
+let onLoopAlbum = false;
+let onLoopSound = false;
 
 //source : https://codepen.io/astephannie/pen/NaBKLG
 
-function displayLecture(musics) {
-    sound = musics[0];
+function displayLecture(musics, indexMusicSelected) {
+    if (sound) sound.stop() //if an other music is playing, it will stop it
+    musicsList = musics
+    currentMusicIndex = indexMusicSelected;
+    sound = musics[indexMusicSelected];
     onListening()
 }
 
@@ -39,7 +48,7 @@ function audioClick(e) {
 
 
 function displayPlayer() {
-    $("#main").append(`<div id = "generalLecture">
+    $("#player").append(`<div id = "generalLecture">
     <div class = "playerPosition">
         <div id = "playerBlocInfo"> 
         </div>
@@ -68,25 +77,10 @@ function displayPlayer() {
         </div> 
     </div>   
     `)
-
     $("#howler-play").on("click", onListening)
-
     $("#howler-vol").on("click", onChangingVolume);
-
     $(".audio-progress").on("click", barClick)
-    $(function () {
-        $("#howler-loop").on("click", function () {
-            $("#howler-loop").empty()
-            if (sound.loop()) {
-                $("#howler-loop").append(`<img src = "${loop}" href="loop">`)
-                sound.loop(false)
-            } else {
-                sound.loop(true)
-                $("#howler-loop").append(`<img src = "${loopActive}" href="loop">`)
-            }
-        });
-
-    });
+    $("#howler-loop").on("click", onLoop)
 
 }
 
@@ -108,8 +102,27 @@ function updateTimeTracker() {
     }
 }
 
+function onLoop() {
+    $("#howler-loop").empty()
+    if (!onLoopAlbum && !onLoopSound) {
+        $("#howler-loop").append(`<img src = "${loopAlbumActive}" href="loop">`)
+        onLoopAlbum = true;
+    }else if(onLoopAlbum && !onLoopSound){
+        onLoopAlbum = false;
+        sound.loop(true)
+        $("#howler-loop").append(`<img src = "${loopActive}" href="loop">`)
+        onLoopSound = true;
+    }else {
+        onLoopAlbum = false;
+        onLoopSound = false;
+        $("#howler-loop").append(`<img src = "${loop}" href="loop">`)
+        sound.loop(false)
+    }
+}
+
 function onListening() {
     $("#howler-play").empty()
+    console.log("SOUND",sound)
     if (!(sound.playing())) {
         $("#howler-play").append(`<i class="fas fa-pause"></i>`)
         sound.play();
@@ -120,7 +133,6 @@ function onListening() {
 }
 
 function onChangingVolume() {
-    let vol = false;
     $("#displayBarVol").empty()
     if (vol) {
         vol = false;
@@ -137,15 +149,30 @@ function onPlay() {
     $('#duration').html(formatTime(time));
     // Start upating the progress of the track.
     requestAnimationFrame(updateTimeTracker.bind(this));
+    //$(`#music${currentMusicIndex}`).addClass("musicPlayingHover")
 }
 
 function onEnd() {
-    
+    if (currentMusicIndex+1 == musicsList.length) {
+        sound.stop()
+        return;
+    }
+    if (!onLoopSound) currentMusicIndex++;
+    if (onLoopAlbum && currentMusicIndex == musicsList.length) {
+        currentMusicIndex = 0;
+    }
+    sound = musicsList[currentMusicIndex]
+    sound.play()
+}
+
+function onStop() {
+    //$(`#music${currentMusicIndex}`).removeClass("musicPlayingHover")
 }
 
 export {
     displayLecture,
     displayPlayer,
     onPlay,
-    onEnd
+    onEnd,
+    onStop
 };

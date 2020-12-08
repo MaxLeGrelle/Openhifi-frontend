@@ -2,7 +2,7 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
-import {displayLecture, onPlay, onEnd, displayPlayer} from './Player'; 
+import {displayLecture, onPlay, onEnd, displayPlayer, onStop} from './Player'; 
 const howl = require("howler")
 
 //PEUT PAS RECUP LOGO ???
@@ -21,6 +21,8 @@ function displayAlbum() {
           <div id="trends"></div>
         </div>
         <div id="main">
+        </div>
+        <div id="player">
         </div>`);
   
     $("#navbar").on("click", onNavigate)
@@ -58,6 +60,7 @@ function findGetParameter(parameterName) {
 
 let musics = new Array()
 function displayAlbumData(data){
+    $("#main").empty()
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">${data.name}</p>
@@ -80,6 +83,7 @@ function displayAlbumData(data){
             src: [data.listMusics64[i]], 
             onplay : onPlay,
             onend: onEnd,
+            onstop: onStop,
             preload : true,
         }))
     }
@@ -103,14 +107,19 @@ function displayAlbumData(data){
     });
 }
 
+// function onSelectMusic(e) {
+//     let orderedMusics = new Array()
+//     let id = e.target.parentElement.dataset.id
+//     for (let i = id; i <= musics.length && orderedMusics.length != musics.length; i++) {
+//         if (i == musics.length) i = 0
+//         orderedMusics.push(musics[i])
+//     }
+//     displayLecture(orderedMusics)
+// }
+
 function onSelectMusic(e) {
-    let orderedMusics = new Array()
-    let id = e.target.parentElement.dataset.id
-    for (let i = id; i <= musics.length && orderedMusics.length != musics.length; i++) {
-        if (i == musics.length) i = 0
-        orderedMusics.push(musics[i])
-    }
-    displayLecture(orderedMusics)
+    let indexMusicSelected = e.target.parentElement.dataset.id
+    displayLecture(musics, indexMusicSelected)
 }
 
 export {displayAlbum};
