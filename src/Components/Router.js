@@ -49,7 +49,6 @@ function router(){
 }
 
 function onNavigate(e){
-    console.log(e.target.tagName);
     let url;
     let id;
     if(e.target.tagName === "A"){
