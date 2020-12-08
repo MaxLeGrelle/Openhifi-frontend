@@ -2,7 +2,7 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
-import {displayLecture, onPlay, onEnd, displayPlayer, onStop} from './Player'; 
+import {displayLecture, onPlay, onEnd, displayPlayer} from './Player'; 
 const howl = require("howler")
 
 //PEUT PAS RECUP LOGO ???
@@ -83,7 +83,6 @@ function displayAlbumData(data){
             src: [data.listMusics64[i]], 
             onplay : onPlay,
             onend: onEnd,
-            onstop: onStop,
             preload : true,
         }))
     }

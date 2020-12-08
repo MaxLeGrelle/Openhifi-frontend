@@ -17,20 +17,33 @@ let vol = false;
 let currentMusicIndex;
 let onLoopAlbum = false;
 let onLoopSound = false;
+let volume;
 
 //source : https://codepen.io/astephannie/pen/NaBKLG
 
 function displayLecture(musics, indexMusicSelected) {
-    if (sound) sound.stop() //if an other music is playing, it will stop it
+    if(sound)stopMusic()
     musicsList = musics
-    currentMusicIndex = indexMusicSelected;
-    sound = musics[indexMusicSelected];
+    currentMusicIndex = parseInt(indexMusicSelected);
+    playMusic()
+}
+
+function playMusic() {
+    if (sound) stopMusic()
+    sound = musicsList[currentMusicIndex];
+    $(`#music${currentMusicIndex}`).addClass("musicPlaying")
+    sound.loop(onLoopSound)
+    sound.volume(volume)
     onListening()
+}
+
+function stopMusic() {
+    sound.stop() //if an other music is playing, it will stop it
+    $(`#music${currentMusicIndex}`).removeClass("musicPlaying")
 }
 
 function barClick(e) {
     var position = e.clientX - this.getBoundingClientRect().left; //get the postion of the cursor on the div audio-progress in px
-    console.log(position)
     var duration = sound.duration() // get the duration of the sound played
     position = position / 600 // division by 600 because the width of the div is 600 (maybe optimized this)
     position = duration * position // transform the position from pixels to seconds
@@ -39,11 +52,9 @@ function barClick(e) {
 
 function audioClick(e) {
     var position = e.clientY - this.getBoundingClientRect().top;
-    var volume = 1 - position / 100
+    volume = 1 - position / 100
     sound.volume(volume);
-    console.log(volume)
     barVolProgress.style.height = (100 - sound.volume() * 100) + '%';
-
 }
 
 
@@ -54,11 +65,11 @@ function displayPlayer() {
         </div>
         <div id = "playerBlocCenter">
             <div id= "playerButtons"> 
-                <button><i class="fas fa-random"></i></button>
-                <button><i class="fas fa-backward"></i></button>
+                <button ><i class="fas fa-random"></i></button>
+                <button id="btnPrevious"><i class="fas fa-step-backward"></i></button>
                 <button id='howler-play'><i class="fas fa-play"></i></button>
 
-                <button><i class="fas fa-forward"></i></button>
+                <button id="btnNext"><i class="fas fa-step-forward"></i></button>
                 <button id='howler-loop'><img src = "${loop}" href="loop"></button>
             </div>
             <div id="player-bar">
@@ -81,7 +92,32 @@ function displayPlayer() {
     $("#howler-vol").on("click", onChangingVolume);
     $(".audio-progress").on("click", barClick)
     $("#howler-loop").on("click", onLoop)
+    $("#btnPrevious").on("click", onPrevious)
+    $("#btnNext").on("click", onNext)
 
+}
+
+function onPrevious() {
+    if (!sound) return;
+    if (sound.seek() >= 5 || currentMusicIndex == 0 || onLoopSound) {
+        sound.seek(0)
+    } else {
+        stopMusic()
+        currentMusicIndex--
+        playMusic()
+    }
+
+}
+
+function onNext() {
+    if (!sound) return;
+    if (onLoopSound) {
+        sound.seek(0)
+        return;
+    }
+    stopMusic()
+    if (!onLoopAlbum && currentMusicIndex == musicsList.length-1) return
+    onEnd()
 }
 
 function formatTime(secs) {
@@ -107,12 +143,12 @@ function onLoop() {
     if (!onLoopAlbum && !onLoopSound) {
         $("#howler-loop").append(`<img src = "${loopAlbumActive}" href="loop">`)
         onLoopAlbum = true;
-    }else if(onLoopAlbum && !onLoopSound){
+    } else if (onLoopAlbum && !onLoopSound) {
         onLoopAlbum = false;
         sound.loop(true)
         $("#howler-loop").append(`<img src = "${loopActive}" href="loop">`)
         onLoopSound = true;
-    }else {
+    } else {
         onLoopAlbum = false;
         onLoopSound = false;
         $("#howler-loop").append(`<img src = "${loop}" href="loop">`)
@@ -122,7 +158,6 @@ function onLoop() {
 
 function onListening() {
     $("#howler-play").empty()
-    console.log("SOUND",sound)
     if (!(sound.playing())) {
         $("#howler-play").append(`<i class="fas fa-pause"></i>`)
         sound.play();
@@ -145,34 +180,30 @@ function onChangingVolume() {
 }
 
 function onPlay() {
+    $(`#music${currentMusicIndex}`).addClass("musicPlaying")
+
     var time = Math.round(sound.duration());
     $('#duration').html(formatTime(time));
     // Start upating the progress of the track.
     requestAnimationFrame(updateTimeTracker.bind(this));
-    //$(`#music${currentMusicIndex}`).addClass("musicPlayingHover")
 }
 
 function onEnd() {
-    if (currentMusicIndex+1 == musicsList.length) {
-        sound.stop()
-        return;
-    }
-    if (!onLoopSound) currentMusicIndex++;
-    if (onLoopAlbum && currentMusicIndex == musicsList.length) {
+    if (onLoopSound) return;
+    $(`#music${currentMusicIndex}`).removeClass("musicPlaying")
+    currentMusicIndex++;
+    if (onLoopAlbum && currentMusicIndex == musicsList.length)
         currentMusicIndex = 0;
+    else if (!onLoopAlbum && currentMusicIndex == musicsList.length) {
+        sound.stop();
     }
-    sound = musicsList[currentMusicIndex]
+    sound = musicsList[currentMusicIndex];
     sound.play()
-}
-
-function onStop() {
-    //$(`#music${currentMusicIndex}`).removeClass("musicPlayingHover")
 }
 
 export {
     displayLecture,
     displayPlayer,
     onPlay,
-    onEnd,
-    onStop
+    onEnd
 };
