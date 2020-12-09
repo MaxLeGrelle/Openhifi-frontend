@@ -4,20 +4,24 @@ import loopActive from '../img/loop-active.png'
 import loopAlbumActive from '../img/loop-album-active.png'
 const howler = require("howler")
 
-let sound;
-let musicsList;
-let vol = false;
-let currentMusicIndex;
-let onLoopAlbum = false;
-let onLoopSound = false;
+let sound;                  //current music
+let musicsList;             //current list
+let vol = false;            //display the volume bar
+let currentMusicIndex;      //current music index
+let onLoopAlbum = false;    
+let onLoopSound = false;    
 let onRandomList = false;
 let volume;
 let toPlayMusicsList;
 let dataMusics;
 let id;
 
-//source : https://codepen.io/astephannie/pen/NaBKLG
-
+/**
+ * set properties of a new chosen list
+ * @param {*} musics the new track
+ * @param {*} indexMusicSelected the id of the first sound to play
+ * @param {*} data informations about the album (id, name,...)
+ */
 function displayLecture(musics, indexMusicSelected, data) {
     if (sound) stopMusic()
     id = data.id
@@ -32,6 +36,10 @@ function displayLecture(musics, indexMusicSelected, data) {
     playMusic()
 }
 
+
+/**
+ * things necessary to do when a new music begin 
+ */
 function playMusic() {
     if (sound) stopMusic()
     sound = musicsList[currentMusicIndex];
@@ -41,12 +49,20 @@ function playMusic() {
     onListening()
 }
 
+/**
+ * stop the current music
+ */
 function stopMusic() {
     if(!sound) return;
     sound.stop() //if an other music is playing, it will stop it
     $(`#music${id+"-"+currentMusicIndex}`).removeClass("musicPlaying")
 }
 
+/**
+ * update the timing in the music (chosen by the user when he clicks on the progression's bar)
+ * @param {*} e event
+ */
+//source : https://codepen.io/astephannie/pen/NaBKLG
 function barClick(e) {
     var position = e.clientX - this.getBoundingClientRect().left; //get the postion of the cursor on the div audio-progress in px
     var duration = sound.duration() // get the duration of the sound played
@@ -54,7 +70,10 @@ function barClick(e) {
     position = duration * position // transform the position from pixels to seconds
     sound.seek(position) // update where the sound is
 }
-
+/**
+ * update the music's volume (chosen by the user when he clicks on the volume's bar)
+ * @param {*} e event
+ */
 function audioClick(e) {
     var position = e.clientY - this.getBoundingClientRect().top;
     volume = 1 - position / 100
@@ -62,7 +81,9 @@ function audioClick(e) {
     barVolProgress.style.height = (100 - sound.volume() * 100) + '%';
 }
 
-
+/**
+ * html to display the player
+ */
 function displayPlayer() {
     $("#player").empty()
     $("#player").append(`<div id = "generalLecture">
@@ -108,6 +129,10 @@ function displayPlayer() {
 
 }
 
+/**
+ * go to the timing 0
+ * if the timing is at 0, go to the previous music in the list
+ */
 function onPrevious() {
     if (!sound) return;
     if (sound.seek() >= 5 || currentMusicIndex == 0 || onLoopSound) {
@@ -120,6 +145,9 @@ function onPrevious() {
 
 }
 
+/**
+ * go on the next music
+ */
 function onNext() {
     if (!sound) return;
     if (onLoopSound) {
@@ -131,6 +159,9 @@ function onNext() {
     onEnd()
 }
 
+/**
+ * randomise the list
+ */
 function onRandom() {
     if (!sound) return;
     if (onRandomList) {
@@ -144,6 +175,9 @@ function onRandom() {
     }
 }
 
+/**
+ * fill the toPlayMusicList (don't touch to the current music)
+ */
 function fillToPlayMusicsList() {
     toPlayMusicsList = new Array()
     for (let i = 0; i < musicsList.length; i++) {
@@ -152,12 +186,21 @@ function fillToPlayMusicsList() {
     }
 }
 
+
+/**
+ * transform the time 
+ * X sec -> X min X sec
+ * @param {*} secs 
+ */
 function formatTime(secs) {
     var minutes = Math.floor(secs / 60) || 0;
     var seconds = (secs - minutes * 60) || 0;
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
+/**
+ * update the visual of the progression's bar
+ */
 function updateTimeTracker() {
     var self = this;
     var seek = sound.seek() || 0;
@@ -169,7 +212,13 @@ function updateTimeTracker() {
         requestAnimationFrame(updateTimeTracker.bind(self));
     }
 }
-
+/**
+ * loop option
+ * 3 possibilities :
+ * -don't loop
+ * -loop all the album
+ * -loop the current music
+ */
 function onLoop() {
     if (!sound) return;
     $("#howler-loop").empty()
@@ -189,6 +238,9 @@ function onLoop() {
     }
 }
 
+/**
+ * option play - pause
+ */
 function onListening() {
     if (!sound) return;
     $("#howler-play").empty()
@@ -201,6 +253,9 @@ function onListening() {
     }
 }
 
+/**
+ * option to show the volume's bar
+ */
 function onChangingVolume() {
     if (!sound) return;
     $("#displayBarVol").empty()
@@ -214,6 +269,9 @@ function onChangingVolume() {
     }
 }
 
+/**
+ * when a music begin to be played
+ */
 function onPlay() {
     $(`#music${id+"-"+currentMusicIndex}`).addClass("musicPlaying")
     sound.volume(volume)
@@ -224,6 +282,14 @@ function onPlay() {
     requestAnimationFrame(updateTimeTracker.bind(this));
 }
 
+/**
+ * when a music end, decide which is next
+ * that depend of many conditions:
+ * -is it looping on the track?
+ * -is it looping on the list ?
+ * -is it randomised ?
+ * -is it the end of the album ?
+ */
 function onEnd() {
     if (onLoopSound) return;
     $(`#music${id+"-"+currentMusicIndex}`).removeClass("musicPlaying")
@@ -254,6 +320,9 @@ function onEnd() {
     sound.play()
 }
 
+/**
+ * conserve the state of buttons when the user decide to change pages
+ */
 function displayDataPlayer() {
     $("#playerBlocInfo").empty()
     $("#playerBlocInfo").append(`
