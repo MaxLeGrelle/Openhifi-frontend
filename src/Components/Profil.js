@@ -7,26 +7,15 @@ function Profil(){
   displayGeneral()
 }
 function displayProfil() {
-    $("#page").empty();
+    $("#container").empty();
     console.log("affiche profil");
-    $("#page").append(`<div id = "container"> </div>`)
     $("#container").append(` 
-        <div id="navbar">
-        <div id="logo"></div>
-        <div id="search"></div>
-        <div id="add"></div>
-        <div id="profile"></div>
-      </div>
+      <div id="navbar"></div>
       <div id="menu">
         <div id="favorite"></div>
         <div id="trends"></div>
       </div>
-      <div id="main">
-       
-        </div>`);
-
-    $("#navbar").on("click", onNavigate)
-    $("#menu").on("click", onNavigate)
+      <div id="main"></div>`);
     displayMenu()
     displayNavBar()
     Profil()

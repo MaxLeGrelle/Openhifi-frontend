@@ -26,12 +26,6 @@ body {
     overflow-x:hidden
 }
 
-#container{
-    display:flex;
-    flex-wrap: wrap;
-}
-
-
 /*NavBar*/
 #navbar{
     display: flex;
@@ -76,10 +70,7 @@ body {
 
 }
 
-input{
-    background-color: var(--main-bg) !important;
-    border-color: var(--blue) !important;
-}
+
 #profile{
     align-self: center;
     margin-right: 2%;
@@ -196,11 +187,6 @@ input{
     height: 15vw;
     object-fit: cover;
 } */
-
-/*add album*/
-#formAddMusic *, #formAddAlbum *, #listMusicsToAdd {
-    color : white
-}
 
 /*view album*/
 
@@ -347,6 +333,8 @@ Register / Login page
 }
 #oldPassword, #newPassword{
     width: 200px;
+    background-color: var(--main-bg) !important;
+    border-color: var(--blue) !important;
 }
 .aligneRow{
     display: flex;
@@ -460,6 +448,80 @@ Register / Login page
 
 }
 
-#formAddAlbum *{
-    color: white;
+/*###########################################################################
+addAlbum page
+###########################################################################*/
+#addAlbumPage{
+    margin-left: 10%;
 }
+
+#musicTitle, #music, #nom, #image{
+    background-color: var(--main-bg) !important;
+    border-color: var(--blue) !important;
+}
+
+#formAddMusic *, #formAddAlbum *, #formAddAlbum, #listMusicsToAdd {
+    color : white
+}
+
+#topPageAddAlbum{
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#listMusicsToAdd{
+    
+    background-color : var(--navbar-bg);
+    width: 72%;
+    border: 1px solid gray;
+}
+
+#formAddMusic{
+    width: 65%;
+    position: relative;
+    left: 31%;
+}
+
+#listMusicsToAdd hr{
+    left: 10%;
+    width:100%;
+    background: gray;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+}
+
+#newMusic{
+    padding: 1%;
+}
+
+#imageAddAlbum{
+    width: 250px;
+    height: 150px;
+}
+
+#formAddAlbum{
+    width: 66.7%;
+    position: relative;
+    left: 30.5%;
+}
+
+#submitAddMusic{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-color: var(--blue);
+    border-width: 0px;
+}
+#submitAddAlbum{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
+    border-width: 0px;
+}
+
+
+
+
+

@@ -1,6 +1,6 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-import {displayNavBar,displayMenu} from './Accueil.js'
+import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
 const howl = require("howler")
 

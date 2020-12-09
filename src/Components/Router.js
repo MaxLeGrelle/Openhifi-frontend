@@ -1,4 +1,4 @@
-import {displayAccueil} from "./Home.js";
+import {displayHome} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
@@ -6,7 +6,6 @@ import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
-import displayLecture from "./Lecture.js";
 import displayAddAlbum from "./addAlbum.js";
 import displayAlbum from "./Album.js";
 
@@ -14,13 +13,12 @@ let pageToRender;
 
 let navbar;
 const routes = {
-    "/": displayAccueil,
+    "/": displayHome,
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
     "/trends": displayTrends,
     "/favorite": displayFavorite,
-    "/lecture": displayLecture,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
     "/error" : displayError
