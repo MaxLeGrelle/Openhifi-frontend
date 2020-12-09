@@ -106,16 +106,6 @@ function displayAlbumData(data){
     });
 }
 
-// function onSelectMusic(e) {
-//     let orderedMusics = new Array()
-//     let id = e.target.parentElement.dataset.id
-//     for (let i = id; i <= musics.length && orderedMusics.length != musics.length; i++) {
-//         if (i == musics.length) i = 0
-//         orderedMusics.push(musics[i])
-//     }
-//     displayLecture(orderedMusics)
-// }
-
 function onSelectMusic(e) {
     let indexMusicSelected = e.target.parentElement.dataset.id
     displayLecture(musics, indexMusicSelected)

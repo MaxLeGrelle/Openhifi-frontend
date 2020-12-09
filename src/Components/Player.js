@@ -17,14 +17,17 @@ let vol = false;
 let currentMusicIndex;
 let onLoopAlbum = false;
 let onLoopSound = false;
+let onRandomList = false;
 let volume;
+let toPlayMusicsList;
 
 //source : https://codepen.io/astephannie/pen/NaBKLG
 
 function displayLecture(musics, indexMusicSelected) {
-    if(sound)stopMusic()
+    if (sound) stopMusic()
     musicsList = musics
     currentMusicIndex = parseInt(indexMusicSelected);
+    if(onRandomList) fillToPlayMusicsList()
     playMusic()
 }
 
@@ -65,7 +68,7 @@ function displayPlayer() {
         </div>
         <div id = "playerBlocCenter">
             <div id= "playerButtons"> 
-                <button ><i class="fas fa-random"></i></button>
+                <button id="btnRandom"><i class="fas fa-random"></i></button>
                 <button id="btnPrevious"><i class="fas fa-step-backward"></i></button>
                 <button id='howler-play'><i class="fas fa-play"></i></button>
 
@@ -94,6 +97,7 @@ function displayPlayer() {
     $("#howler-loop").on("click", onLoop)
     $("#btnPrevious").on("click", onPrevious)
     $("#btnNext").on("click", onNext)
+    $("#btnRandom").on("click", onRandom)
 
 }
 
@@ -116,8 +120,28 @@ function onNext() {
         return;
     }
     stopMusic()
-    if (!onLoopAlbum && currentMusicIndex == musicsList.length-1) return
+    if (!onLoopAlbum && currentMusicIndex == musicsList.length - 1) return
     onEnd()
+}
+
+function onRandom() {
+    if (onRandomList) {
+        onRandomList = false;
+        $(".fa-random").removeClass("randomActive")
+    } else {
+        onRandomList = true;
+        $(".fa-random").addClass("randomActive")
+        toPlayMusicsList = new Array()
+        fillToPlayMusicsList()
+    }
+}
+
+function fillToPlayMusicsList() {
+    toPlayMusicsList = new Array()
+    for(let i = 0; i < musicsList.length; i++) {
+        if (i == currentMusicIndex) continue
+        toPlayMusicsList.push(i)
+    }
 }
 
 function formatTime(secs) {
@@ -191,11 +215,28 @@ function onPlay() {
 function onEnd() {
     if (onLoopSound) return;
     $(`#music${currentMusicIndex}`).removeClass("musicPlaying")
-    currentMusicIndex++;
+    if (onRandomList) {
+        if (toPlayMusicsList.length == 0) {
+            if (onLoopAlbum) fillToPlayMusicsList()
+            else {
+                sound.stop();
+                return;
+            }
+        }
+        let newIndex = toPlayMusicsList[Math.floor(Math.random() * toPlayMusicsList.length)]
+        let i = toPlayMusicsList.indexOf(newIndex)
+        toPlayMusicsList.splice(i,1)
+        currentMusicIndex = newIndex;
+
+    } else {
+        currentMusicIndex++;
+    }
+
     if (onLoopAlbum && currentMusicIndex == musicsList.length)
         currentMusicIndex = 0;
-    else if (!onLoopAlbum && currentMusicIndex == musicsList.length) {
+    else if ((!onLoopAlbum && currentMusicIndex == musicsList.length)) {
         sound.stop();
+        return;
     }
     sound = musicsList[currentMusicIndex];
     sound.play()

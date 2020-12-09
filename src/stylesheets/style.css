@@ -220,6 +220,10 @@ input{
     color: var(--blue) !important;
 }
 
+.randomActive {
+    color: var(--blue)
+}
+
 .alert-success{
     background-color: var(--greenAlert) !important;
     color: white !important;
