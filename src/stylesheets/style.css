@@ -216,7 +216,10 @@ input{
 
 .musicPlaying {
     color: var(--blue) !important;
-    border-bottom: 2px, medium, var(--blue) !important;
+}
+
+.randomActive {
+    color: var(--blue)
 }
 
 .alert-success{
@@ -416,29 +419,40 @@ Lecture
     border-radius: 5px;
 }
 #howler-loop img{
-    background-color: var(--main-bg);
+    background-color: var(--navbar-bg);
     height: 22px;
     width: 22px;
     
 }
 #generalLecture button{
-    background-color: var(--main-bg);
+    background-color: var(--navbar-bg);
     border: none;
     color: white;
 }
 
-.playerPosition{
+#player {
     position: fixed;
     bottom: 0;
-    left: 20%;
-    margin: 1%;
+    width: 100%;
+    background-color: var(--navbar-bg);
+    height: 100px;
+    z-index: 2;
+}
+
+.playerPosition{
     display: flex;
     justify-content: space-between;
 }
 
 #playerBlocInfo{
-    margin-right: 15%;
-    margin-left: 15%;
+    margin-right: 12%;
+    display: flex;
+    width: 100%;
+    height: 100px;
+}
+
+#playerBlocInfo *{
+    color: white;
 }
 
 #playerButtons{
@@ -461,6 +475,12 @@ Lecture
     color: white;
     width: 30px;
 }
+
+#player-hr{
+    height: 1px;
+    background: var(--main-bg);
+}
+
 
 /*###########################################################################
 Audio

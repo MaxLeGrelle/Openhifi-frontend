@@ -9,6 +9,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
+import { displayPlayer } from "./Player"
 const jwt = require("jsonwebtoken")
 
 
@@ -21,6 +22,7 @@ function Accueil() {
     displayMenu()
     displayMain()
     getAllAlbums()
+    displayPlayer()
 }
 
 //HTML for the navbar
@@ -148,7 +150,7 @@ function displayDiscover(data) {
   <!--/.Carousel Wrapper-->`)
   let i = 0;
   let j;
-  console.log(data)
+  $("#discover .carousel-inner").empty()
   data.albumList.forEach(album => {
     if (i%4==0) {
       j = i;

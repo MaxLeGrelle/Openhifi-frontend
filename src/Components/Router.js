@@ -28,7 +28,6 @@ const routes = {
 function router(){
     
     $(window).on("load", () => {
-        console.log("ICI", window.location.pathname)
         pageToRender = routes[window.location.pathname];
         if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
         if(!pageToRender){
