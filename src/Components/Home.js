@@ -20,6 +20,7 @@ function Accueil() {
     displayNavBar()
     displayMenu()
     displayMain()
+    getAllAlbums()
 }
 
 //HTML for the navbar
@@ -74,7 +75,7 @@ function displayMain() {
     $('#recently').append(`
       <div class="row">
       <div class="col-md">
-      <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+      <div id="carouselRecently" class="carousel slide" data-interval="false">
       <div class="carousel-inner">
         <div class="carousel-item active">
         <img src="${r1}" alt="logo" height="200px" width="200px"/>
@@ -89,14 +90,14 @@ function displayMain() {
         <img src="${r1}" alt="logo" height="200px" width="200px"/>
         </div>
       </div>
-      <div id="next">
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <div id="nextRecently">
+        <a class="carousel-control-prev" href="#carouselRecently" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
       </div>
-      <div id="prev">
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <div id="prevRecently">
+        <a class="carousel-control-next" href="#carouselRecently" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
@@ -106,6 +107,78 @@ function displayMain() {
     </div>
     `)
     
+}
+
+function getAllAlbums() {
+  fetch("/api/albums/")
+    .then((response) => {
+        if (!response.ok)
+          throw new Error("Error code : " + response.status + " : " + response.statusText);
+        return response.json();
+      })
+      .then((data) => displayDiscover(data))
+      // .catch((err) => onErrorAddingAlbum(err));
+}
+
+function displayDiscover(data) {
+  $("#discover").append(`
+  <!--Carousel Wrapper-->
+  <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel" data-interval="false">
+  
+    <!--Fleches-->
+    <div id="nextDiscover">
+        <a class="carousel-control-prev" href="#multi-item-example" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+    </div>
+    <div id="prevDiscover">
+      <a class="carousel-control-next" href="#multi-item-example" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <!--/Fleches-->
+  
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+    </div>
+    <!--/.Slides-->
+  
+  </div>
+  <!--/.Carousel Wrapper-->`)
+  let i = 0;
+  let j;
+  console.log(data)
+  data.albumList.forEach(album => {
+    if (i%4==0) {
+      j = i;
+      $("#discover .carousel-inner").append(`<div id="discoverCarouselItem${i}" class="carousel-item">`);
+      $("#discoverCarouselItem0").addClass("active")
+    }
+
+    $(`#discoverCarouselItem${j}`).append(`
+        <div class="container-card" style="float:left">
+          <div class="card mb-2">
+            <a href="#" data-url="/albums" data-id="${album.id}">
+              <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
+            </a>
+            <div class="card-body">
+              <a href="#" data-url="/albums" data-id="${album.id}">
+                <h4 class="card-title">${album.name}</h4>
+              </a>
+              <a href="#" data-url="/albums" data-id="${album.id}">
+                <p class="card-text">de : ${data.creatorList[i]}</p>
+              </a>
+              <a class="btn btn-primary">Like</a>
+            </div>
+          </div>
+        </div>`
+   )
+   i++;
+  });
+  $("#discover .carousel-inner a").on("click", onNavigate)
+  
 }
 
 function displayAccueil() {
@@ -142,4 +215,4 @@ function displayAccueil() {
     
 }
 
-export {displayNavBar, displayMenu, displayAccueil} ;
+export {displayAccueil, displayMenu, displayNavBar, displayMain};

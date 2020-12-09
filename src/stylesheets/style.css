@@ -132,15 +132,18 @@ input{
     margin-top: 40px;
 }
 
-#recently{
+#recently, #discover{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 
 }
-
-.carousel-inner{
+#carouselExampleControls{
+    width:100% !important;
+}
+#recently .carousel-inner{
+    width: 100% !important;
     margin-left: 5%;
 }
 
@@ -158,6 +161,64 @@ input{
 }
 #main  .row{
     width: 100% !important;
+}
+/*carousel discover*/
+
+/* #discoverCarouselInner .active, .carousel-item-left, .carousel-item-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
+#discover .card {
+    width: 100% !important;
+    margin: 0 !important;
+    border-color: unset;
+}
+
+#discover .container-card {
+    padding: 0 !important;
+    width: 15% !important;
+    margin-left: 4% !important;
+}
+
+#discover .carousel-item {
+    margin-left: 10% !important;
+}
+
+#discover .card-body {
+    background-color: #0d1015;
+    color: white;
+}
+
+/* #discover .carousel img {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+} */
+
+/*add album*/
+#formAddMusic *, #formAddAlbum *, #listMusicsToAdd {
+    color : white
+}
+
+/*view album*/
+
+#albumDisplay * {
+    color: white;
+}
+
+/* .musicPlay:hover {
+    border-bottom: white;
+} */
+
+.musicPlayingHover {
+    color: var(--blue) !important;
+}
+
+.musicPlaying {
+    color: var(--blue) !important;
+    border-bottom: 2px, medium, var(--blue) !important;
 }
 
 .alert-success{
@@ -397,4 +458,8 @@ Register / Login page
 
 #howler-vol{
 
+}
+
+#formAddAlbum *{
+    color: white;
 }
