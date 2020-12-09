@@ -283,7 +283,7 @@ function onPlay() {
 }
 
 /**
- * when a music end, decide who is next
+ * when a music end, decide which is next
  * that depend of many conditions:
  * -is it looping on the track?
  * -is it looping on the list ?
