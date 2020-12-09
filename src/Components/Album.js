@@ -5,7 +5,9 @@ import { onNavigate } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer} from './Player'; 
 const howl = require("howler")
 
-//PEUT PAS RECUP LOGO ???
+/**
+ * Append the divs to display the data of the album
+ */
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
@@ -31,6 +33,9 @@ function displayAlbum() {
     displayPlayer();
 }
 
+/**
+ * Gets the data of the album with its id found in the url
+ */
 function getAlbumData() {
     let parameter = findGetParameter("no")
     fetch("/api"+window.location.pathname+"/"+parameter)
