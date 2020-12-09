@@ -1,10 +1,3 @@
-import {
-    displayNavBar,
-    displayMenu
-} from './Home.js'
-import {
-    onNavigate
-} from './Router.js'
 //import music from '../sounds/m1.mp3'
 import loop from '../img/loop.png'
 import loopActive from '../img/loop-active.png'
@@ -20,29 +13,38 @@ let onLoopSound = false;
 let onRandomList = false;
 let volume;
 let toPlayMusicsList;
+let dataMusics;
+let id;
 
 //source : https://codepen.io/astephannie/pen/NaBKLG
 
-function displayLecture(musics, indexMusicSelected) {
+function displayLecture(musics, indexMusicSelected, data) {
     if (sound) stopMusic()
-    musicsList = musics
+    id = data.id
+    musicsList = new Array()
+    musics.forEach(music => {
+        musicsList.push(music)
+    });
+    // musicsList = musics
     currentMusicIndex = parseInt(indexMusicSelected);
-    if(onRandomList) fillToPlayMusicsList()
+    dataMusics = data
+    if (onRandomList) fillToPlayMusicsList()
     playMusic()
 }
 
 function playMusic() {
     if (sound) stopMusic()
     sound = musicsList[currentMusicIndex];
-    $(`#music${currentMusicIndex}`).addClass("musicPlaying")
+    $(`#music${id+"-"+currentMusicIndex}`).addClass("musicPlaying")
     sound.loop(onLoopSound)
     sound.volume(volume)
     onListening()
 }
 
 function stopMusic() {
+    if(!sound) return;
     sound.stop() //if an other music is playing, it will stop it
-    $(`#music${currentMusicIndex}`).removeClass("musicPlaying")
+    $(`#music${id+"-"+currentMusicIndex}`).removeClass("musicPlaying")
 }
 
 function barClick(e) {
@@ -62,11 +64,14 @@ function audioClick(e) {
 
 
 function displayPlayer() {
+    $("#player").empty()
     $("#player").append(`<div id = "generalLecture">
+    <hr id="player-hr" class="w-100 m-0">
+
     <div class = "playerPosition">
-        <div id = "playerBlocInfo"> 
+        <div id = "playerBlocInfo">
         </div>
-        <div id = "playerBlocCenter">
+        <div id = "playerBlocCenter" class="align-self-center">
             <div id= "playerButtons"> 
                 <button id="btnRandom"><i class="fas fa-random"></i></button>
                 <button id="btnPrevious"><i class="fas fa-step-backward"></i></button>
@@ -91,6 +96,7 @@ function displayPlayer() {
         </div> 
     </div>   
     `)
+    if (sound) displayDataPlayer()
     $("#howler-play").on("click", onListening)
     $("#howler-vol").on("click", onChangingVolume);
     $(".audio-progress").on("click", barClick)
@@ -98,6 +104,7 @@ function displayPlayer() {
     $("#btnPrevious").on("click", onPrevious)
     $("#btnNext").on("click", onNext)
     $("#btnRandom").on("click", onRandom)
+
 
 }
 
@@ -120,11 +127,12 @@ function onNext() {
         return;
     }
     stopMusic()
-    if (!onLoopAlbum && currentMusicIndex == musicsList.length - 1) return
+    if (!onRandomList && !onLoopAlbum && currentMusicIndex == musicsList.length - 1) return
     onEnd()
 }
 
 function onRandom() {
+    if (!sound) return;
     if (onRandomList) {
         onRandomList = false;
         $(".fa-random").removeClass("randomActive")
@@ -138,7 +146,7 @@ function onRandom() {
 
 function fillToPlayMusicsList() {
     toPlayMusicsList = new Array()
-    for(let i = 0; i < musicsList.length; i++) {
+    for (let i = 0; i < musicsList.length; i++) {
         if (i == currentMusicIndex) continue
         toPlayMusicsList.push(i)
     }
@@ -155,7 +163,7 @@ function updateTimeTracker() {
     var seek = sound.seek() || 0;
     var currentTime = formatTime(Math.round(seek));
     $('#timer').text(currentTime);
-    progress.style.width = (((seek / self.duration()) * 100) || 0) + '%';
+    $("#progress").css("width", (((seek / self.duration()) * 100) || 0) + '%')
 
     if (self.playing()) {
         requestAnimationFrame(updateTimeTracker.bind(self));
@@ -163,6 +171,7 @@ function updateTimeTracker() {
 }
 
 function onLoop() {
+    if (!sound) return;
     $("#howler-loop").empty()
     if (!onLoopAlbum && !onLoopSound) {
         $("#howler-loop").append(`<img src = "${loopAlbumActive}" href="loop">`)
@@ -181,6 +190,7 @@ function onLoop() {
 }
 
 function onListening() {
+    if (!sound) return;
     $("#howler-play").empty()
     if (!(sound.playing())) {
         $("#howler-play").append(`<i class="fas fa-pause"></i>`)
@@ -192,6 +202,7 @@ function onListening() {
 }
 
 function onChangingVolume() {
+    if (!sound) return;
     $("#displayBarVol").empty()
     if (vol) {
         vol = false;
@@ -204,8 +215,9 @@ function onChangingVolume() {
 }
 
 function onPlay() {
-    $(`#music${currentMusicIndex}`).addClass("musicPlaying")
-
+    $(`#music${id+"-"+currentMusicIndex}`).addClass("musicPlaying")
+    sound.volume(volume)
+    displayDataPlayer()
     var time = Math.round(sound.duration());
     $('#duration').html(formatTime(time));
     // Start upating the progress of the track.
@@ -214,7 +226,7 @@ function onPlay() {
 
 function onEnd() {
     if (onLoopSound) return;
-    $(`#music${currentMusicIndex}`).removeClass("musicPlaying")
+    $(`#music${id+"-"+currentMusicIndex}`).removeClass("musicPlaying")
     if (onRandomList) {
         if (toPlayMusicsList.length == 0) {
             if (onLoopAlbum) fillToPlayMusicsList()
@@ -225,7 +237,7 @@ function onEnd() {
         }
         let newIndex = toPlayMusicsList[Math.floor(Math.random() * toPlayMusicsList.length)]
         let i = toPlayMusicsList.indexOf(newIndex)
-        toPlayMusicsList.splice(i,1)
+        toPlayMusicsList.splice(i, 1)
         currentMusicIndex = newIndex;
 
     } else {
@@ -242,9 +254,37 @@ function onEnd() {
     sound.play()
 }
 
+function displayDataPlayer() {
+    $("#playerBlocInfo").empty()
+    $("#playerBlocInfo").append(`
+    <img src="${dataMusics.image64}" width="175px" height="100px">
+    <div class="ml-3 d-flex flex-column justify-content-center">
+        <p class="mb-1">${dataMusics.listMusicsInfo[currentMusicIndex].title}</p>
+        <p>${dataMusics.creator}</p>
+    </div>
+    `)
+    let time = Math.round(sound.duration());
+    $('#duration').html(formatTime(time));
+    if (sound.playing()) {
+        $("#howler-play").empty()
+        $("#howler-play").append(`<i class="fas fa-pause"></i>`)
+    }
+    if (onLoopAlbum) {
+        $("#howler-loop").empty()
+        $("#howler-loop").append(`<img src = "${loopAlbumActive}" href="loop">`)
+    }else if (onLoopSound) {
+        $("#howler-loop").empty()
+        $("#howler-loop").append(`<img src = "${loopActive}" href="loop">`)
+    }
+    if (onRandomList) {
+        $(".fa-random").addClass("randomActive")
+    }
+}
+
 export {
     displayLecture,
     displayPlayer,
     onPlay,
-    onEnd
+    onEnd,
+    stopMusic
 };

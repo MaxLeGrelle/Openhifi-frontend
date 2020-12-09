@@ -21,8 +21,6 @@ function displayAlbum() {
           <div id="trends"></div>
         </div>
         <div id="main">
-        </div>
-        <div id="player">
         </div>`);
   
     $("#navbar").on("click", onNavigate)
@@ -58,7 +56,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-let musics = new Array()
+let musics
 function displayAlbumData(data){
     $("#main").empty()
     $("#main").append(`
@@ -78,6 +76,7 @@ function displayAlbumData(data){
         <tbody></tbody>
         </table>
     </div>`)
+    musics = new Array()
     for (let i = 0; i < data.listMusics64.length; i++) {
         musics.push(new howl.Howl({
             src: [data.listMusics64[i]], 
@@ -90,25 +89,28 @@ function displayAlbumData(data){
     data.listMusicsInfo.forEach(musicInfo => {
         $("#albumMusicList tbody").append(`
         <tr class="scope" data-id="${i}">
-            <td id="music${i}">${musicInfo.title}</td>
+            <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
             <td>${data.creator}</td>
             <td>${data.name}</td>
             <td>NA</td>
         </tr>`)
-        $(`#music${i}`).on("click", onSelectMusic)
-        $(`#music${i}`).on("mouseover", (e) => {
+        $(`#music${data.id+"-"+i}`).on("click", function(e) {
+            onSelectMusic(e, data)
+        })
+        $(`#music${data.id+"-"+i}`).on("mouseover", (e) => {
             $(e.target).addClass("musicPlayingHover")
         })
-        $(`#music${i}`).on("mouseleave", (e) => {
+        $(`#music${data.id+"-"+i}`).on("mouseleave", (e) => {
             $(e.target).removeClass("musicPlayingHover")
         })
         i++
     });
 }
 
-function onSelectMusic(e) {
+function onSelectMusic(e, data) {
+    console.log("onSelectMusic", musics)
     let indexMusicSelected = e.target.parentElement.dataset.id
-    displayLecture(musics, indexMusicSelected)
+    displayLecture(musics, indexMusicSelected, data)
 }
 
 export {displayAlbum};
