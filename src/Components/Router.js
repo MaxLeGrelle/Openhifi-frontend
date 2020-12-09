@@ -49,7 +49,7 @@ function router(){
 function onNavigate(e){
     let url;
     let id;
-    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
+    if(e.target.tagName === "A"){
         e.preventDefault();
         url = e.target.dataset.url;
     }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P") {
