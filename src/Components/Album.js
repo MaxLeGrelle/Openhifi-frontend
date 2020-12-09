@@ -2,7 +2,7 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
-import {displayLecture, onPlay, onEnd, displayPlayer} from './Player'; 
+import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player'; 
 const howl = require("howler")
 
 /**
@@ -47,7 +47,11 @@ function getAlbumData() {
     .catch((err) => console.log(err.message))
 }
 
-//source : https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+/**
+ * Return the value associated with the key parameterName in the url
+ * @param {*} parameterName the key
+ * //source : https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+ */
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
@@ -61,7 +65,12 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-let musics
+let musics //It will contains all the musics of the album ordered as it is displayed
+
+/**
+ * Appends the divs to display the data of the album fetched
+ * @param {*} data all the data related to the album
+ */
 function displayAlbumData(data){
     $("#main").empty()
     $("#main").append(`
@@ -81,7 +90,7 @@ function displayAlbumData(data){
         <tbody></tbody>
         </table>
     </div>`)
-    musics = new Array()
+    musics = new Array() //empty the array to avoid duplicated songs
     for (let i = 0; i < data.listMusics64.length; i++) {
         musics.push(new howl.Howl({
             src: [data.listMusics64[i]], 
@@ -90,14 +99,17 @@ function displayAlbumData(data){
             preload : true,
         }))
     }
-    let i = 0; 
+    let i = 0;
+    //TODO
     data.listMusicsInfo.forEach(musicInfo => {
+        //hide the id of the music in order to know which music has been clicked
+        //All musics will have a unique html id in order to change dynamicaly its style when it's played
         $("#albumMusicList tbody").append(`
         <tr class="scope" data-id="${i}">
             <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
             <td>${data.creator}</td>
             <td>${data.name}</td>
-            <td>NA</td>
+            <td>${formatTime(Math.round(musicInfo.duration))}</td>
         </tr>`)
         $(`#music${data.id+"-"+i}`).on("click", function(e) {
             onSelectMusic(e, data)
@@ -112,8 +124,12 @@ function displayAlbumData(data){
     });
 }
 
+/**
+ * Fires when we click on a music, it will get the hided id and all the data fetched
+ * @param {*} e event
+ * @param {*} data data fetched
+ */
 function onSelectMusic(e, data) {
-    console.log("onSelectMusic", musics)
     let indexMusicSelected = e.target.parentElement.dataset.id
     displayLecture(musics, indexMusicSelected, data)
 }

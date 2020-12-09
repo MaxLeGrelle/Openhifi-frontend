@@ -286,5 +286,6 @@ export {
     displayPlayer,
     onPlay,
     onEnd,
-    stopMusic
+    stopMusic,
+    formatTime
 };
