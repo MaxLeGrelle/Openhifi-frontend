@@ -1,10 +1,7 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-
-import { displayNavBar, displayMenu } from './Home.js'
-import { onNavigate, redirectUrl } from './Router.js';
-import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
-const jwt = require("jsonwebtoken")
+import {displayNavBar,displayMenu} from './Home.js'
+import { onNavigate } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player'; 
 const howl = require("howler")
 
@@ -14,7 +11,7 @@ const howl = require("howler")
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
-    $("#container").append(` 
+      $("#container").append(` 
         <div id="navbar">
           <div id="logo"></div>
           <div id="search"></div>
@@ -27,7 +24,7 @@ function displayAlbum() {
         </div>
         <div id="main">
         </div>`);
-
+  
     $("#navbar").on("click", onNavigate)
     $("#menu").on("click", onNavigate)
     displayNavBar()
@@ -41,13 +38,13 @@ function displayAlbum() {
  */
 function getAlbumData() {
     let parameter = findGetParameter("no")
-    fetch("/api" + window.location.pathname + "/" + parameter)
-        .then((response) => {
-            if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
-            return response.json();
-        })
-        .then((data) => displayAlbumData(data))
-        .catch((err) => console.log(err.message))
+    fetch("/api"+window.location.pathname+"/"+parameter)
+    .then((response)=> {
+        if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+        return response.json();
+    })
+    .then((data) => displayAlbumData(data))
+    .catch((err) => console.log(err.message))
 }
 
 /**
@@ -62,8 +59,8 @@ function findGetParameter(parameterName) {
         .substr(1)
         .split("&")
         .forEach(function (item) {
-            tmp = item.split("=");
-            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
 }
@@ -88,7 +85,6 @@ function displayAlbumData(data){
                     <th>Artiste</th>
                     <th>Album</th>
                     <th>Durée</th>
-                    <th></th>
                 </tr>
             </thead>
         <tbody></tbody>
@@ -97,38 +93,28 @@ function displayAlbumData(data){
     musics = new Array() //empty the array to avoid duplicated songs
     for (let i = 0; i < data.listMusics64.length; i++) {
         musics.push(new howl.Howl({
-            src: [data.listMusics64[i]],
-            onplay: onPlay,
-            onend: onEnd,       
-            preload: true,
+            src: [data.listMusics64[i]], 
+            onplay : onPlay,
+            onend: onEnd,
+            preload : true,
         }))
     }
     let i = 0;
+    //TODO
     data.listMusicsInfo.forEach(musicInfo => {
-        if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
-            $("#albumMusicList tbody").append(`
-            <tr class="scope" data-id="${i}">
-                <td id="music${i}">${musicInfo.title}</td>
-                <td>${data.creator}</td>
-                <td>${data.name}</td>
-                <td>NA</td>
-                <td class = "Like" data-realid = "${musicInfo.id}"><i id = "heart-${musicInfo.id}" class="fas fa-heart fa-2x"></i></td>
-            </tr>`)
-        }
-        else{
-            $("#albumMusicList tbody").append(`
-            <tr class="scope" data-id="${i}">
-                <td id="music${i}">${musicInfo.title}</td>
-                <td>${data.creator}</td>
-                <td>${data.name}</td>
-                <td>NA</td>
-                <td class = "Like" data-realid = "${musicInfo.id}"><i id = "heart-${musicInfo.id}" class="far fa-heart fa-2x"></i></td>
-            </tr>`)
-        }
-
-        $(`#music${i}`).on("click", onSelectMusic)
-        $(`#music${i}`).on("mouseover", (e) => {
-
+        //hide the id of the music in order to know which music has been clicked
+        //All musics will have a unique html id in order to change dynamicaly its style when it's played
+        $("#albumMusicList tbody").append(`
+        <tr class="scope" data-id="${i}">
+            <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
+            <td>${data.creator}</td>
+            <td>${data.name}</td>
+            <td>${formatTime(Math.round(musicInfo.duration))}</td>
+        </tr>`)
+        $(`#music${data.id+"-"+i}`).on("click", function(e) {
+            onSelectMusic(e, data)
+        })
+        $(`#music${data.id+"-"+i}`).on("mouseover", (e) => {
             $(e.target).addClass("musicPlayingHover")
         })
         $(`#music${data.id+"-"+i}`).on("mouseleave", (e) => {
@@ -136,38 +122,7 @@ function displayAlbumData(data){
         })
         i++
     });
-    $(".Like").on("click", onLike)
 }
-function onLike(e) {
-    console.log("Class List :",e.target.classList)
-    if (e.target.tagName === "svg" || e.target.tagName === "path") {
-        let musicLikedId ;
-        if(e.target.tagName === "svg"){
-            musicLikedId = e.target.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("far")
-            $(`#heart-${musicLikedId}`).addClass("fas")
-
-        }
-        else {
-            musicLikedId = e.target.parentElement.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("fas")
-            $(`#heart-${musicLikedId}`).addClass("far")
-        }
-        const userLogged = getUserStorageData()
-        const infoUser = jwt.decode(userLogged.token)
-        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
-            method: "PUT"
-        })
-            .then((response) => {
-                if (!response.ok)
-                    throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
-                return response.json()
-            })
-            .catch((err) => redirectUrl("/error", err.message))
-        console.log("add")
-        console.log(e.target.parentElement)
-        addNewMusicLikedStorage(musicLikedId)
-
 
 /**
  * Fires when we click on a music, it will get the hided id and all the data fetched
@@ -179,5 +134,4 @@ function onSelectMusic(e, data) {
     displayLecture(musics, indexMusicSelected, data)
 }
 
-export { displayAlbum };
-
+export {displayAlbum};

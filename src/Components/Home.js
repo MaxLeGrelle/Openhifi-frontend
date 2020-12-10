@@ -149,7 +149,7 @@ function getAllAlbums() {
         return response.json();
       })
       .then((data) => displayDiscover(data))
-      // .catch((err) => onErrorAddingAlbum(err));
+      .catch((err) => onErrorDisplayAlbum(err));
 }
 
 function displayDiscover(data) {
@@ -204,21 +204,19 @@ function displayDiscover(data) {
               <a href="#" data-url="/albums" data-id="${album.id}">
                 <p class="card-text">de : ${data.creatorList[i]}</p>
               </a>
-              <a id="like"></a>
+              <a class="btn btn-primary">Like</a>
             </div>
           </div>
         </div>`
    )
    i++;
   });
-  $("#discover .carousel-inner a").on("click", onNavigate.bind())
-  $("#like").on("click",onLike)
-
+  $("#discover .carousel-inner a").on("click", onNavigate)
   
 }
-function onLike(){
-  console.log("+1")
 
+function onErrorDisplayAlbum(err) {
+  $("#main").prepend(`<p class="alert alert-danger"> ${err.message} </p>`);
+}
 
 export {displayHome, displayMenu, displayNavBar, displayMain};
-
