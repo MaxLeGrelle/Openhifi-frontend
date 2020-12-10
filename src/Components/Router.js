@@ -1,4 +1,5 @@
-import {displayAccueil} from "./Home.js";
+
+import {displayHome} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
@@ -13,13 +14,12 @@ let pageToRender;
 
 let navbar;
 const routes = {
-    "/": displayAccueil,
+    "/": displayHome,
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
     "/trends": displayTrends,
     "/favorite": displayFavorite,
-    "/lecture": displayLecture,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
     "/error" : displayError
@@ -47,6 +47,7 @@ function router(){
 }
 
 function onNavigate(e){
+    console.log(e.target);
     let url;
     let id;
     if(e.target.tagName === "A"){

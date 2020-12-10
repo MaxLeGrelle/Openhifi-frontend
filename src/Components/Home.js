@@ -17,19 +17,41 @@ const jwt = require("jsonwebtoken")
 library.add(fas, far)
 dom.watch()
 
-function Accueil() {
-    displayNavBar()
-    displayMenu()
-    displayMain()
-    getAllAlbums()
-    displayPlayer()
-}
 
-//HTML for the navbar
+
+function displayHome() {
+  const userLogged = getUserStorageData()
+  const infoUser  = jwt.decode(userLogged.token)
+  $("#container").empty();
+  console.log("affiche accueil");
+  $("#container").append(` 
+    <div id="navbar"> </div>
+    <div id="menu"> </div>
+    <div id="main">
+      <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter de la musique</div>
+      <h2>Écouté recemment :</h2>
+      <div id="recently"></div>
+      <h2>À Découvrir :</h2>
+        
+      <div id="discover"></div>
+    </div>
+  `);
+  displayNavBar()
+  displayMenu()
+  displayMain()
+  getAllAlbums()
+}        
+
+//HTML of the navbar
 function displayNavBar() {
-
+    $("#navbar").append(` 
+    <div id="logo"></div>
+    <div id="search"></div>
+    <div id="add"></div>
+    <div id="profile"></div>`);
     //logo on top left
-    $('#logo').append(`<a href = "#"><div class="row">
+    $('#logo').append(`
+    <a href = "#"><div class="row">
     <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
 
     //seach bar on top
@@ -41,7 +63,10 @@ function displayNavBar() {
     </div>
     </div>`)
     //add button on top  
+
     $('#add').append(`<a class="btn btn-bluegradient" href="#" data-url="/addAlbum">Ajouter</a> `)
+
+
 
     //profil picture on top right
     $('#profile').append(`
@@ -56,17 +81,23 @@ function displayNavBar() {
     </div>
   </div>
       `)
+
+  $("#navbar").on("click", onNavigate)
      
 }
 
 //HTML for the vertical menu
 function displayMenu() {
 
+   $("#menu").append(`
+   <div id="favorite"></div>
+   <div id="trends"></div>`);
     //trends button/link on middle left (star)
     $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
 
     //favorite button/link on middle left (heart)
     $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
+    $("#menu").on("click", onNavigate)
 }
 
 
@@ -150,7 +181,9 @@ function displayDiscover(data) {
   <!--/.Carousel Wrapper-->`)
   let i = 0;
   let j;
+
   $("#discover .carousel-inner").empty()
+
   data.albumList.forEach(album => {
     if (i%4==0) {
       j = i;
@@ -182,38 +215,4 @@ function displayDiscover(data) {
   
 }
 
-function displayAccueil() {
-    const userLogged = getUserStorageData()
-    const infoUser  = jwt.decode(userLogged.token)
-    $("#page").empty();
-    console.log("affiche accueil");
-    $("#page").append(`<div id = "container"> </div>`)
-    $("#container").append(` 
-        <div id="navbar">
-        <div id="logo"></div>
-        <div id="search"></div>
-        <div id="add"></div>
-        <div id="profile"></div>
-      </div>
-     
-      <div id="menu">
-        <div id="favorite"></div>
-        <div id="trends"></div>
-      </div>
-      <div id="main">
-        <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter votre playlist country</div>
-        <h2>Écouté recemment :</h2>
-        <div id="recently"></div>
-        <h2>À Découvrir :</h2>
-        
-        <div id="discover"></div>
-        </div>
-        `);
-
-    $("#navbar").on("click", onNavigate)
-    $("#menu").on("click", onNavigate)
-    Accueil();
-    
-}
-
-export {displayAccueil, displayMenu, displayNavBar, displayMain};
+export {displayHome, displayMenu, displayNavBar, displayMain};

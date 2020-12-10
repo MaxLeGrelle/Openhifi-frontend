@@ -1,15 +1,31 @@
+
 import {
     redirectUrl
 } from "./Router";
 import {
     getUserStorageData
 } from "../Utils/storage.js";
+import {displayNavBar,displayMenu} from './Home.js';
+import { redirectUrl } from "./Router";
+import imageDefault from "../img/defaultImg.jpg";
+import { getUserStorageData } from "../Utils/storage.js";
 const jwt = require("jsonwebtoken");
+var FinalImage = imageDefault;
 
 function displayAddAlbum() {
-    $("#page").empty()
-    $("#page").append(`
-    <div class="container">
+
+    $("#container").append(`
+    <div id="navbar"></div>
+    <div id="menu">
+      <div id="favorite"></div>
+      <div id="trends"></div>
+    </div>
+    <div id="addAlbumPage">
+        <div id = "topPageAddAlbum">
+            <img id = "imageAddAlbum"src="${imageDefault}" href"image album">
+            <ol id="listMusicsToAdd">
+            </ol>
+        </div>
         <form id="formAddMusic">
             <div class="form-group">
                 <label for="musicTitle">Titre :</label>
@@ -23,9 +39,10 @@ function displayAddAlbum() {
                 <input value="Ajouter la musique" type="submit" class="form-control" id="submitAddMusic">
             </div>
         </form>
-        <ol id="listMusicsToAdd">
-        </ol>
+        <div id ="AddAlbumPlace"> </div>
     </div>`)
+    displayNavBar()
+    displayMenu()
     $("#formAddMusic").on("submit", onSubmitMusic);
     // document.getElementById("music").onchange = setFileInfo
 
@@ -43,7 +60,7 @@ function onSubmitMusic(e) {
         showFormAddAlbum = true;
     }
     if (showFormAddAlbum) {
-        $("#listMusicsToAdd").append(`
+        $("#AddAlbumPlace").append(`
         <div class="container">
             <form id="formAddAlbum">
                 <div class="form-group">
@@ -61,10 +78,12 @@ function onSubmitMusic(e) {
             <div id="errorAddingAlbum"></div>
         </div>`)
         $("#formAddAlbum").on("submit", onSubmitAlbum);
+        $('#image').on("change",changeImage);
         showFormAddAlbum = false
     }
     $("#listMusicsToAdd").append(`
-            <li>${$("#musicTitle").val()}</li>
+            <li id= "newMusic">${$("#musicTitle").val()}</li>
+            <hr>
     `)
     const promise = fileToBase64($("#music").prop('files')[0]);
     promise.then((music64) => {
@@ -142,6 +161,15 @@ function fileToBase64(file) {
         };
         reader.onerror = reject;
         reader.readAsDataURL(file);
+    });
+}
+
+function changeImage(e){
+    isDefault = false;
+    let promise = fileToBase64($("#image").prop('files')[0]);
+    promise.then( (image64) => {
+        $("#imageAddAlbum").attr("src", image64);
+        finalImage = image64;
     });
 }
 export default displayAddAlbum;
