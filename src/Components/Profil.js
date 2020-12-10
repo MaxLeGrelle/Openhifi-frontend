@@ -10,14 +10,15 @@ function displayProfil() {
 
     $("#container").empty();
     console.log("affiche profil");
-    $("#container").append(` 
+    $("#container").append(`
       <div id="navbar"></div>
 
       <div id="menu">
         <div id="favorite"></div>
         <div id="trends"></div>
       </div>
-      <div id="main"></div>`);
+      <div id="main"></div>
+    `);
     displayMenu()
     displayNavBar()
     Profil()
