@@ -1,3 +1,4 @@
+
 import {displayHome} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
@@ -6,9 +7,9 @@ import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
+import {displayLecture} from "./Player.js";
 import displayAddAlbum from "./addAlbum.js";
-import displayAlbum from "./Album.js";
-
+import {displayAlbum} from "./Album.js";
 let pageToRender;
 
 let navbar;
@@ -27,7 +28,6 @@ const routes = {
 function router(){
     
     $(window).on("load", () => {
-        console.log("ICI", window.location.pathname)
         pageToRender = routes[window.location.pathname];
         if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
         if(!pageToRender){
@@ -54,9 +54,9 @@ function onNavigate(e){
         e.preventDefault();
         url = e.target.dataset.url;
     }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P") {
-        e.preventDefault();
         id = e.target.parentElement.dataset.id;
         url = e.target.parentElement.dataset.url;
+        if (!url) url = e.target.dataset.url
     }
 
     if(url){

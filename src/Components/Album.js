@@ -2,8 +2,12 @@ import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
+import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player'; 
 const howl = require("howler")
 
+/**
+ * Append the divs to display the data of the album
+ */
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
@@ -26,9 +30,12 @@ function displayAlbum() {
     displayNavBar()
     displayMenu()
     getAlbumData()
-
+    displayPlayer();
 }
 
+/**
+ * Gets the data of the album with its id found in the url
+ */
 function getAlbumData() {
     let parameter = findGetParameter("no")
     fetch("/api"+window.location.pathname+"/"+parameter)
@@ -40,7 +47,11 @@ function getAlbumData() {
     .catch((err) => console.log(err.message))
 }
 
-//source : https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+/**
+ * Return the value associated with the key parameterName in the url
+ * @param {*} parameterName the key
+ * //source : https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+ */
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
@@ -54,8 +65,14 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-let musics = new Array()
+let musics //It will contains all the musics of the album ordered as it is displayed
+
+/**
+ * Appends the divs to display the data of the album fetched
+ * @param {*} data all the data related to the album
+ */
 function displayAlbumData(data){
+    $("#main").empty()
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">${data.name}</p>
@@ -73,6 +90,7 @@ function displayAlbumData(data){
         <tbody></tbody>
         </table>
     </div>`)
+    musics = new Array() //empty the array to avoid duplicated songs
     for (let i = 0; i < data.listMusics64.length; i++) {
         musics.push(new howl.Howl({
             src: [data.listMusics64[i]], 
@@ -81,53 +99,39 @@ function displayAlbumData(data){
             preload : true,
         }))
     }
-    let i = 0; 
+    let i = 0;
+    //TODO
     data.listMusicsInfo.forEach(musicInfo => {
+        //hide the id of the music in order to know which music has been clicked
+        //All musics will have a unique html id in order to change dynamicaly its style when it's played
         $("#albumMusicList tbody").append(`
         <tr class="scope" data-id="${i}">
-            <td id="music${i}">${musicInfo.title}</td>
+            <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
             <td>${data.creator}</td>
             <td>${data.name}</td>
-            <td>NA</td>
+            <td>${formatTime(Math.round(musicInfo.duration))}</td>
         </tr>`)
-        $(`#music${i}`).on("click", onListening)
-        $(`#music${i}`).on("mouseover", (e) => {
+        $(`#music${data.id+"-"+i}`).on("click", function(e) {
+            onSelectMusic(e, data)
+        })
+        $(`#music${data.id+"-"+i}`).on("mouseover", (e) => {
             $(e.target).addClass("musicPlayingHover")
         })
-        $(`#music${i}`).on("mouseleave", (e) => {
+        $(`#music${data.id+"-"+i}`).on("mouseleave", (e) => {
             $(e.target).removeClass("musicPlayingHover")
         })
         i++
     });
 }
 
-let currentMusicId;
-
-function onListening(e) {
-    e.preventDefault()
-    let id = e.target.parentElement.dataset.id
-    if (!musics[id].playing()) {
-        currentMusicId = id
-        musics[id].play();
-        $(e.target).addClass("musicPlayingHover musicPlaying")
-    }else {
-        musics[id].pause()
-        $(e.target).removeClass("musicPlayingHover musicPlaying")
-    }
+/**
+ * Fires when we click on a music, it will get the hided id and all the data fetched
+ * @param {*} e event
+ * @param {*} data data fetched
+ */
+function onSelectMusic(e, data) {
+    let indexMusicSelected = e.target.parentElement.dataset.id
+    displayLecture(musics, indexMusicSelected, data)
 }
 
-function onPlay() {
-    for (let i = 0; i < musics.length; i++) {
-        if (currentMusicId == i) continue
-        $(`#music${i}`).removeClass("musicPlayingHover musicPlaying")
-        musics[i].stop()
-    }
-}
-
-function onEnd() {
-    if (currentMusicId == musics.length-1) currentMusicId = 0
-    else currentMusicId++
-    musics[currentMusicId].play()
-}
-
-export default displayAlbum;
+export {displayAlbum};

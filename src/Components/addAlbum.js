@@ -1,3 +1,10 @@
+
+import {
+    redirectUrl
+} from "./Router";
+import {
+    getUserStorageData
+} from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
 import { redirectUrl } from "./Router";
 import imageDefault from "../img/defaultImg.jpg";
@@ -6,6 +13,7 @@ const jwt = require("jsonwebtoken");
 var FinalImage = imageDefault;
 
 function displayAddAlbum() {
+
     $("#container").append(`
     <div id="navbar"></div>
     <div id="menu">
@@ -36,12 +44,16 @@ function displayAddAlbum() {
     displayNavBar()
     displayMenu()
     $("#formAddMusic").on("submit", onSubmitMusic);
+    // document.getElementById("music").onchange = setFileInfo
+
 }
 
 let listMusicToAdd;
-
+let currentSongDuration;
+let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
+    setFileInfo($("#music").prop('files')[0])
     let showFormAddAlbum;
     if (!listMusicToAdd) {
         listMusicToAdd = new Array();
@@ -76,11 +88,30 @@ function onSubmitMusic(e) {
     const promise = fileToBase64($("#music").prop('files')[0]);
     promise.then((music64) => {
         listMusicToAdd.push({
-            "music64" : music64,
-            "title" : $("#musicTitle").val()
+            "music64": music64,
+            "title": $("#musicTitle").val(),
+            "duration" : songsDuration[0]
         })
     })
-    
+
+
+
+}
+
+
+//https://stackoverflow.com/questions/29285056/get-video-duration-when-input-a-video-file/29285597
+function setFileInfo(song) { 
+    let audioDOM = document.createElement('audio');
+    audioDOM.preload = 'metadata';
+
+    audioDOM.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(audioDOM.src);
+        let duration = audioDOM.duration;
+        if (songsDuration.length > 0) songsDuration.pop()
+        songsDuration.push(duration)
+    }
+    audioDOM.src = URL.createObjectURL(song);
+
 }
 
 function onSubmitAlbum(e) {
@@ -118,14 +149,16 @@ function onAddingAlbum(data) {
 }
 
 //TODO
-function onErrorAddingAlbum(err){
+function onErrorAddingAlbum(err) {
     $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
 function fileToBase64(file) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         var reader = new FileReader();
-        reader.onload = function() { resolve(reader.result); };
+        reader.onload = function () {
+            resolve(reader.result);
+        };
         reader.onerror = reject;
         reader.readAsDataURL(file);
     });

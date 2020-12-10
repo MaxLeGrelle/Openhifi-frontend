@@ -26,6 +26,7 @@ body {
     overflow-x:hidden
 }
 
+
 /*NavBar*/
 #navbar{
     display: flex;
@@ -69,7 +70,10 @@ body {
     margin-left: 20px;
 
 }
-
+#profile{
+    align-self: center;
+    margin-right: 2%;
+}
 
 #profile{
     align-self: center;
@@ -204,7 +208,20 @@ body {
 
 .musicPlaying {
     color: var(--blue) !important;
-    border-bottom: 2px, medium, var(--blue) !important;
+}
+
+.randomActive {
+    color: var(--blue)
+}
+
+.alert-success{
+    background-color: var(--greenAlert) !important;
+    color: white !important;
+}
+
+.alert-danger{
+    background-color: var(--redAlert) !important;
+    color: white !important;
 }
 
 .alert-success{
@@ -295,6 +312,164 @@ Register / Login page
 /*Profil page ########################################################################################################################*/
 
 
+
+#BlocProfil{
+    margin : 5%;
+    /*border : 10px dashed red;*/
+}
+
+#BlocInfoGeneral{
+    display: flex;
+    justify-content: space-around;
+}
+
+#photoDuProfile{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
+}
+
+#general{
+    color: white;
+    width: 500px;
+}
+
+#inputPhoto{
+    width: 200px;
+}
+
+#oldPassword{
+    margin-right: 16.5%;
+}
+
+#general hr{
+    border-color: var(--blue);
+}
+#whiteHR{
+    border-color: white !important;
+}
+#oldPassword, #newPassword{
+    width: 200px;
+}
+.aligneRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#Biographie{
+    color: white;
+}
+
+#bio{
+    border-color: var(--blue);
+    border-width: 2px;
+    background-color: var(--main-bg);
+    color: white;
+    width: 25%;
+    height: 20%;
+    border-radius: 15px;
+}
+
+#blue .fa-star {
+    color: var(--blue) !important;
+}
+#blue .fa-heart{
+    color: var(--blue) !important;
+}
+
+.hide{
+	display: none;
+}
+/*###########################################################################
+Lecture
+###########################################################################*/
+.time{
+	text-align: right;
+	position: absolute;
+	top: 3px;
+	right: 10px;
+	left: 0;
+	color: #335fb8;
+    z-index: 2;
+    border-radius: 5px;
+}
+.audio-progress{
+    
+	height: 22px;
+	position: relative;
+    background-color: #e5eff1;
+    width: 600px;
+    margin: 15px;
+    border-radius: 5px;
+
+}
+#player-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   
+}
+#progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 100%;
+	background-color: var(--blue);
+    z-index: 1;
+    border-radius: 5px;
+}
+#howler-loop img{
+    background-color: var(--navbar-bg);
+    height: 22px;
+    width: 22px;
+    
+}
+#generalLecture button{
+    background-color: var(--navbar-bg);
+    border: none;
+    color: white;
+}
+
+#player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--navbar-bg);
+    height: 100px;
+    z-index: 2;
+}
+
+.playerPosition{
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerBlocInfo{
+    margin-right: 12%;
+    display: flex;
+    width: 100%;
+    height: 100px;
+}
+
+#playerBlocInfo *{
+    color: white;
+}
+
+#playerButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+#contenaire-vol{
+    align-self: center;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+
 #BlocProfil{
     margin : 5%;
     /*border : 10px dashed red;*/
@@ -363,6 +538,23 @@ Register / Login page
     color: var(--blue) !important;
 }
 
+
+#player-bar span{
+    align-self: center;
+    color: white;
+    width: 30px;
+}
+
+#player-hr{
+    height: 1px;
+    background: var(--main-bg);
+}
+
+
+/*###########################################################################
+Audio
+###########################################################################*/
+
 .hide{
 	display: none;
 }
@@ -384,14 +576,28 @@ Register / Login page
     width: 500px;
 
 }
+
 #bar-vol{
     bottom: 65%;
     position: absolute;
     width: 20px;
 	height: 100px;
-    background-color: #e5eff1;
+    background-color: var(--blue);
+    border-radius: 2px;
 
 }
+#barVolProgress{
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10%;
+	background-color: white;
+    z-index: 1;
+    border-radius: 2px;
+}
+
+
 #progress {
 	position: absolute;
 	top: 0;
@@ -444,9 +650,6 @@ Register / Login page
     margin-left: 15%;
 }
 
-#howler-vol{
-
-}
 
 /*###########################################################################
 addAlbum page
@@ -520,6 +723,7 @@ addAlbum page
     background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
     border-width: 0px;
 }
+
 
 
 

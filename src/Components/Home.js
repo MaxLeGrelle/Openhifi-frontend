@@ -9,12 +9,14 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
+import { displayPlayer } from "./Player"
 const jwt = require("jsonwebtoken")
 
 
 //set up for import fas, far
 library.add(fas, far)
 dom.watch()
+
 
 
 function displayHome() {
@@ -61,8 +63,10 @@ function displayNavBar() {
     </div>
     </div>`)
     //add button on top  
-    $('#add').append(`<button class="btn btn-bluegradient">Ajouter</button> `)
-    $('#add').append(`<a href="#" data-url ="/lecture">Musique</a> `)
+
+    $('#add').append(`<a class="btn btn-bluegradient" href="#" data-url="/addAlbum">Ajouter</a> `)
+
+
 
     //profil picture on top right
     $('#profile').append(`
@@ -77,12 +81,14 @@ function displayNavBar() {
     </div>
   </div>
       `)
+
   $("#navbar").on("click", onNavigate)
      
 }
 
 //HTML for the vertical menu
 function displayMenu() {
+
    $("#menu").append(`
    <div id="favorite"></div>
    <div id="trends"></div>`);
@@ -91,7 +97,6 @@ function displayMenu() {
 
     //favorite button/link on middle left (heart)
     $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
-
     $("#menu").on("click", onNavigate)
 }
 
@@ -176,7 +181,9 @@ function displayDiscover(data) {
   <!--/.Carousel Wrapper-->`)
   let i = 0;
   let j;
-  console.log(data)
+
+  $("#discover .carousel-inner").empty()
+
   data.albumList.forEach(album => {
     if (i%4==0) {
       j = i;

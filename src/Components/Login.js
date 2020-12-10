@@ -1,4 +1,5 @@
 import {setUserDataStorage} from '../Utils/storage.js';
+import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
@@ -7,6 +8,8 @@ function Login() {
 
   displayConnection();
   displayRegistration();
+  stopMusic()
+  $("#player").empty()
 }
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>

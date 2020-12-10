@@ -4,6 +4,7 @@ function Favorite(){
     displayMain()
   }
   function displayFavorite() {
+
       $("#container").empty();
       console.log("affiche profil");
       $("#container").append(` 
