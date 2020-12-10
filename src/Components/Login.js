@@ -1,4 +1,6 @@
+
 import {setMusicLikedDataStorage, setUserDataStorage} from '../Utils/storage.js';
+import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
@@ -7,6 +9,8 @@ function Login() {
 
   displayConnection();
   displayRegistration();
+  stopMusic()
+  $("#player").empty()
 }
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>
@@ -76,8 +80,8 @@ function displayConnection() {
 }
 
 function displayLogin() {
-  $("#page").empty();
-  $("#page").append(`<div id = "login"> </div>`)
+  $("#container").empty();
+  $("#container").append(`<div id = "login"> </div>`)
   $("#login").append(`<div id = "connection"> </div>  <div id = "registration"> </div>`)
 
   Login();

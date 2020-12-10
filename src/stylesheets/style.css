@@ -11,7 +11,7 @@
     --greenAlert : #218838;
 }
 
-/*Body/HTML/contenair*/
+/*Body/HTML/container*/
 html *{
     font-family: 'Montserrat', sans-serif;
    
@@ -26,13 +26,12 @@ body {
     overflow-x:hidden
 }
 
-#container{
-    display:flex;
-    flex-wrap: wrap;
+#page {
+    margin-bottom: 30%;
 }
 
 
-
+/*NavBar*/
 #navbar{
     display: flex;
     justify-content: space-between;
@@ -69,17 +68,13 @@ body {
     border-radius:30px !important;  
 }
 
-.dropdown{
+.dropdown-menu{
     
     z-index: 1;
-    margin-left: 20px;
-
+    margin-right: 100px !important;
+    margin-top: -50px !important;
 }
 
-input{
-    background-color: var(--main-bg) !important;
-    border-color: var(--blue) !important;
-}
 #profile{
     align-self: center;
     margin-right: 2%;
@@ -159,7 +154,7 @@ input{
     padding-left: 9%;
     padding-bottom: 2%;
 }
-#main  .row{
+#main .row{
     width: 100% !important;
 }
 /*carousel discover*/
@@ -197,11 +192,6 @@ input{
     object-fit: cover;
 } */
 
-/*add album*/
-#formAddMusic *, #formAddAlbum *, #listMusicsToAdd {
-    color : white
-}
-
 /*view album*/
 
 #albumDisplay * {
@@ -218,7 +208,10 @@ input{
 
 .musicPlaying {
     color: var(--blue) !important;
-    border-bottom: 2px, medium, var(--blue) !important;
+}
+
+.randomActive {
+    color: var(--blue)
 }
 
 .alert-success{
@@ -233,36 +226,30 @@ input{
 
 /*When the page is minimize or on a small screen all element are smaller*/
 @media (max-width: 1600px){
-    .row img, #logo img{
-        width: 120px ;
-        height: 120px ;
-    }
-}
-@media (max-width: 1600px){
     #profile img{
         width: 50px ;
         height: 50px ;
     }
-}
-@media (max-width: 1600px){
+
     #add button{
         width: 90px !important;
         height: 35px !important;
         font-size: 0.8em !important;
     }
-}
 
-@media (max-width: 1600px){
+    .row img, #logo img{
+        width: 120px ;
+        height: 120px ;
+    }
+
     #trends , #favorite {
         font-size: 0.7em ;
     }
-}
-@media (max-width: 1600px){
+
     #search input {
         width: 450px ;
     }
-}
-@media (max-width: 1600px){
+
     .display-4 {
         font-size: 1.5em !important;
     }
@@ -307,6 +294,7 @@ Register / Login page
     color: var(--blue);
 }
 /*Profil page ########################################################################################################################*/
+
 
 
 #BlocProfil{
@@ -374,10 +362,6 @@ Register / Login page
 .blue .fa-heart{
     color: var(--blue) !important;
 }
-
-.hide{
-	display: none;
-}
 /*###########################################################################
 Lecture
 ###########################################################################*/
@@ -391,8 +375,8 @@ Lecture
     z-index: 2;
     border-radius: 5px;
 }
+
 .audio-progress{
-    
 	height: 22px;
 	position: relative;
     background-color: #e5eff1;
@@ -418,29 +402,40 @@ Lecture
     border-radius: 5px;
 }
 #howler-loop img{
-    background-color: var(--main-bg);
+    background-color: var(--navbar-bg);
     height: 22px;
     width: 22px;
     
 }
 #generalLecture button{
-    background-color: var(--main-bg);
+    background-color: var(--navbar-bg);
     border: none;
     color: white;
 }
 
-.playerPosition{
+#displayPlayer {
     position: fixed;
     bottom: 0;
-    left: 20%;
-    margin: 1%;
+    width: 100%;
+    background-color: var(--navbar-bg);
+    height: 100px;
+    z-index: 2;
+}
+
+.playerPosition{
     display: flex;
     justify-content: space-between;
 }
 
 #playerBlocInfo{
-    margin-right: 15%;
-    margin-left: 15%;
+    margin-right: 12%;
+    display: flex;
+    width: 100%;
+    height: 100px;
+}
+
+#playerBlocInfo *{
+    color: white;
 }
 
 #playerButtons{
@@ -454,9 +449,11 @@ Lecture
     margin-left: 15%;
 }
 
-#formAddAlbum *{
-    color: white;
-}
+
+
+/*###########################################################################
+Audio
+###########################################################################*/
 
 #player-bar span{
     align-self: center;
@@ -464,9 +461,17 @@ Lecture
     width: 30px;
 }
 
-/*###########################################################################
-Audio
-###########################################################################*/
+#player-hr{
+    height: 1px;
+    background: var(--main-bg);
+}
+
+
+.hide{
+	display: none;
+}
+
+
 #bar-vol{
     bottom: 65%;
     position: absolute;
@@ -486,3 +491,83 @@ Audio
     z-index: 1;
     border-radius: 2px;
 }
+
+
+/*###########################################################################
+addAlbum page
+###########################################################################*/
+#addAlbumPage{
+    margin-left: 10%;
+}
+
+#musicTitle, #music, #nom, #image{
+    background-color: var(--main-bg) !important;
+    border-color: var(--blue) !important;
+}
+
+#formAddMusic *, #formAddAlbum *, #formAddAlbum, #listMusicsToAdd {
+    color : white
+}
+
+#topPageAddAlbum{
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#listMusicsToAdd{
+    
+    background-color : var(--navbar-bg);
+    width: 72%;
+    border: 1px solid gray;
+}
+
+#formAddMusic{
+    width: 65%;
+    position: relative;
+    left: 31%;
+}
+
+#listMusicsToAdd hr{
+    left: 10%;
+    width:100%;
+    background: gray;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+}
+
+#newMusic{
+    padding: 1%;
+}
+
+#imageAddAlbum{
+    width: 250px;
+    height: 150px;
+}
+
+#formAddAlbum{
+    width: 66.7%;
+    position: relative;
+    left: 30.5%;
+}
+
+#submitAddMusic{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-color: var(--blue);
+    border-width: 0px;
+}
+#submitAddAlbum{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
+    border-width: 0px;
+}
+
+
+
+
+
+

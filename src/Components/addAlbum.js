@@ -1,11 +1,27 @@
-import { redirectUrl } from "./Router";
-import { getUserStorageData } from "../Utils/storage.js";
+import {
+    redirectUrl
+} from "./Router";
+import {
+    getUserStorageData
+} from "../Utils/storage.js";
+import {displayNavBar,displayMenu} from './Home.js';
+import imageDefault from "../img/defaultImg.jpg";
 const jwt = require("jsonwebtoken");
 
 function displayAddAlbum() {
-    $("#page").empty()
-    $("#page").append(`
-    <div class="container">
+    $("#container").empty()
+    $("#container").append(`
+    <div id="navbar"></div>
+    <div id="menu">
+      <div id="favorite"></div>
+      <div id="trends"></div>
+    </div>
+    <div id="addAlbumPage">
+        <div id = "topPageAddAlbum">
+            <img id = "imageAddAlbum"src="${imageDefault}" href"image album">
+            <ol id="listMusicsToAdd">
+            </ol>
+        </div>
         <form id="formAddMusic">
             <div class="form-group">
                 <label for="musicTitle">Titre :</label>
@@ -19,23 +35,28 @@ function displayAddAlbum() {
                 <input value="Ajouter la musique" type="submit" class="form-control" id="submitAddMusic">
             </div>
         </form>
-        <ol id="listMusicsToAdd">
-        </ol>
+        <div id ="AddAlbumPlace"> </div>
     </div>`)
+    displayNavBar()
+    displayMenu()
     $("#formAddMusic").on("submit", onSubmitMusic);
+    // document.getElementById("music").onchange = setFileInfo
+
 }
 
 let listMusicToAdd;
-
+let currentSongDuration;
+let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
+    setFileInfo($("#music").prop('files')[0])
     let showFormAddAlbum;
     if (!listMusicToAdd) {
         listMusicToAdd = new Array();
         showFormAddAlbum = true;
     }
     if (showFormAddAlbum) {
-        $("#listMusicsToAdd").append(`
+        $("#AddAlbumPlace").append(`
         <div class="container">
             <form id="formAddAlbum">
                 <div class="form-group">
@@ -53,19 +74,40 @@ function onSubmitMusic(e) {
             <div id="errorAddingAlbum"></div>
         </div>`)
         $("#formAddAlbum").on("submit", onSubmitAlbum);
+        $('#image').on("change",changeImage);
         showFormAddAlbum = false
     }
     $("#listMusicsToAdd").append(`
-            <li>${$("#musicTitle").val()}</li>
+            <li id= "newMusic">${$("#musicTitle").val()}</li>
+            <hr>
     `)
     const promise = fileToBase64($("#music").prop('files')[0]);
     promise.then((music64) => {
         listMusicToAdd.push({
-            "music64" : music64,
-            "title" : $("#musicTitle").val()
+            "music64": music64,
+            "title": $("#musicTitle").val(),
+            "duration" : songsDuration[0]
         })
     })
-    
+
+
+
+}
+
+
+//https://stackoverflow.com/questions/29285056/get-video-duration-when-input-a-video-file/29285597
+function setFileInfo(song) { 
+    let audioDOM = document.createElement('audio');
+    audioDOM.preload = 'metadata';
+
+    audioDOM.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(audioDOM.src);
+        let duration = audioDOM.duration;
+        if (songsDuration.length > 0) songsDuration.pop()
+        songsDuration.push(duration)
+    }
+    audioDOM.src = URL.createObjectURL(song);
+
 }
 
 function onSubmitAlbum(e) {
@@ -98,21 +140,29 @@ function onSubmitAlbum(e) {
 }
 
 function onAddingAlbum(data) {
-    console.log(data)
     redirectUrl("/");
 }
 
 //TODO
-function onErrorAddingAlbum(err){
+function onErrorAddingAlbum(err) {
     $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
 function fileToBase64(file) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         var reader = new FileReader();
-        reader.onload = function() { resolve(reader.result); };
+        reader.onload = function () {
+            resolve(reader.result);
+        };
         reader.onerror = reject;
         reader.readAsDataURL(file);
+    });
+}
+
+function changeImage(e){
+    let promise = fileToBase64($("#image").prop('files')[0]);
+    promise.then( (image64) => {
+        $("#imageAddAlbum").attr("src", image64);
     });
 }
 export default displayAddAlbum;
