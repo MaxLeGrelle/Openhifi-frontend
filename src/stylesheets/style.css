@@ -39,6 +39,8 @@ body {
     width: 100%;
     padding: 0%;
     margin-left: 0%;
+    position: fixed;
+    z-index: 2;
 }
 
 #search{
@@ -89,6 +91,8 @@ body {
     width: 9%;
     height: 100% ; 
     color: white;
+    position: fixed;
+    z-index: 1;
 }
 
 #menu a{
@@ -119,8 +123,11 @@ body {
     display: flex;
     flex-direction: column;
     width: 91%;
-
+    position: relative;
+    top: 20%;
+    left: 10%;
 }
+
 #main > .display-4{
     text-align: center;
     color: white;
