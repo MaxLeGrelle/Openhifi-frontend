@@ -149,7 +149,7 @@ function getAllAlbums() {
         return response.json();
       })
       .then((data) => displayDiscover(data))
-      // .catch((err) => onErrorAddingAlbum(err));
+      .catch((err) => onErrorDisplayAlbum(err));
 }
 
 function displayDiscover(data) {
@@ -213,6 +213,10 @@ function displayDiscover(data) {
   });
   $("#discover .carousel-inner a").on("click", onNavigate)
   
+}
+
+function onErrorDisplayAlbum(err) {
+  $("#main").prepend(`<p class="alert alert-danger"> ${err.message} </p>`);
 }
 
 export {displayHome, displayMenu, displayNavBar, displayMain};
