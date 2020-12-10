@@ -68,12 +68,13 @@ body {
     border-radius:30px !important;  
 }
 
-.dropdown{
+.dropdown-menu{
     
     z-index: 1;
-    margin-left: 20px;
-
+    margin-right: 100px !important;
+    margin-top: -50px !important;
 }
+
 #profile{
     align-self: center;
     margin-right: 2%;
