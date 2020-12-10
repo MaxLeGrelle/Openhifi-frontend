@@ -18,7 +18,7 @@ function Trends(){
       displayMenu()
       displayNavBar()
       $("#trends").empty();
-      $("#trends").append(`<div id ="blue"><a href="#" data-url="/trends"> Tendances <i class="fas fa-star fa-2x"></i> </a></div>`)
+      $("#trends").append(`<div class ="blue"><a href="#" data-url="/trends"> Tendances <i class="fas fa-star fa-2x"></i> </a></div>`)
       Trends()
       
   }

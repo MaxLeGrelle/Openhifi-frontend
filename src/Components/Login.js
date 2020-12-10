@@ -1,4 +1,5 @@
-import {setUserDataStorage} from '../Utils/storage.js';
+
+import {setMusicLikedDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 
@@ -126,6 +127,7 @@ function onErrorRegistration(err){
 
 function onRegistration(data){
   setUserDataStorage(data);
+  setMusicLikedDataStorage(new Array())
   redirectUrl("/");
 
 }
@@ -153,7 +155,9 @@ function onLogin(e) {
 }
 
 function onConnection(data) {
-  setUserDataStorage(data);
+  setUserDataStorage({token : data.token, email : data.email});
+  console.log(data.musicsLiked)
+  setMusicLikedDataStorage(data.musicsLiked)
   redirectUrl("/");
 }
 

@@ -356,10 +356,10 @@ Register / Login page
     border-radius: 15px;
 }
 
-#blue .fa-star {
+.blue .fa-star {
     color: var(--blue) !important;
 }
-#blue .fa-heart{
+.blue .fa-heart{
     color: var(--blue) !important;
 }
 /*###########################################################################
