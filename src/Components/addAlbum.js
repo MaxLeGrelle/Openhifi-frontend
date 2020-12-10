@@ -1,4 +1,3 @@
-
 import {
     redirectUrl
 } from "./Router";
@@ -6,14 +5,11 @@ import {
     getUserStorageData
 } from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
-import { redirectUrl } from "./Router";
 import imageDefault from "../img/defaultImg.jpg";
-import { getUserStorageData } from "../Utils/storage.js";
 const jwt = require("jsonwebtoken");
-var FinalImage = imageDefault;
 
 function displayAddAlbum() {
-
+    $("#container").empty()
     $("#container").append(`
     <div id="navbar"></div>
     <div id="menu">
@@ -144,7 +140,6 @@ function onSubmitAlbum(e) {
 }
 
 function onAddingAlbum(data) {
-    console.log(data)
     redirectUrl("/");
 }
 
@@ -165,11 +160,9 @@ function fileToBase64(file) {
 }
 
 function changeImage(e){
-    isDefault = false;
     let promise = fileToBase64($("#image").prop('files')[0]);
     promise.then( (image64) => {
         $("#imageAddAlbum").attr("src", image64);
-        finalImage = image64;
     });
 }
 export default displayAddAlbum;

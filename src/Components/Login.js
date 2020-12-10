@@ -79,8 +79,8 @@ function displayConnection() {
 }
 
 function displayLogin() {
-  $("#page").empty();
-  $("#page").append(`<div id = "login"> </div>`)
+  $("#container").empty();
+  $("#container").append(`<div id = "login"> </div>`)
   $("#login").append(`<div id = "connection"> </div>  <div id = "registration"> </div>`)
 
   Login();
