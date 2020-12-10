@@ -204,21 +204,15 @@ function displayDiscover(data) {
               <a href="#" data-url="/albums" data-id="${album.id}">
                 <p class="card-text">de : ${data.creatorList[i]}</p>
               </a>
-              <a id="like"></a>
+              <a class="btn btn-primary">Like</a>
             </div>
           </div>
         </div>`
    )
    i++;
   });
-  $("#discover .carousel-inner a").on("click", onNavigate.bind())
-  $("#like").on("click",onLike)
-
+  $("#discover .carousel-inner a").on("click", onNavigate)
   
 }
-function onLike(){
-  console.log("+1")
-
 
 export {displayHome, displayMenu, displayNavBar, displayMain};
-

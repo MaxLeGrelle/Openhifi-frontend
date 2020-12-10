@@ -37,7 +37,6 @@ function displayLecture(musics, indexMusicSelected, data) {
 }
 
 
-
 /**
  * things necessary to do when a new music begin 
  */
@@ -292,7 +291,6 @@ function onPlay() {
  * -is it the end of the album ?
  */
 function onEnd() {
-
     if (onLoopSound) return;
     $(`#music${id+"-"+currentMusicIndex}`).removeClass("musicPlaying")
     if (onRandomList) {
@@ -320,7 +318,6 @@ function onEnd() {
     }
     sound = musicsList[currentMusicIndex];
     sound.play()
-
 }
 
 /**
