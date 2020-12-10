@@ -11,7 +11,7 @@
     --greenAlert : #218838;
 }
 
-/*Body/HTML/contenair*/
+/*Body/HTML/container*/
 html *{
     font-family: 'Montserrat', sans-serif;
    
@@ -24,6 +24,10 @@ body {
     margin: 0;
     background-color: var(--main-bg) !important;
     overflow-x:hidden
+}
+
+#page {
+    margin-bottom: 30%;
 }
 
 
@@ -408,7 +412,7 @@ Lecture
     color: white;
 }
 
-#player {
+#displayPlayer {
     position: fixed;
     bottom: 0;
     width: 100%;

@@ -86,7 +86,7 @@ function audioClick(e) {
  */
 function displayPlayer() {
     $("#player").empty()
-    $("#player").append(`<div id = "generalLecture">
+    $("#player").append(`<div id="displayPlayer"><div id = "generalLecture">
     <hr id="player-hr" class="w-100 m-0">
 
     <div class = "playerPosition">
@@ -116,7 +116,7 @@ function displayPlayer() {
             <button id='howler-vol'><i class="fas fa-volume-up"></i></button>
         </div> 
     </div>   
-    `)
+    </div>`)
     if (sound) displayDataPlayer()
     $("#howler-play").on("click", onListening)
     $("#howler-vol").on("click", onChangingVolume);
