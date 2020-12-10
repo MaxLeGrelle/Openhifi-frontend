@@ -39,7 +39,7 @@ function displayHome() {
   displayNavBar()
   displayMenu()
   displayMain()
-  getAllAlbums()
+  //getAllAlbums()
 }        
 
 //HTML of the navbar

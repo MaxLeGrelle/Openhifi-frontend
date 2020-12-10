@@ -7,8 +7,7 @@ import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
-import {displayLecture} from "./Player.js";
-import displayAddAlbum from "./addAlbum.js";
+import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
 let pageToRender;
 
