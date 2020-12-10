@@ -34,8 +34,16 @@ function getMusicLikedDataStorage(){
     return JSON.parse(musics) 
 }
 function addNewMusicLikedStorage(musicLiked){
+    console.log(musicLiked)
     let tab = getMusicLikedDataStorage()
-    tab.push(musicLiked)
+    console.log(tab)
+    if(tab.includes(musicLiked.toString())){
+        tab = tab.filter(item => item !== musicLiked.toString())
+    }
+    else{
+        tab.push(musicLiked)
+    }
+    
     setMusicLikedDataStorage(tab)
 }
 

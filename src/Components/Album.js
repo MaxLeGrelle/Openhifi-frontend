@@ -93,14 +93,26 @@ function displayAlbumData(data) {
     }
     let i = 0;
     data.listMusicsInfo.forEach(musicInfo => {
-        $("#albumMusicList tbody").append(`
-        <tr class="scope" data-id="${i}">
-            <td id="music${i}">${musicInfo.title}</td>
-            <td>${data.creator}</td>
-            <td>${data.name}</td>
-            <td>NA</td>
-            <td class = "Like" data-realid = "${musicInfo.id}"><i class="far fa-heart fa-2x"></i></td>
-        </tr>`)
+        if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
+            $("#albumMusicList tbody").append(`
+            <tr class="scope" data-id="${i}">
+                <td id="music${i}">${musicInfo.title}</td>
+                <td>${data.creator}</td>
+                <td>${data.name}</td>
+                <td>NA</td>
+                <td class = "Like" data-realid = "${musicInfo.id}"><i id = "heart-${musicInfo.id}" class="fas fa-heart fa-2x"></i></td>
+            </tr>`)
+        }
+        else{
+            $("#albumMusicList tbody").append(`
+            <tr class="scope" data-id="${i}">
+                <td id="music${i}">${musicInfo.title}</td>
+                <td>${data.creator}</td>
+                <td>${data.name}</td>
+                <td>NA</td>
+                <td class = "Like" data-realid = "${musicInfo.id}"><i id = "heart-${musicInfo.id}" class="far fa-heart fa-2x"></i></td>
+            </tr>`)
+        }
 
         $(`#music${i}`).on("click", onSelectMusic)
         $(`#music${i}`).on("mouseover", (e) => {
@@ -114,8 +126,20 @@ function displayAlbumData(data) {
     $(".Like").on("click", onLike)
 }
 function onLike(e) {
-    if (e.target.tagName === "svg") {
-        let musicLikedId = e.target.parentElement.dataset.realid
+    console.log("Class List :",e.target.classList)
+    if (e.target.tagName === "svg" || e.target.tagName === "path") {
+        let musicLikedId ;
+        if(e.target.tagName === "svg"){
+            musicLikedId = e.target.parentElement.dataset.realid
+            $(`#heart-${musicLikedId}`).removeClass("far")
+            $(`#heart-${musicLikedId}`).addClass("fas")
+
+        }
+        else {
+            musicLikedId = e.target.parentElement.parentElement.dataset.realid
+            $(`#heart-${musicLikedId}`).removeClass("fas")
+            $(`#heart-${musicLikedId}`).addClass("far")
+        }
         const userLogged = getUserStorageData()
         const infoUser = jwt.decode(userLogged.token)
         fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
@@ -127,7 +151,11 @@ function onLike(e) {
                 return response.json()
             })
             .catch((err) => redirectUrl("/error", err.message))
-        addNewMusicLikedStorage(e.target.parentElement.dataset.realid)
+        console.log("add")
+        console.log(e.target.parentElement)
+        addNewMusicLikedStorage(musicLikedId)
+
+
     }
     
 

@@ -27,7 +27,7 @@ function Favorite(){
       displayMenu()
       displayNavBar()
       $("#favorite").empty();
-      $("#favorite").append(`<div id ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
+      $("#favorite").append(`<div class ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
       Favorite()
       
   }
