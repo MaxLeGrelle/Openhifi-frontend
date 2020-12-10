@@ -1,4 +1,4 @@
-import {setUserDataStorage} from '../Utils/storage.js';
+import {setMusicLikedDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { redirectUrl } from './Router.js';
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
@@ -123,6 +123,7 @@ function onErrorRegistration(err){
 
 function onRegistration(data){
   setUserDataStorage(data);
+  setMusicLikedDataStorage(new Array())
   redirectUrl("/");
 
 }
@@ -150,7 +151,9 @@ function onLogin(e) {
 }
 
 function onConnection(data) {
-  setUserDataStorage(data);
+  setUserDataStorage({token : data.token, email : data.email});
+  console.log(data.musicsLiked)
+  setMusicLikedDataStorage(data.musicsLiked)
   redirectUrl("/");
 }
 

@@ -1,15 +1,18 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-import {displayNavBar,displayMenu} from './Home.js'
-import { onNavigate } from './Router.js';
-import {displayLecture, onPlay, onEnd, displayPlayer, onStop} from './Player'; 
+import { displayNavBar, displayMenu } from './Home.js'
+import { onNavigate, redirectUrl } from './Router.js';
+import { displayLecture, onPlay, onEnd, displayPlayer, onStop } from './Player';
+import { data } from 'jquery';
+import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
+const jwt = require("jsonwebtoken")
 const howl = require("howler")
 
 //PEUT PAS RECUP LOGO ???
 function displayAlbum() {
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
-      $("#container").append(` 
+    $("#container").append(` 
         <div id="navbar">
           <div id="logo"></div>
           <div id="search"></div>
@@ -24,7 +27,7 @@ function displayAlbum() {
         </div>
         <div id="player">
         </div>`);
-  
+
     $("#navbar").on("click", onNavigate)
     $("#menu").on("click", onNavigate)
     displayNavBar()
@@ -35,13 +38,13 @@ function displayAlbum() {
 
 function getAlbumData() {
     let parameter = findGetParameter("no")
-    fetch("/api"+window.location.pathname+"/"+parameter)
-    .then((response)=> {
-        if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
-        return response.json();
-    })
-    .then((data) => displayAlbumData(data))
-    .catch((err) => console.log(err.message))
+    fetch("/api" + window.location.pathname + "/" + parameter)
+        .then((response) => {
+            if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+            return response.json();
+        })
+        .then((data) => displayAlbumData(data))
+        .catch((err) => console.log(err.message))
 }
 
 //source : https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
@@ -52,14 +55,14 @@ function findGetParameter(parameterName) {
         .substr(1)
         .split("&")
         .forEach(function (item) {
-          tmp = item.split("=");
-          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
 }
 
 let musics = new Array()
-function displayAlbumData(data){
+function displayAlbumData(data) {
     $("#main").empty()
     $("#main").append(`
     <div class="container" id="albumDisplay">
@@ -73,6 +76,7 @@ function displayAlbumData(data){
                     <th>Artiste</th>
                     <th>Album</th>
                     <th>Durée</th>
+                    <th></th>
                 </tr>
             </thead>
         <tbody></tbody>
@@ -80,14 +84,14 @@ function displayAlbumData(data){
     </div>`)
     for (let i = 0; i < data.listMusics64.length; i++) {
         musics.push(new howl.Howl({
-            src: [data.listMusics64[i]], 
-            onplay : onPlay,
+            src: [data.listMusics64[i]],
+            onplay: onPlay,
             onend: onEnd,
             onstop: onStop,
-            preload : true,
+            preload: true,
         }))
     }
-    let i = 0; 
+    let i = 0;
     data.listMusicsInfo.forEach(musicInfo => {
         $("#albumMusicList tbody").append(`
         <tr class="scope" data-id="${i}">
@@ -95,7 +99,9 @@ function displayAlbumData(data){
             <td>${data.creator}</td>
             <td>${data.name}</td>
             <td>NA</td>
+            <td class = "Like" data-realid = "${musicInfo.id}"><i class="far fa-heart fa-2x"></i></td>
         </tr>`)
+
         $(`#music${i}`).on("click", onSelectMusic)
         $(`#music${i}`).on("mouseover", (e) => {
             $(e.target).addClass("musicPlayingHover")
@@ -105,8 +111,27 @@ function displayAlbumData(data){
         })
         i++
     });
+    $(".Like").on("click", onLike)
 }
+function onLike(e) {
+    if (e.target.tagName === "svg") {
+        let musicLikedId = e.target.parentElement.dataset.realid
+        const userLogged = getUserStorageData()
+        const infoUser = jwt.decode(userLogged.token)
+        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
+            method: "PUT"
+        })
+            .then((response) => {
+                if (!response.ok)
+                    throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
+                return response.json()
+            })
+            .catch((err) => redirectUrl("/error", err.message))
+        addNewMusicLikedStorage(e.target.parentElement.dataset.realid)
+    }
+    
 
+}
 // function onSelectMusic(e) {
 //     let orderedMusics = new Array()
 //     let id = e.target.parentElement.dataset.id
@@ -122,4 +147,4 @@ function onSelectMusic(e) {
     displayLecture(musics, indexMusicSelected)
 }
 
-export {displayAlbum};
+export { displayAlbum };

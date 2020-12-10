@@ -23,8 +23,9 @@ let onLoopSound = false;
 function displayLecture(musics, indexMusicSelected) {
     if (sound) sound.stop() //if an other music is playing, it will stop it
     musicsList = musics
-    currentMusicIndex = indexMusicSelected;
+    currentMusicIndex = parseInt(indexMusicSelected);
     sound = musics[indexMusicSelected];
+    sound.loop(onLoopSound);
     onListening()
 }
 
@@ -153,16 +154,16 @@ function onPlay() {
 }
 
 function onEnd() {
-    if (currentMusicIndex+1 == musicsList.length) {
-        sound.stop()
-        return;
-    }
-    if (!onLoopSound) currentMusicIndex++;
-    if (onLoopAlbum && currentMusicIndex == musicsList.length) {
+    if(onLoopSound) return;
+    currentMusicIndex++;
+    if(onLoopAlbum && currentMusicIndex == musicsList.length)
         currentMusicIndex = 0;
-    }
-    sound = musicsList[currentMusicIndex]
+    else if(!onLoopAlbum && currentMusicIndex == musicsList.length){
+        sound.stop();
+    }    
+    sound = musicsList[currentMusicIndex];
     sound.play()
+
 }
 
 function onStop() {

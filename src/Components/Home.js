@@ -169,17 +169,22 @@ function displayDiscover(data) {
               <a href="#" data-url="/albums" data-id="${album.id}">
                 <p class="card-text">de : ${data.creatorList[i]}</p>
               </a>
-              <a class="btn btn-primary">Like</a>
+              <a id="like"></a>
             </div>
           </div>
         </div>`
    )
    i++;
   });
-  $("#discover .carousel-inner a").on("click", onNavigate)
+  $("#discover .carousel-inner a").on("click", onNavigate.bind())
+  $("#like").on("click",onLike)
+
   
 }
+function onLike(){
+  console.log("+1")
 
+}
 function displayAccueil() {
     const userLogged = getUserStorageData()
     const infoUser  = jwt.decode(userLogged.token)
