@@ -3,7 +3,7 @@ import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate, redirectUrl } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
+import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
 
@@ -182,6 +182,7 @@ function onLike(e) {
  * @param {*} data data fetched
  */
 function onSelectMusic(e, data) {
+    addAlbumToRecentlyDataStorage(data.id)
     let indexMusicSelected = e.target.parentElement.dataset.id
     displayLecture(musics, indexMusicSelected, data)
 }
