@@ -286,6 +286,7 @@ Register / Login page
     display: flex;
     color: white;
     padding-top: 4%;
+    padding: 5%;
     padding-left: 10%;
     position: relative;
     right: 10%;
@@ -349,12 +350,12 @@ Profile page
     height: 250px;
 }
 
-#fav{
+#general{
     color: white;
-    padding-bottom: 35%;
+    width: 500px;
 }
 
-#trends{
+#tendancePage, #favPage{
     color: white;
     padding-bottom: 35%;
 }

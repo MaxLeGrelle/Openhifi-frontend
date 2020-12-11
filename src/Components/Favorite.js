@@ -22,7 +22,7 @@ function Favorite(){
       
   }
   function displayMain(){
-    $("#main").append(`<div id = "fav"><div class="display-4">Musiques favorite :</div>
+    $("#main").append(`<div id = "favPage"><div class="display-4">Musiques favorite :</div>
     
     `)
   }
