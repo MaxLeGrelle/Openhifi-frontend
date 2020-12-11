@@ -1,5 +1,6 @@
 const STORAGE_KEY_RECENTLY = "recently_listened";
 const STORAGE_NAME = "user_connected";
+const STORAGE_LIKED = "music_liked";
 
 function setUserDataStorage(userData){
     localStorage.setItem(STORAGE_NAME, JSON.stringify(userData));
@@ -7,6 +8,8 @@ function setUserDataStorage(userData){
 
 function removeAllDataStorage() {
     localStorage.removeItem(STORAGE_NAME);
+    localStorage.removeItem(STORAGE_LIKED);
+    localStorage.removeItem(STORAGE_KEY_RECENTLY);
 }
 
 function getUserStorageData ()  {
@@ -24,7 +27,28 @@ function getRecentlyStackStorageData(){
     if (!stackAlbumsRecently) return;
     return JSON.parse(stackAlbumsRecently);
 }
+function setMusicLikedDataStorage(musicData){
+    localStorage.setItem(STORAGE_LIKED, JSON.stringify(musicData));
+}
+function getMusicLikedDataStorage(){
+    const musics = localStorage.getItem(STORAGE_LIKED);
+    if(!musics) return;
+    return JSON.parse(musics) 
+}
+function addNewMusicLikedStorage(musicLiked){
+    
+    let tab = getMusicLikedDataStorage()
+    console.log(tab)
+    if(tab.includes(musicLiked.toString())){
+        tab = tab.filter(item => item !== musicLiked.toString())
+    }
+    else{
+        tab.push(musicLiked)
+    }
+    
+    setMusicLikedDataStorage(tab)
+    console.log(musicLiked)
+}
 
 
-
-export {setUserDataStorage, removeAllDataStorage, getUserStorageData, setRecentlyStackDataStorage, getRecentlyStackStorageData};
+export {setUserDataStorage, removeAllDataStorage, getUserStorageData, setRecentlyStackDataStorage, getRecentlyStackStorageData,setMusicLikedDataStorage,getMusicLikedDataStorage, addNewMusicLikedStorage};

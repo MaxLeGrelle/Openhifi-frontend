@@ -13,7 +13,6 @@ import { displayPlayer } from "./Player"
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
 
-
 //set up for import fas, far
 library.add(fas, far)
 dom.watch()
@@ -22,14 +21,13 @@ dom.watch()
 
 function displayHome() {
   const userLogged = getUserStorageData()
-  const infoUser  = jwt.decode(userLogged.token)
   $("#container").empty();
   console.log("affiche accueil");
   $("#container").append(` 
     <div id="navbar"> </div>
     <div id="menu"> </div>
     <div id="main">
-      <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter de la musique</div>
+      <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
       <h2>Écouté recemment :</h2>
       <div id="recently"></div>
       <h2>À Découvrir :</h2>
@@ -43,6 +41,7 @@ function displayHome() {
   getAllAlbums()
   adaptFooterPosition()
   displayFooter()
+  getRecentlyListened()
 }        
 
 //HTML of the navbar
@@ -152,7 +151,7 @@ function getAllAlbums() {
         return response.json();
       })
       .then((data) => displayDiscover(data))
-      // .catch((err) => onErrorAddingAlbum(err));
+      .catch((err) => onErrorDisplayAlbum(err));
 }
 
 function displayDiscover(data) {
@@ -216,6 +215,26 @@ function displayDiscover(data) {
   });
   $("#discover .carousel-inner a").on("click", onNavigate)
   
+}
+
+function getRecentlyListened() {
+  const userLogged = getUserStorageData()
+  const infoUser = jwt.decode(userLogged.token)
+  fetch("/api/users/recently/"+infoUser.id)
+  .then((response) => {
+    if (!response) throw new Error("Error code : " + response.status + " : " + response.statusText)
+    return response.json()
+  })
+  .then((data) => displayRecently(data))
+  .catch((err) => onErrorDisplayAlbum(err))
+}
+
+function displayRecently(data) {
+  
+}
+
+function onErrorDisplayAlbum(err) {
+  $("#main").prepend(`<p class="alert alert-danger"> ${err.message} </p>`);
 }
 
 export {displayHome, displayMenu, displayNavBar, displayMain};

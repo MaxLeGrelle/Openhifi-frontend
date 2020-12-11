@@ -16,6 +16,7 @@ function displayAddAlbum() {
       <div id="favorite"></div>
       <div id="trends"></div>
     </div>
+    <div id="main">
     <div id="addAlbumPage">
         <div id = "topPageAddAlbum">
             <img id = "imageAddAlbum"src="${imageDefault}" href"image album">
@@ -36,6 +37,7 @@ function displayAddAlbum() {
             </div>
         </form>
         <div id ="AddAlbumPlace"> </div>
+    </div>
     </div>`)
     displayNavBar()
     displayMenu()
@@ -50,7 +52,7 @@ let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
     setFileInfo($("#music").prop('files')[0])
-    let showFormAddAlbum;
+    let showFormAddAlbum = false;
     if (!listMusicToAdd) {
         listMusicToAdd = new Array();
         showFormAddAlbum = true;
@@ -165,4 +167,4 @@ function changeImage(e){
         $("#imageAddAlbum").attr("src", image64);
     });
 }
-export default displayAddAlbum;
+export {displayAddAlbum, fileToBase64};

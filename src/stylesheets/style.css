@@ -40,6 +40,8 @@ body {
     width: 100%;
     padding: 0%;
     margin-left: 0%;
+    position: fixed;
+    z-index: 2;
 }
 
 #search{
@@ -90,6 +92,8 @@ body {
     width: 9%;
     height: 100% ; 
     color: white;
+    position: fixed;
+    z-index: 1;
 }
 
 #menu a{
@@ -120,8 +124,11 @@ body {
     display: flex;
     flex-direction: column;
     width: 91%;
-
+    position: relative;
+    top: 20%;
+    left: 10%;
 }
+
 #main > .display-4{
     text-align: center;
     color: white;
@@ -349,6 +356,7 @@ Profile page
 }
 
 #photoDuProfile{
+    border : solid 2px var(--menu-bg);
     border-radius: 50%;
     overflow: hidden;
     width: 250px;
@@ -360,8 +368,9 @@ Profile page
     width: 500px;
 }
 
-#inputPhoto{
-    width: 200px;
+#inputPhoto, #btnConfirmSetImage{
+    width: 50%;
+    margin: 1%;
 }
 
 #oldPassword{
@@ -387,14 +396,24 @@ Profile page
     color: white;
 }
 
+#formChangeBio{
+    display: flex;
+    flex-direction: column;
+}
+
 #bio{
     border-color: var(--blue);
     border-width: 2px;
     background-color: var(--main-bg);
     color: white;
-    width: 25%;
-    height: 20%;
     border-radius: 15px;
+    width: 30%;
+    margin-bottom: 2%;
+    overflow:hidden;
+}
+
+#btnChangeBio{
+    width: 30%;
 }
 
 #blue .fa-star {
@@ -606,6 +625,7 @@ addAlbum page
     background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
     border-width: 0px;
 }
+
 
 
 

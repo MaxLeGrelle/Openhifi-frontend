@@ -7,8 +7,7 @@ import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
-import {displayLecture} from "./Player.js";
-import displayAddAlbum from "./addAlbum.js";
+import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
 import displayLegalMentions from "./LegalMentions.js";
 let pageToRender;
@@ -28,7 +27,6 @@ const routes = {
 }
 
 function router(){
-    
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
         if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
