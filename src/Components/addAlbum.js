@@ -165,4 +165,4 @@ function changeImage(e){
         $("#imageAddAlbum").attr("src", image64);
     });
 }
-export default displayAddAlbum;
+export {displayAddAlbum, fileToBase64};

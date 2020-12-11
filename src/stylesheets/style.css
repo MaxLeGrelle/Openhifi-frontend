@@ -315,6 +315,7 @@ Register / Login page
 }
 
 #photoDuProfile{
+    border : solid 2px var(--menu-bg);
     border-radius: 50%;
     overflow: hidden;
     width: 250px;
@@ -326,8 +327,9 @@ Register / Login page
     width: 500px;
 }
 
-#inputPhoto{
-    width: 200px;
+#inputPhoto, #btnConfirmSetImage{
+    width: 50%;
+    margin: 1%;
 }
 
 #oldPassword{
@@ -353,14 +355,24 @@ Register / Login page
     color: white;
 }
 
+#formChangeBio{
+    display: flex;
+    flex-direction: column;
+}
+
 #bio{
     border-color: var(--blue);
     border-width: 2px;
     background-color: var(--main-bg);
     color: white;
-    width: 25%;
-    height: 20%;
     border-radius: 15px;
+    width: 30%;
+    margin-bottom: 2%;
+    overflow:hidden;
+}
+
+#btnChangeBio{
+    width: 30%;
 }
 
 #blue .fa-star {
