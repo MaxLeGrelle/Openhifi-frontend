@@ -81,6 +81,8 @@ $("#BtnEditPassword").on("click", editPassword);
 
 function editBio(e){
   e.preventDefault();
+  const user = getUserStorageData();
+  const userPayload = jwt.decode(user.token)
         let biographie = {
             bio : $("#bio").val(),
             id : userPayload.id
