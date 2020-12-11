@@ -46,7 +46,7 @@ function getAlbumData() {
         return response.json();
     })
     .then((data) => displayAlbumData(data))
-    .catch((err) => console.log(err.message))
+    // .catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
 }
 
 /**
@@ -108,14 +108,14 @@ function displayAlbumData(data){
         //hide the id of the music in order to know which music has been clicked
         //All musics will have a unique html id in order to change dynamicaly its style when it's played
         if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
-        $("#albumMusicList tbody").append(`
-        <tr class="scope" data-id="${i}">
-            <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
-            <td>${data.creator}</td>
-            <td>${data.name}</td>
-            <td>${formatTime(Math.round(musicInfo.duration))}</td>
-            <td class = "Like" data-realid = "${musicInfo.id}"><div class ="liked"><i id = "heart-${musicInfo.id}" class="fas fa-heart fa-2x"></i></div></td>
-        </tr>`)
+            $("#albumMusicList tbody").append(`
+            <tr class="scope" data-id="${i}">
+                <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
+                <td>${data.creator}</td>
+                <td>${data.name}</td>
+                <td>${formatTime(Math.round(musicInfo.duration))}</td>
+                <td class = "Like" data-realid = "${musicInfo.id}"><div class ="liked"><i id = "heart-${musicInfo.id}" class="fas fa-heart fa-2x"></i></div></td>
+            </tr>`)
         }
         else{
             $("#albumMusicList tbody").append(`

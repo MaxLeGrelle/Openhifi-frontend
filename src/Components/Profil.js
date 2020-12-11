@@ -10,6 +10,8 @@ let userInformations;
 
 function Profil(){
   displayGeneral()
+  showEditPhoto = false;
+
 }
 function displayProfil() {
     getPublicInformations()
@@ -31,7 +33,6 @@ function displayProfil() {
 }
 function displayGeneral(){
   const user = getUserStorageData();
-  const userPayload = jwt.decode(user.token)
   $("#main").append(`
 
   <div id = "BlocProfil">
@@ -123,9 +124,8 @@ function editPhoto (){
 }
 
 function getThisUser(data){
-  console.log("DATA",data);
   userInformations = data;
-  $("#photoDuProfile").attr("src",userInformations.userInfo.pathImage)
+  if (userInformations.userInfo.pathImage !== "") $("#photoDuProfile").attr("src",userInformations.userInfo.pathImage)
   $("#bio").empty();
   $("#bio").append(userInformations.userInfo.bio)
 }
@@ -133,7 +133,7 @@ function getThisUser(data){
 
 function getPublicInformations(){
   const user = getUserStorageData();
-const userPayload = jwt.decode(user.token)
+  const userPayload = jwt.decode(user.token)
   let id = userPayload.id
   fetch("/api/users/profil/"+ id,{
 
@@ -146,6 +146,8 @@ const userPayload = jwt.decode(user.token)
 
 function sendPhoto(e){
   e.preventDefault()
+  const user = getUserStorageData();
+  const userPayload = jwt.decode(user.token)
   let image = $("#inputPhoto").prop('files')[0];
   if(image){
     const promise = fileToBase64(image)
