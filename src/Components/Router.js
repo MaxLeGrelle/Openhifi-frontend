@@ -9,6 +9,7 @@ import displayTrends from "./Trends.js";
 import displayFavorite from "./Favorite.js";
 import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
+import displayLegalMentions from "./LegalMentions.js";
 let pageToRender;
 
 let navbar;
@@ -21,7 +22,8 @@ const routes = {
     "/favorite": displayFavorite,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
-    "/error" : displayError
+    "/error" : displayError,
+    "/legalMentions" : displayLegalMentions
 }
 
 function router(){

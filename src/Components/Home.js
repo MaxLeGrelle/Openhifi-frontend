@@ -2,30 +2,14 @@ import logo from "../img/open-hifi-logo-transparent2.png"
 import profile from "../img/default_profile.png"
 import r1 from "../img/rooster.jpg"
 import r2 from "../img/camel.jpg"
-import {
-  library,
-  dom
-} from '@fortawesome/fontawesome-svg-core'
-import {
-  fas
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  far
-} from '@fortawesome/free-regular-svg-icons'
-import {
-  fab
-} from '@fortawesome/free-brands-svg-icons'
-import {
-  onNavigate
-} from './Router.js'
-import {
-  getRecentlyDataStorage,
-  getUserStorageData
-} from '../Utils/storage.js'
-import {
-  displayPlayer
-} from "./Player"
+import {library,dom} from '@fortawesome/fontawesome-svg-core'
+import {fas} from '@fortawesome/free-solid-svg-icons'
+import {far} from '@fortawesome/free-regular-svg-icons'
+import {fab} from '@fortawesome/free-brands-svg-icons'
+import {onNavigate} from './Router.js'
+import {getRecentlyDataStorage,getUserStorageData} from '../Utils/storage.js'
 import displayTrends from "./Trends"
+import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
 
 //set up for import fas, far
@@ -55,8 +39,8 @@ function displayHome() {
   setRecentlyListenedAlbums()
   getRecentyListenedAlbums()
   getAllAlbums()
-  
-}
+  adaptFooterPosition()
+  displayFooter()
 
 //HTML of the navbar
 function displayNavBar() {
