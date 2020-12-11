@@ -12,9 +12,6 @@ import{getUserStorageData} from '../Utils/storage.js'
 import { displayPlayer } from "./Player"
 const jwt = require("jsonwebtoken")
 
-const userLogged = getUserStorageData()
-const infoUser  = jwt.decode(userLogged.token)
-
 //set up for import fas, far
 library.add(fas, far)
 dom.watch()
@@ -22,6 +19,7 @@ dom.watch()
 
 
 function displayHome() {
+  const userLogged = getUserStorageData()
   $("#container").empty();
   console.log("affiche accueil");
   $("#container").append(` 
@@ -217,6 +215,8 @@ function displayDiscover(data) {
 }
 
 function getRecentlyListened() {
+  const userLogged = getUserStorageData()
+  const infoUser = jwt.decode(userLogged.token)
   fetch("/api/users/recently/"+infoUser.id)
   .then((response) => {
     if (!response) throw new Error("Error code : " + response.status + " : " + response.statusText)

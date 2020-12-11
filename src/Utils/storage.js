@@ -8,6 +8,8 @@ function setUserDataStorage(userData){
 
 function removeAllDataStorage() {
     localStorage.removeItem(STORAGE_NAME);
+    localStorage.removeItem(STORAGE_LIKED);
+    localStorage.removeItem(STORAGE_KEY_RECENTLY);
 }
 
 function getUserStorageData ()  {

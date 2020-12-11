@@ -5,8 +5,6 @@ import{getUserStorageData} from '../Utils/storage.js'
 import{fileToBase64} from './addAlbum.js'
 const jwt = require("jsonwebtoken")
 let showEditPhoto = false;
-const user = getUserStorageData();
-const userPayload = jwt.decode(user.token)
 let userInformations;
 
 
@@ -32,6 +30,8 @@ function displayProfil() {
     
 }
 function displayGeneral(){
+  const user = getUserStorageData();
+  const userPayload = jwt.decode(user.token)
   $("#main").append(`
 
   <div id = "BlocProfil">
@@ -132,6 +132,8 @@ function getThisUser(data){
 
 
 function getPublicInformations(){
+  const user = getUserStorageData();
+const userPayload = jwt.decode(user.token)
   let id = userPayload.id
   fetch("/api/users/profil/"+ id,{
 
