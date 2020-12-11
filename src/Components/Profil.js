@@ -32,8 +32,6 @@ function displayProfil() {
     
 }
 function displayGeneral(){
-  const userLogged = getUserStorageData()
-  const infoUser  = jwt.decode(userLogged.token)
   $("#main").append(`
 
   <div id = "BlocProfil">
@@ -46,9 +44,9 @@ function displayGeneral(){
           Général
         </div>
         <hr id = "whiteHR">
-        <p>Pseudo : ${userPayload.pseudo}</p>
+        <p>Pseudo : ${user.pseudo}</p>
         <hr>
-        <p>email : ${userPayload.email}</p>
+        <p>email : ${user.email}</p>
         <hr>
         <form id ="FormChangePassword">
           <div class="aligneRow">
@@ -127,7 +125,7 @@ function editPhoto (){
 function getThisUser(data){
   console.log("DATA",data);
   userInformations = data;
-  $("#photoDuProfile").attr("src",userInformations.userInfo.image)
+  $("#photoDuProfile").attr("src",userInformations.userInfo.pathImage)
   $("#bio").empty();
   $("#bio").append(userInformations.userInfo.bio)
 }
