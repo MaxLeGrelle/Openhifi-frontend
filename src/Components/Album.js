@@ -3,6 +3,7 @@ import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js'
 import { onNavigate } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player'; 
+import {adaptFooterPosition} from "./Footer.js";
 const howl = require("howler")
 
 /**
@@ -31,6 +32,7 @@ function displayAlbum() {
     displayMenu()
     getAlbumData()
     displayPlayer();
+    adaptFooterPosition();
 }
 
 /**

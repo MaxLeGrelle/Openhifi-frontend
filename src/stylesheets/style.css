@@ -6,6 +6,7 @@
     --main-bg: #1b212c;
     --navbar-bg: #253145ff;
     --menu-bg: #253145ff;
+    --footer-bg: #253145ff;
     --blue : #0761ebff;
     --redAlert : #bf2424;
     --greenAlert : #218838;
@@ -224,7 +225,45 @@ body {
     color: white !important;
 }
 
-/*When the page is minimize or on a small screen all element are smaller*/
+/*footer*/
+
+#footer{
+    display: inline-block;
+    position: relative;
+    background-color: var(--footer-bg);
+    color: white;
+    font-size: 0.8em;
+    margin-bottom: 0px;
+    height: 115px;
+    width: 100%;
+    padding: 10px;
+    column-count: 4;
+    column-gap: 100px;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+}
+
+#footer #credits{
+    break-before: column;
+    break-inside: avoid-column;
+}
+
+#footer #dateTime{
+    break-before: column;
+    break-inside: avoid-column;
+}
+
+#footer #legalMentionsFooter{
+    break-before: column;
+    break-inside: avoid-column;
+}
+
+#footer #contact{
+    break-before: column;
+    break-inside: avoid-column;
+}
+
+/*When the page is minimize or on a small screen all elements are smaller*/
 @media (max-width: 1600px){
     #profile img{
         width: 50px ;
@@ -293,7 +332,9 @@ Register / Login page
 #error{
     color: var(--blue);
 }
-/*Profil page ########################################################################################################################*/
+/*###########################################################################
+Profile page
+###########################################################################*/
 
 
 
