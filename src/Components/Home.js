@@ -12,6 +12,8 @@ import{getUserStorageData} from '../Utils/storage.js'
 import { displayPlayer } from "./Player"
 const jwt = require("jsonwebtoken")
 
+const userLogged = getUserStorageData()
+const infoUser  = jwt.decode(userLogged.token)
 
 //set up for import fas, far
 library.add(fas, far)
@@ -20,15 +22,13 @@ dom.watch()
 
 
 function displayHome() {
-  const userLogged = getUserStorageData()
-  const infoUser  = jwt.decode(userLogged.token)
   $("#container").empty();
   console.log("affiche accueil");
   $("#container").append(` 
     <div id="navbar"> </div>
     <div id="menu"> </div>
     <div id="main">
-      <div class="display-4">Bienvenue ${infoUser.pseudo}, quelle agréable journée pour écouter de la musique</div>
+      <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
       <h2>Écouté recemment :</h2>
       <div id="recently"></div>
       <h2>À Découvrir :</h2>
@@ -40,6 +40,7 @@ function displayHome() {
   displayMenu()
   displayMain()
   getAllAlbums()
+  getRecentlyListened()
 }        
 
 //HTML of the navbar
@@ -212,6 +213,20 @@ function displayDiscover(data) {
    i++;
   });
   $("#discover .carousel-inner a").on("click", onNavigate)
+  
+}
+
+function getRecentlyListened() {
+  fetch("/api/users/recently/"+infoUser.id)
+  .then((response) => {
+    if (!response) throw new Error("Error code : " + response.status + " : " + response.statusText)
+    return response.json()
+  })
+  .then((data) => displayRecently(data))
+  .catch((err) => onErrorDisplayAlbum(err))
+}
+
+function displayRecently(data) {
   
 }
 
