@@ -1,6 +1,7 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-import {displayNavBar,displayMenu} from './Home.js'
+import {displayNavBar,displayMenu} from './Home.js' 
+import {adaptFooterPosition} from "./Footer.js";
 import { onNavigate, redirectUrl } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
 import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
@@ -33,6 +34,7 @@ function displayAlbum() {
     displayMenu()
     getAlbumData()
     displayPlayer();
+    adaptFooterPosition();
 }
 
 /**

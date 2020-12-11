@@ -10,6 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
 import { displayPlayer } from "./Player"
+import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
 
 //set up for import fas, far
@@ -38,6 +39,8 @@ function displayHome() {
   displayMenu()
   displayMain()
   getAllAlbums()
+  adaptFooterPosition()
+  displayFooter()
   getRecentlyListened()
 }        
 
