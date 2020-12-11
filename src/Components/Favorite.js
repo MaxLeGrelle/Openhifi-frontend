@@ -7,16 +7,12 @@ function Favorite(){
 
       $("#container").empty();
       console.log("affiche profil");
-      $("#container").append(` 
-        <div id="navbar"></div>
-        <div id="menu">
-          <div id="favorite"></div>
-          <div id="trends"></div>
-        </div>
-        <div id="main">
-        </div>`);
-      displayMenu()
-      displayNavBar()
+      $("#container").append(`<div id="main"></div>`);
+      if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+    }
       $("#navbar").on("click", onNavigate)
       $("#menu").on("click", onNavigate)
       
@@ -26,7 +22,7 @@ function Favorite(){
       
   }
   function displayMain(){
-    $("#main").append(`<div id = "general"><div class="display-4">Musiques favorite :</div>
+    $("#main").append(`<div id = "fav"><div class="display-4">Musiques favorite :</div>
     
     `)
   }

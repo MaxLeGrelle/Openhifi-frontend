@@ -11,11 +11,6 @@ const jwt = require("jsonwebtoken");
 function displayAddAlbum() {
     $("#container").empty()
     $("#container").append(`
-    <div id="navbar"></div>
-    <div id="menu">
-      <div id="favorite"></div>
-      <div id="trends"></div>
-    </div>
     <div id="main">
     <div id="addAlbumPage">
         <div id = "topPageAddAlbum">
@@ -39,8 +34,11 @@ function displayAddAlbum() {
         <div id ="AddAlbumPlace"> </div>
     </div>
     </div>`)
-    displayNavBar()
-    displayMenu()
+    if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+    }
     $("#formAddMusic").on("submit", onSubmitMusic);
     // document.getElementById("music").onchange = setFileInfo
 

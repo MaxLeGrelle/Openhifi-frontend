@@ -1,6 +1,7 @@
 import {setMusicLikedDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
+import logo from '../img/open-hifi-logo-transparent.png';
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
 
@@ -10,6 +11,9 @@ function Login() {
   displayRegistration();
   stopMusic()
   $("#player").empty()
+  $("#navbar").empty()
+  $("#menu").empty()
+  $("#footer").empty()
 }
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>
@@ -81,7 +85,10 @@ function displayConnection() {
 function displayLogin() {
   $("#container").empty();
   $("#container").append(`<div id = "login"> </div>`)
-  $("#login").append(`<div id = "connection"> </div>  <div id = "registration"> </div>`)
+  $("#login").append(`
+  <div id = "connection"> </div>
+  <img id = "logoLogin" href= "logo" src ="${logo}">
+  <div id = "registration"> </div>`)
 
   Login();
   $("#formRegistration").on("submit", onRegister);

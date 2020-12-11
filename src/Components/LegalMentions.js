@@ -6,17 +6,14 @@ function LegalMentions(){
   }
   function displayLegalMentions() {
       $("#container").empty();
-      $("#container").append(` 
-        <div id="navbar"></div>
-        <div id="menu">
-          <div id="favorite"></div>
-          <div id="trends"></div>
-        </div>
-        <div id="main"></div>`);
+      $("#container").append(`<div id="main"></div>`);
       $("#navbar").on("click", onNavigate)
       $("#menu").on("click", onNavigate)
-      displayMenu()
-      displayNavBar()
+      if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+    }
       LegalMentions()
       
   }

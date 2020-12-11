@@ -17,17 +17,11 @@ function displayProfil() {
     getPublicInformations()
     $("#container").empty();
     console.log("affiche profil");
-    $("#container").append(`
-      <div id="navbar"></div>
-
-      <div id="menu">
-        <div id="favorite"></div>
-        <div id="trends"></div>
-      </div>
-      <div id="main"></div>
-    `);
-    displayMenu()
-    displayNavBar()
+    $("#container").append(`<div id="main"></div>`);
+    if($("#navbar").text().length == 0){
+      displayNavBar();
+      displayMenu();
+    }
     Profil()
     
 }
