@@ -18,15 +18,26 @@ function getUserStorageData ()  {
     return JSON.parse(user);
 };
 
-function setRecentlyStackDataStorage(albumData){
-    localStorage.setItem(STORAGE_KEY_RECENTLY, JSON.stringify(albumData));
+function setRecentlyDataStorage(albumId){
+    localStorage.setItem(STORAGE_KEY_RECENTLY, JSON.stringify(albumId));
 }
 
-function getRecentlyStackStorageData(){
-    const stackAlbumsRecently = localStorage.getItem(STORAGE_KEY_RECENTLY);
-    if (!stackAlbumsRecently) return;
-    return JSON.parse(stackAlbumsRecently);
+function getRecentlyDataStorage(){
+    const recentlyLocalStorage = localStorage.getItem(STORAGE_KEY_RECENTLY);
+    if (!recentlyLocalStorage) return;
+    return JSON.parse(recentlyLocalStorage);
 }
+
+function addAlbumToRecentlyDataStorage(albumId){
+    let recentlyLocalStorage = getRecentlyDataStorage()
+    if (recentlyLocalStorage.includes(albumId)) {
+        const index = recentlyLocalStorage.findIndex((id) => id == albumId)
+        recentlyLocalStorage.splice(index, 1)
+    }else if (recentlyLocalStorage.length == 8) recentlyLocalStorage.pop()
+    recentlyLocalStorage.unshift(albumId)
+    setRecentlyDataStorage(recentlyLocalStorage)
+}
+
 function setMusicLikedDataStorage(musicData){
     localStorage.setItem(STORAGE_LIKED, JSON.stringify(musicData));
 }
@@ -51,4 +62,4 @@ function addNewMusicLikedStorage(musicLiked){
 }
 
 
-export {setUserDataStorage, removeAllDataStorage, getUserStorageData, setRecentlyStackDataStorage, getRecentlyStackStorageData,setMusicLikedDataStorage,getMusicLikedDataStorage, addNewMusicLikedStorage};
+export {setUserDataStorage, removeAllDataStorage, getUserStorageData, setRecentlyDataStorage, getRecentlyDataStorage, addAlbumToRecentlyDataStorage,setMusicLikedDataStorage,getMusicLikedDataStorage, addNewMusicLikedStorage};
