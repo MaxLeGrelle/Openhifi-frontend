@@ -1,4 +1,4 @@
-import {setMusicLikedDataStorage, setUserDataStorage} from '../Utils/storage.js';
+import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 import logo from '../img/open-hifi-logo-transparent.png';
@@ -135,6 +135,7 @@ function onErrorRegistration(err){
 function onRegistration(data){
   $("#menu").css("display", "");
   setMusicLikedDataStorage([])
+  setRecentlyDataStorage([])
   setUserDataStorage(data);
   redirectUrl("/");
 
@@ -165,6 +166,7 @@ function onLogin(e) {
 function onConnection(data) {
   $("#menu").css("display", "");
   setMusicLikedDataStorage(data.musicsLiked)
+  setRecentlyDataStorage(data.recentlyListened)
   setUserDataStorage(data);
   redirectUrl("/");
 }
