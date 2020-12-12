@@ -33,7 +33,9 @@ const jwt = require("jsonwebtoken")
     $("#main").empty()
     $("#main").append(`
     <div class="container" id="albumDisplay">
+        <p id = "alert"></p>
         <p class="display-1">Favoris</p>
+
         <hr>
         <table id="albumMusicList" class="table">
             <thead>
@@ -88,14 +90,14 @@ const jwt = require("jsonwebtoken")
 function getMusiquesData(){
   const user = getUserStorageData();
   const infoUser = jwt.decode(user.token)
-  fetch(`/api/musics/${infoUser.id}`,{
-    method:"GET"
-  }).then((response) => {
+  fetch(`/api/musics/${infoUser.id}`)
+  .then((response) => {
     if (!response.ok)
       throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
     return response.json()
   })
   .then((data) => displayMusicsData(data))
+  .catch((err) =>  onErrorFavorite(err))
 }
 function onLike(e) { 
   console.log("Target :",e.target.parentElement.classList.value)
@@ -126,7 +128,7 @@ if (e.target.parentElement.classList.value === "disliked" || e.target.parentElem
               throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
           return response.json()
       })
-      .catch((err) => console.log(err.message)/*redirectUrl("/error", err.message)*/)
+      .catch((err) => onErrorFavorite(err))
   console.log("add")
   console.log(e.target.parentElement)
   addNewMusicLikedStorage(musicLikedId)
@@ -134,4 +136,9 @@ if (e.target.parentElement.classList.value === "disliked" || e.target.parentElem
 
 }
 
+function onErrorFavorite(err){
+  $("alert").empty()
+  if(err.message) $("#alert").append(`<pclass="alert alert-danger">${err.message}</p>`)
+  else $("#alert").append(`<p class="alert alert-danger">Il y a eu une erreur lors du chargement des données ! </p>`)
+}
   export default displayFavorite;
