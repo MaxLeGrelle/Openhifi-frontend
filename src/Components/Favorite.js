@@ -2,10 +2,12 @@ import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
 import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
+import { displayFooter } from './Footer.js';
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
 
   function displayFavorite() {
+    $("#loading-wrapper").css("display", "none")
       $("#container").empty();
       $("#container").append(`<div id="main"></div>`);
       if($("#navbar").text().length == 0){
@@ -14,7 +16,9 @@ const jwt = require("jsonwebtoken")
         displayFooter();
     } 
       $("#favorite").empty();
+      $("#trends").empty();
       $("#favorite").append(`<div id ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
+      $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
       getMusiquesData()
 
       

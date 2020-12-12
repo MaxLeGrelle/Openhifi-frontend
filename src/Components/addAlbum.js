@@ -6,9 +6,11 @@ import {
 } from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
 import imageDefault from "../img/defaultImg.jpg";
+import { displayFooter } from "./Footer";
 const jwt = require("jsonwebtoken");
 
 function displayAddAlbum() {
+    $("#loading-wrapper").css("display", "none")
     $("#container").empty()
     $("#container").append(`
     <div id="main">
@@ -34,9 +36,17 @@ function displayAddAlbum() {
         <div id ="AddAlbumPlace"> </div>
     </div>
     </div>`)
+    $("#trends").empty()
+    $("#favorite").empty();
+    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+    $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
     $("#formAddMusic").on("submit", onSubmitMusic);
     // document.getElementById("music").onchange = setFileInfo
-
+    if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+      }
 }
 
 let listMusicToAdd;

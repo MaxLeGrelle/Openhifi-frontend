@@ -14,14 +14,15 @@ const jwt = require("jsonwebtoken")
  */
 function displayAlbum() {
     loadingAnimation()
-    $("#container").append(`<div id="main"></div>`); 
-    if($("#navbar").text().length == 0){
+    $("#container").append(`<div id="main"></div>`);
+    displayPlayer()
+    if($("#navbar").text().length == 0 ){
         displayNavBar();
         displayMenu();
         displayFooter();
     }
     getAlbumData()
-    displayPlayer();
+    
     adaptFooterPosition();
 }
 

@@ -9,20 +9,22 @@ let showEditPhoto = false;
 let userInformations;
 
 
-function Profil(){
-  displayGeneral()
-  showEditPhoto = false;
-
-}
 function displayProfil() {
+    $("#loading-wrapper").css("display", "none")
     getPublicInformations()
     $("#container").empty();
     console.log("affiche profil");
     $("#container").append(`<div id="main"></div>`);
-    Profil()
+    if($("#navbar").text().length == 0){
+      displayNavBar();
+      displayMenu();
+      displayFooter();
+    }
+    displayGeneral()
     
 }
 function displayGeneral(){
+  showEditPhoto = false;
   const user = getUserStorageData();
   $("#main").append(`
 
@@ -64,6 +66,10 @@ function displayGeneral(){
       <input  id = "btnChangeBio" type = "submit" value = "confirmer changements" class="btn btn-primary form-control">
     </form>
   </div>`)
+  $("#trends").empty()
+  $("#favorite").empty();
+  $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+  $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 $("#formChangeBio").on("submit",editBio)  
 $("#hoverPhoto").on("click", editPhoto);
 $("#BtnEditPassword").on("click", editPassword);

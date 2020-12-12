@@ -38,6 +38,7 @@ function displayHome() {
   loadingAnimation()
   const userLogged = getUserStorageData()
   $("#container").empty();
+  $("#footer").css("display", "");
   console.log("affiche accueil");
   $("#container").append(`
       <div id="main">
@@ -49,6 +50,10 @@ function displayHome() {
         <div id="discover"></div>
       </div>
     `);
+    $("#trends").empty()
+    $("#favorite").empty();
+    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
+    $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
   if($("#navbar").text().length == 0){
     displayNavBar();
     displayMenu();
@@ -190,7 +195,7 @@ function displayRecently(data) {
         <div class="container-card" style="float:left">
           <div class="card mb-2">
             <a href="#" data-url="/albums" data-id="${album.id}">
-              <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
+              <img class="card-img-top imageAlbum" src="${data.image64List[i]}" alt="album cover">
             </a>
             <div class="card-body">
               <a href="#" data-url="/albums" data-id="${album.id}">
