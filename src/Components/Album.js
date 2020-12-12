@@ -12,7 +12,6 @@ const jwt = require("jsonwebtoken")
  * Append the divs to display the data of the album
  */
 function displayAlbum() {
-    $("#container").append(`<div id = "container"> </div>`)
     $("#container").append(`<div id="main"></div>`); 
     $("#navbar").on("click", onNavigate)
     $("#menu").on("click", onNavigate)

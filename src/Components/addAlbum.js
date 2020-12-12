@@ -34,11 +34,6 @@ function displayAddAlbum() {
         <div id ="AddAlbumPlace"> </div>
     </div>
     </div>`)
-    if($("#navbar").text().length == 0){
-        displayNavBar();
-        displayMenu();
-        displayFooter();
-    }
     $("#formAddMusic").on("submit", onSubmitMusic);
     // document.getElementById("music").onchange = setFileInfo
 

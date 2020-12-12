@@ -19,11 +19,6 @@ function displayProfil() {
     $("#container").empty();
     console.log("affiche profil");
     $("#container").append(`<div id="main"></div>`);
-    if($("#navbar").text().length == 0){
-      displayNavBar();
-      displayMenu();
-      displayFooter();
-    }
     Profil()
     
 }

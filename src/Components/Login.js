@@ -12,6 +12,7 @@ function Login() {
   stopMusic()
   $("#player").empty()
   $("#navbar").empty()
+  $("#menu").css("display", "none");
   $("#menu").empty()
   $("#footer").empty()
 }
@@ -132,6 +133,7 @@ function onErrorRegistration(err){
 }
 
 function onRegistration(data){
+  $("#menu").css("display", "");
   setMusicLikedDataStorage([])
   setUserDataStorage(data);
   redirectUrl("/");
@@ -161,6 +163,7 @@ function onLogin(e) {
 }
 
 function onConnection(data) {
+  $("#menu").css("display", "");
   setMusicLikedDataStorage(data.musicsLiked)
   setUserDataStorage(data);
   redirectUrl("/");

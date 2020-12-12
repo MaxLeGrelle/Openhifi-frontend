@@ -44,6 +44,8 @@ body {
     width: 100%;
     padding: 0%;
     margin-left: 0%;
+    position: fixed;
+    z-index: 2;
 }
 
 #search{
@@ -87,9 +89,13 @@ body {
 
 /*Menu*/
 #menu{
+    margin-top: 120px;
     background-color: var(--menu-bg);
     color: white;
     width: 10%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
 }
 
 #menu a{
@@ -123,6 +129,7 @@ body {
     position: relative;
     top: 20%;
     left: 10%;
+    margin-top: 120px !important;
 }
 
 #main > .display-4{
@@ -233,6 +240,7 @@ body {
 #footer{
     width: 100%;
     margin-bottom: 0;
+    margin-left: 10%;
     display: inline-block;
     background-color: var(--footer-bg);
     color: white;
@@ -288,9 +296,6 @@ Register / Login page
     padding-top: 4%;
     padding: 5%;
     padding-left: 10%;
-    position: relative;
-    right: 10%;
-    z-index: 1;
 }
 
 #logoLogin{

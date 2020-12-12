@@ -2,24 +2,6 @@ import { onNavigate } from "./Router";
 
 const footer = document.getElementById("footer");
 
-// /**
-//  * getting and displaying date & time
-//  */
-// //source : https://stackoverflow.com/questions/27526857/how-to-get-date-to-auto-refresh
-// function clockTick() {
-//     var currentTime = new Date(),
-//         month = currentTime.getMonth() + 1,
-//         day = currentTime.getDate(),
-//         year = currentTime.getFullYear(),
-//         hours = currentTime.getHours(),
-//         minutes = currentTime.getMinutes(),
-//         seconds = currentTime.getSeconds(),
-//         text = (day + "/" + month + "/" + year + ' ' + hours + ':' + minutes + ':' + seconds);
-//     // here we get the element with the id of "date" and change the content to the text variable we made above
-//     document.getElementById('footerDate').innerHTML = text;
-//   }
-
-
 function displayFooter() {
     $("#footer").append(`
     <div class = "footerBloc" id="credits">
