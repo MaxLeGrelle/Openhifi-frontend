@@ -15,7 +15,7 @@ function displayProfil() {
     getPublicInformations()
     $("#container").empty();
     $("#container").append(`<div id="main"></div>`);
-    if($("#navbar").text().length == 0){
+    if($("#navbar").text().length == 0){ // if the navbar is empty fill it
       displayNavBar();
       displayMenu();
       displayFooter();
@@ -84,7 +84,7 @@ $("#BtnEditPassword").on("click", editPassword);
 
 }
 
-function opacityPhotoLess(){
+function opacityPhotoLess(){ //change the opacity when the image is hover
   $("#photoDuProfile").css("opacity", "0.5");
 }
 
@@ -95,7 +95,7 @@ function opacityPhotoMore(){
 
 /**
  * function to change the content of the bio
- * @param {} e 
+ * @param {} e (e = event)
  */
 function editBio(e){
   e.preventDefault();
@@ -259,7 +259,7 @@ function editPassword(e){
   }).then( () => {
     $("#alertMdp").empty();
     $("#alertMdp").append(` </br><p class="alert alert-success"> la modification a été exécutée avec succès </p>`);
-  }).catch((err) => { 
+  }).catch(() => { 
     $("#alertMdp").empty();
     $("#alertMdp").append(`</br><p class="alert alert-danger">la modification ne s'est pas bien déroulée </p>`);
   })

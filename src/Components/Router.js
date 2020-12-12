@@ -1,4 +1,3 @@
-
 import {displayHome} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
@@ -12,7 +11,6 @@ import {displayAlbum} from "./Album.js";
 import displayLegalMentions from "./LegalMentions.js";
 let pageToRender;
 
-let navbar;
 const routes = {
     "/": displayHome,
     "/login": displayLogin,
@@ -47,7 +45,6 @@ function router(){
 }
 
 function onNavigate(e){
-    console.log(e.target.parentElement);
     let url;
     let id;
     if(e.target.tagName === "A"){
@@ -60,8 +57,7 @@ function onNavigate(e){
     }
 
     if(url){
-        //if (id) window.history.pushState({}, url, window.location.origin + url + '/' + id)
-        if (id) window.history.pushState({}, url, window.location.origin + url + '?no=' + id) // le url + / + id ne fonctionne pas ? -> charge pas bundle.js
+        if (id) window.history.pushState({}, url, window.location.origin + url + '?no=' + id) 
         else window.history.pushState({}, url, window.location.origin + url)
         pageToRender = routes[url];
         
