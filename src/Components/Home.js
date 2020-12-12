@@ -58,7 +58,6 @@ function displayHome() {
   getAllAlbums()
   adaptFooterPosition()
   displayFooter()
-  getRecentlyListened()
 }     
 
 //HTML of the navbar
