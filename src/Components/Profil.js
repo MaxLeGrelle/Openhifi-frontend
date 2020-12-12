@@ -3,6 +3,7 @@ import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
 import{fileToBase64} from './addAlbum.js'
+import { displayFooter } from "./Footer"
 const jwt = require("jsonwebtoken")
 let showEditPhoto = false;
 let userInformations;
@@ -17,17 +18,7 @@ function displayProfil() {
     getPublicInformations()
     $("#container").empty();
     console.log("affiche profil");
-    $("#container").append(`
-      <div id="navbar"></div>
-
-      <div id="menu">
-        <div id="favorite"></div>
-        <div id="trends"></div>
-      </div>
-      <div id="main"></div>
-    `);
-    displayMenu()
-    displayNavBar()
+    $("#container").append(`<div id="main"></div>`);
     Profil()
     
 }

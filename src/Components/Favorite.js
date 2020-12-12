@@ -6,22 +6,13 @@ const howl = require("howler")
 const jwt = require("jsonwebtoken")
 
   function displayFavorite() {
-
       $("#container").empty();
-      console.log("affiche profil");
-      $("#container").append(` 
-        <div id="navbar"></div>
-        <div id="menu">
-          <div id="favorite"></div>
-          <div id="trends"></div>
-        </div>
-        <div id="main">
-        </div>`);
-      displayMenu()
-      displayNavBar()
-      $("#navbar").on("click", onNavigate)
-      $("#menu").on("click", onNavigate)
-      
+      $("#container").append(`<div id="main"></div>`);
+      if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+    } 
       $("#favorite").empty();
       $("#favorite").append(`<div id ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
       getMusiquesData()

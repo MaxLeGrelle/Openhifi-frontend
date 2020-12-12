@@ -1,7 +1,7 @@
 import { layer } from '@fortawesome/fontawesome-svg-core';
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js' 
-import {adaptFooterPosition} from "./Footer.js";
+import {displayFooter,adaptFooterPosition} from "./Footer.js";
 import { onNavigate, redirectUrl } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
 import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
@@ -14,26 +14,12 @@ const jwt = require("jsonwebtoken")
  */
 function displayAlbum() {
     loadingAnimation()
-    $("#page").empty()
-    $("#page").append(`<div id = "container"> </div>`)
-      $("#container").append(` 
-        <div id="navbar">
-          <div id="logo"></div>
-          <div id="search"></div>
-          <div id="add"></div>
-          <div id="profile"></div>
-        </div>
-        <div id="menu">
-          <div id="favorite"></div>
-          <div id="trends"></div>
-        </div>
-        <div id="main">
-        </div>`);
-  
-    $("#navbar").on("click", onNavigate)
-    $("#menu").on("click", onNavigate)
-    displayNavBar()
-    displayMenu()
+    $("#container").append(`<div id="main"></div>`); 
+    if($("#navbar").text().length == 0){
+        displayNavBar();
+        displayMenu();
+        displayFooter();
+    }
     getAlbumData()
     displayPlayer();
     adaptFooterPosition();

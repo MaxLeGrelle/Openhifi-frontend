@@ -39,9 +39,7 @@ function displayHome() {
   const userLogged = getUserStorageData()
   $("#container").empty();
   console.log("affiche accueil");
-  $("#container").append(` 
-      <div id="navbar"> </div>
-      <div id="menu"> </div>
+  $("#container").append(`
       <div id="main">
         <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
         <h2>Écouté recemment :</h2>
@@ -51,15 +49,16 @@ function displayHome() {
         <div id="discover"></div>
       </div>
     `);
-  displayNavBar()
-  displayMenu()
+  if($("#navbar").text().length == 0){
+    displayNavBar();
+    displayMenu();
+    displayFooter();
+  }
   setRecentlyListenedAlbums()
   getRecentyListenedAlbums()
   getAllAlbums()
   adaptFooterPosition()
-  displayFooter()
 }     
-
 //HTML of the navbar
 function displayNavBar() {
   $("#navbar").append(` 

@@ -17,18 +17,22 @@ html *{
     font-family: 'Montserrat', sans-serif;
    
 }
-body, html, #container, #page{
+body, #container, #page{
     width: 100%;
     height: 100%; 
 }
+
+#container{
+    padding-bottom: 4%;
+}
+
 body {
-    margin: 0;
+    height: 100%;
     background-color: var(--main-bg) !important;
     overflow-x:hidden
 }
-
-#page {
-    margin-bottom: 30%;
+#middlePage{
+    display: flex;
 }
 
 
@@ -85,13 +89,11 @@ body {
 
 /*Menu*/
 #menu{
-    float: left;
-    display: flex;
-    flex-direction: column;
+    margin-top: 120px;
     background-color: var(--menu-bg);
-    width: 9%;
-    height: 100% ; 
     color: white;
+    width: 10%;
+    height: 100%;
     position: fixed;
     z-index: 1;
 }
@@ -127,6 +129,7 @@ body {
     position: relative;
     top: 20%;
     left: 10%;
+    margin-top: 120px !important;
 }
 
 #main > .display-4{
@@ -225,37 +228,20 @@ body {
 /*footer*/
 
 #footer{
+    width: 100%;
+    margin-bottom: 0;
+    margin-left: 10%;
     display: inline-block;
-    position: relative;
     background-color: var(--footer-bg);
     color: white;
     font-size: 0.8em;
-    margin-bottom: 0px;
-    height: 115px;
-    width: 100%;
-    padding: 10px;
-    column-count: 4;
-    column-gap: 100px;
+    column-count: 3;
     column-rule-style: solid;
     column-rule-width: 1px;
 }
 
-#footer #credits{
-    break-before: column;
-    break-inside: avoid-column;
-}
-
-#footer #dateTime{
-    break-before: column;
-    break-inside: avoid-column;
-}
-
-#footer #legalMentionsFooter{
-    break-before: column;
-    break-inside: avoid-column;
-}
-
-#footer #contact{
+.footerBloc{
+    padding: 5%;
     break-before: column;
     break-inside: avoid-column;
 }
@@ -294,16 +280,22 @@ body {
 Register / Login page
 ###########################################################################*/
 #login{
-    display:flex;
+    background-color: var(--main-bg);
+    display: flex;
     color: white;
-    margin-top: 10%;
+    padding-top: 4%;
+    padding: 5%;
+    padding-left: 10%;
+}
+
+#logoLogin{
+    width: 30%;
+    height: 30%;
 
 }
 #connection{
     display: flex;
     flex-direction: column;
-    margin-right: 30%;
-    margin-left: 10%;
     border: solid;
     border-color:  var(--blue);
     padding-left: 5%;
@@ -356,6 +348,11 @@ Profile page
 #general{
     color: white;
     width: 500px;
+}
+
+#tendancePage, #favPage{
+    color: white;
+    padding-bottom: 35%;
 }
 
 #inputPhoto, #btnConfirmSetImage{
