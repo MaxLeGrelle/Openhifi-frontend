@@ -1,5 +1,6 @@
 import { displayNavBar, displayMenu } from './Home.js'
 import { onNavigate } from './Router.js'
+import { displayFooter} from './Footer.js'
 
 function displayLegalMentions() {
       $("#container").empty();
@@ -9,6 +10,8 @@ function displayLegalMentions() {
         displayMenu();
         displayFooter();
     }
+    $("#navbar").on("click", onNavigate)
+    $("#menu").on("click", onNavigate)
       displayMain()
       
   }
