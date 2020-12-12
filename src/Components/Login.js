@@ -2,11 +2,12 @@ import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} fr
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 import logo from '../img/open-hifi-logo-transparent.png';
+import { removeLoadingAnimation } from '../Utils/animations.js';
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
 
 function Login() {
-
+  removeLoadingAnimation()
   displayConnection();
   displayRegistration();
   stopMusic()
