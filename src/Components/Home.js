@@ -27,6 +27,7 @@ import {
 } from "./Player"
 import displayTrends from "./Trends"
 import {loadingAnimation, removeLoadingAnimation} from "../Utils/animations.js"
+import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
 
 //set up for import fas, far
@@ -55,8 +56,10 @@ function displayHome() {
   setRecentlyListenedAlbums()
   getRecentyListenedAlbums()
   getAllAlbums()
-
-}
+  adaptFooterPosition()
+  displayFooter()
+  getRecentlyListened()
+}     
 
 //HTML of the navbar
 function displayNavBar() {
