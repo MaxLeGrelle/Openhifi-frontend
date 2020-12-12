@@ -2,6 +2,7 @@ import { displayFooter } from './Footer.js';
 import { displayNavBar, displayMenu } from './Home.js'
 import { onNavigate } from './Router.js'
 
+
 function displayLegalMentions() {
   $("#loading-wrapper").css("display", "none")
       $("#container").empty();
@@ -11,6 +12,8 @@ function displayLegalMentions() {
         displayMenu();
         displayFooter();
     }
+    $("#navbar").on("click", onNavigate)
+    $("#menu").on("click", onNavigate)
       displayMain()
       
   }

@@ -634,8 +634,9 @@ Legal mentions page
     color: white;
     font-size: 0.8em;
     width: 90%;
-    
+    padding-top: 200px !important;
 }
+
 /*ANIMATION*/
 
 #loading-wrapper {
