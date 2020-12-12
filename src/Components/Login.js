@@ -1,8 +1,9 @@
-import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
+import {getUserStorageData, setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 import logo from '../img/open-hifi-logo-transparent.png';
 import { removeLoadingAnimation } from '../Utils/animations.js';
+import {getImageNavbar} from './Home.js'
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
 
@@ -112,6 +113,7 @@ function onRegistration(data){
   setMusicLikedDataStorage([])
   setRecentlyDataStorage([])
   setUserDataStorage(data);
+  getImageNavbar()
   redirectUrl("/");
 
 }
@@ -143,6 +145,7 @@ function onConnection(data) {
   setMusicLikedDataStorage(data.musicsLiked)
   setRecentlyDataStorage(data.recentlyListened)
   setUserDataStorage(data);
+  getImageNavbar()
   redirectUrl("/");
 }
 

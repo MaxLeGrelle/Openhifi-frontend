@@ -229,6 +229,7 @@ function onErrorProfile(err){
  */
 function showData(data){
   $("#photoDuProfile").attr("src",data.image64);
+  $("#photoProfil").attr("src",data.image64);
 }
 
 /**
