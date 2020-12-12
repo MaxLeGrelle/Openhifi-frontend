@@ -30,12 +30,10 @@ const jwt = require("jsonwebtoken")
   }
   let musics
   function displayMusicsData(data){
-    const user = getUserStorageData();
     $("#main").empty()
     $("#main").append(`
     <div class="container" id="albumDisplay">
         <p class="display-1">Favoris</p>
-        <p >De : ${user.pseudo}</p>
         <hr>
         <table id="albumMusicList" class="table">
             <thead>
