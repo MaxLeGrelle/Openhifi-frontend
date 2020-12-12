@@ -5,6 +5,7 @@ import {adaptFooterPosition} from "./Footer.js";
 import { onNavigate, redirectUrl } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
 import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
+import { loadingAnimation, removeLoadingAnimation } from '../Utils/animations.js';
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
 
@@ -12,6 +13,7 @@ const jwt = require("jsonwebtoken")
  * Append the divs to display the data of the album
  */
 function displayAlbum() {
+    loadingAnimation()
     $("#page").empty()
     $("#page").append(`<div id = "container"> </div>`)
       $("#container").append(` 
@@ -141,6 +143,7 @@ function displayAlbumData(data){
         i++
     });
     $(".Like").on("click", onLike)
+    removeLoadingAnimation()
 }
 function onLike(e) { 
         console.log("Target :",e.target.parentElement.classList.value)

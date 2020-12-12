@@ -2,13 +2,31 @@ import logo from "../img/open-hifi-logo-transparent2.png"
 import profile from "../img/default_profile.png"
 import r1 from "../img/rooster.jpg"
 import r2 from "../img/camel.jpg"
-import {library,dom} from '@fortawesome/fontawesome-svg-core'
-import {fas} from '@fortawesome/free-solid-svg-icons'
-import {far} from '@fortawesome/free-regular-svg-icons'
-import {fab} from '@fortawesome/free-brands-svg-icons'
-import {onNavigate} from './Router.js'
-import {getRecentlyDataStorage,getUserStorageData} from '../Utils/storage.js'
+import {
+  library,
+  dom
+} from '@fortawesome/fontawesome-svg-core'
+import {
+  fas
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  far
+} from '@fortawesome/free-regular-svg-icons'
+import {
+  fab
+} from '@fortawesome/free-brands-svg-icons'
+import {
+  onNavigate
+} from './Router.js'
+import {
+  getRecentlyDataStorage,
+  getUserStorageData
+} from '../Utils/storage.js'
+import {
+  displayPlayer
+} from "./Player"
 import displayTrends from "./Trends"
+import {loadingAnimation, removeLoadingAnimation} from "../Utils/animations.js"
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
 
@@ -16,24 +34,23 @@ const jwt = require("jsonwebtoken")
 library.add(fas, far)
 dom.watch()
 
-
-
 function displayHome() {
+  loadingAnimation()
   const userLogged = getUserStorageData()
   $("#container").empty();
   console.log("affiche accueil");
   $("#container").append(` 
-    <div id="navbar"> </div>
-    <div id="menu"> </div>
-    <div id="main">
-      <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
-      <h2>Écouté recemment :</h2>
-      <div id="recently"></div>
-      <h2>À Découvrir :</h2>
-        
-      <div id="discover"></div>
-    </div>
-  `);
+      <div id="navbar"> </div>
+      <div id="menu"> </div>
+      <div id="main">
+        <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
+        <h2>Écouté recemment :</h2>
+        <div id="recently"></div>
+        <h2>À Découvrir :</h2>
+          
+        <div id="discover"></div>
+      </div>
+    `);
   displayNavBar()
   displayMenu()
   setRecentlyListenedAlbums()
@@ -41,6 +58,8 @@ function displayHome() {
   getAllAlbums()
   adaptFooterPosition()
   displayFooter()
+  getRecentlyListened()
+}     
 
 //HTML of the navbar
 function displayNavBar() {
@@ -103,30 +122,32 @@ function displayMenu() {
 
 function setRecentlyListenedAlbums() {
   const userData = getUserStorageData()
-    const userRecentlyListened = getRecentlyDataStorage()
-    const userPayload = jwt.decode(userData.token)
-    fetch("/api/users/recently/"+userPayload.id, {
-        method : "PUT",
-        body : JSON.stringify({recentlyListened : userRecentlyListened}),
-        headers: {
-            "Content-Type" : "application/json",
-        },
+  const userRecentlyListened = getRecentlyDataStorage()
+  const userPayload = jwt.decode(userData.token)
+  fetch("/api/users/recently/" + userPayload.id, {
+      method: "PUT",
+      body: JSON.stringify({
+        recentlyListened: userRecentlyListened
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }).then((response) => {
-        if(!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
-        return response.json();
+      if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
+      return response.json();
     })
-    .catch((err) => console.log(err))//TODO
+    .catch((err) => console.log(err)) //TODO
 }
 
-function getRecentyListenedAlbums(){
+function getRecentyListenedAlbums() {
   const user = getUserStorageData();
   const userPayload = jwt.decode(user.token)
-  fetch("/api/users/recently/"+userPayload.id)
-  .then((response) => {
-    if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
-    return response.json();
-  }).then((data) => displayRecently(data))
-  .catch((err) => onErrorDisplayAlbum(err))
+  fetch("/api/users/recently/" + userPayload.id)
+    .then((response) => {
+      if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
+      return response.json();
+    }).then((data) => displayRecently(data))
+    .catch((err) => onErrorDisplayAlbum(err))
 }
 
 //HTML for the main page
@@ -257,7 +278,7 @@ function displayDiscover(data) {
     i++;
   });
   $("#discover .carousel-inner a").on("click", onNavigate)
-
+  removeLoadingAnimation()
 }
 
 function onErrorDisplayAlbum(err) {
