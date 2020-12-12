@@ -52,11 +52,10 @@ let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
     setFileInfo($("#music").prop('files')[0])
-    let showFormAddAlbum = false;
-    if (!listMusicToAdd) {
-        listMusicToAdd = new Array();
-        showFormAddAlbum = true;
-    }
+    let showFormAddAlbum = true;
+    listMusicToAdd = new Array();
+    console.log("showFormAddAlbum",showFormAddAlbum)
+    console.log("listMusicToAdd",listMusicToAdd)
     if (showFormAddAlbum) {
         $("#AddAlbumPlace").append(`
         <div class="container">
@@ -75,9 +74,10 @@ function onSubmitMusic(e) {
             </form>
             <div id="errorAddingAlbum"></div>
         </div>`)
+        showFormAddAlbum = false
+        listMusicToAdd = new Array();
         $("#formAddAlbum").on("submit", onSubmitAlbum);
         $('#image').on("change",changeImage);
-        showFormAddAlbum = false
     }
     $("#listMusicsToAdd").append(`
             <li id= "newMusic">${$("#musicTitle").val()}</li>
