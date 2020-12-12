@@ -3,7 +3,7 @@ import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
 import{fileToBase64} from './addAlbum.js'
-import { displayFooter } from "./Footer"
+import { displayFooter} from './Footer.js'
 const jwt = require("jsonwebtoken")
 let showEditPhoto = false;
 let userInformations;

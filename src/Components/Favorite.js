@@ -2,6 +2,7 @@ import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
 import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
+import { displayFooter} from './Footer.js'
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
 

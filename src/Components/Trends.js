@@ -1,5 +1,6 @@
 import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
+import { displayFooter} from './Footer.js'
 function Trends(){
     displayMain()
   }

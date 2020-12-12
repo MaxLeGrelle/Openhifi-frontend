@@ -6,6 +6,7 @@ import {
 } from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
 import imageDefault from "../img/defaultImg.jpg";
+import { displayFooter} from './Footer.js'
 const jwt = require("jsonwebtoken");
 
 function displayAddAlbum() {
