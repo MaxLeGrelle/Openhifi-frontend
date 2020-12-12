@@ -48,7 +48,7 @@ function getAlbumData() {
         return response.json();
     })
     .then((data) => displayAlbumData(data))
-    // .catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
+    //.catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
 }
 
 /**
