@@ -75,11 +75,23 @@ function displayGeneral(){
   $("#favorite").empty();
   $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
   $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
-$("#formChangeBio").on("submit",editBio)  
+$("#formChangeBio").on("submit",editBio)
+$('#hoverPhoto').on("mouseover", opacityPhotoLess) 
+$('#hoverPhoto').on("mouseleave", opacityPhotoMore)  
+
 $("#hoverPhoto").on("click", editPhoto);
 $("#BtnEditPassword").on("click", editPassword);
 
 }
+
+function opacityPhotoLess(){
+  $("#photoDuProfile").css("opacity", "0.5");
+}
+
+function opacityPhotoMore(){
+  $("#photoDuProfile").css("opacity", "1");
+}
+
 
 /**
  * function to change the content of the bio
