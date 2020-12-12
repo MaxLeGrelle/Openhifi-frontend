@@ -8,7 +8,9 @@ const jwt = require("jsonwebtoken")
 let showEditPhoto = false;
 let userInformations;
 
-
+/**
+ * called to display the page profil
+ */
 function displayProfil() {
     $("#loading-wrapper").css("display", "none")
     getPublicInformations()
@@ -23,6 +25,11 @@ function displayProfil() {
     displayGeneral()
     
 }
+
+/**
+ * display the first part of the page
+ * general informations
+ */
 function displayGeneral(){
   showEditPhoto = false;
   const user = getUserStorageData();
@@ -76,6 +83,10 @@ $("#BtnEditPassword").on("click", editPassword);
 
 }
 
+/**
+ * function to change the content of the bio
+ * @param {} e 
+ */
 function editBio(e){
   e.preventDefault();
   const user = getUserStorageData();
@@ -99,11 +110,18 @@ function editBio(e){
         .catch((err) => onErrorAddingAlbum(err));
 }
 
+/**
+ * replace the bio directly on the page
+ * @param {} data 
+ */
 function getBio(data){
   $("#bio").empty();
   $("#bio").append(data.bio)
 }
 
+/**
+ * display the form to edit your photo
+ */
 function editPhoto (){
   if(showEditPhoto) return;
   showEditPhoto = true;
@@ -121,6 +139,10 @@ function editPhoto (){
   $("#submitEditPhoto").on("submit", sendPhoto);
 }
 
+/**
+ * show the bio and the photo when the user arrive on the page
+ * @param {} data 
+ */
 function getThisUser(data){
   userInformations = data;
   if (userInformations.userInfo.pathImage !== "") $("#photoDuProfile").attr("src",userInformations.userInfo.pathImage)
@@ -128,7 +150,9 @@ function getThisUser(data){
   $("#bio").append(userInformations.userInfo.bio)
 }
 
-
+/**
+ * ask user's informations from the backend
+ */
 function getPublicInformations(){
   const user = getUserStorageData();
   const userPayload = jwt.decode(user.token)
@@ -142,6 +166,10 @@ function getPublicInformations(){
   .catch((err) => onErrorProfile(err));
 }
 
+/**
+ * set the photo of the user
+ * @param {} e 
+ */
 function sendPhoto(e){
   e.preventDefault()
   const user = getUserStorageData();
@@ -173,7 +201,10 @@ function sendPhoto(e){
      onErrorProfile(new Error("vous n'avez pas ajouté d'image"));
    }
 }   
-
+/**
+ * display an error on the page
+ * @param {*} err 
+ */
 function onErrorProfile(err){
   $("#alertMdp").empty();  
   if(err.message){
@@ -182,11 +213,20 @@ function onErrorProfile(err){
 }
 }
 
+/**
+ * display the new user's photo
+ * @param {*} data 
+ */
 function showData(data){
   console.log("DATA", data)
   $("#photoDuProfile").attr("src",data.image64);
 }
 
+/**
+ * allow the password's change to the user
+ * and set it in the back
+ * @param {*} e 
+ */
 function editPassword(e){
   e.preventDefault();
   const userLogged = getUserStorageData()

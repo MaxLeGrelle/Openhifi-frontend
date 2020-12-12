@@ -115,7 +115,10 @@ function setFileInfo(song) {
     audioDOM.src = URL.createObjectURL(song);
 
 }
-
+/**
+ * send the album to the backend
+ * @param {} e 
+ */
 function onSubmitAlbum(e) {
     e.preventDefault();
     const promise = fileToBase64($("#image").prop('files')[0]);
@@ -154,6 +157,11 @@ function onErrorAddingAlbum(err) {
     $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
+
+/**
+ * transform a file to a b64
+ * @param {*} file 
+ */
 function fileToBase64(file) {
     return new Promise(function (resolve, reject) {
         var reader = new FileReader();
@@ -165,6 +173,10 @@ function fileToBase64(file) {
     });
 }
 
+/**
+ * when the user put a new image, show it directly
+ * @param {} e 
+ */
 function changeImage(e){
     let promise = fileToBase64($("#image").prop('files')[0]);
     promise.then( (image64) => {
