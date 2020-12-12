@@ -183,8 +183,8 @@ function onErrorProfile(err){
 }
 
 function showData(data){
-  console.log("DATA", data)
   $("#photoDuProfile").attr("src",data.image64);
+  $("#photoProfil").attr("src",data.image64);
 }
 
 function editPassword(e){
