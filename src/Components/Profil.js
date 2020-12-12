@@ -78,7 +78,6 @@ function editBio(e){
             bio : $("#bio").val(),
             id : userPayload.id
         }
-        console.log("BIO",biographie)
         fetch("/api/users/profil/bio", {
             method : "PUT",
             body : JSON.stringify(biographie),

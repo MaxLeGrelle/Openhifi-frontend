@@ -7,6 +7,7 @@ import {
 import {displayNavBar,displayMenu} from './Home.js';
 import imageDefault from "../img/defaultImg.jpg";
 const jwt = require("jsonwebtoken");
+const escape = require("escape-html")
 
 function displayAddAlbum() {
     $("#container").empty()
@@ -73,14 +74,14 @@ function onSubmitMusic(e) {
         $('#image').on("change",changeImage);
     }
     $("#listMusicsToAdd").append(`
-            <li id= "newMusic">${$("#musicTitle").val()}</li>
+            <li id= "newMusic">${escape($("#musicTitle").val())}</li>
             <hr>
     `)
     const promise = fileToBase64($("#music").prop('files')[0]);
     promise.then((music64) => {
         listMusicToAdd.push({
             "music64": music64,
-            "title": $("#musicTitle").val(),
+            "title": escape($("#musicTitle").val()),
             "duration" : songsDuration[0]
         })
     })
