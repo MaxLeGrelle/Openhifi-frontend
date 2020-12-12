@@ -616,6 +616,16 @@ addAlbum page
     border-width: 0px;
 }
 
+/*###########################################################################
+Legal mentions page
+###########################################################################*/
+
+#legalMentionsText{
+    color: white;
+    font-size: 0.8em;
+    width: 90%;
+    
+}
 /*ANIMATION*/
 
 #loading-wrapper {
@@ -665,8 +675,6 @@ addAlbum page
 #loading5 {
     left: 56%;
 }
-
-
 
 
 
