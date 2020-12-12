@@ -1,6 +1,5 @@
 import profile from "../img/default_profile.png"
 import {displayNavBar,displayMenu} from './Home.js'
-import {onNavigate} from './Router.js'
 import{getUserStorageData} from '../Utils/storage.js'
 import{fileToBase64} from './addAlbum.js'
 import { displayFooter} from './Footer.js'
@@ -15,7 +14,6 @@ function displayProfil() {
     $("#loading-wrapper").css("display", "none")
     getPublicInformations()
     $("#container").empty();
-    console.log("affiche profil");
     $("#container").append(`<div id="main"></div>`);
     if($("#navbar").text().length == 0){
       displayNavBar();
@@ -218,7 +216,6 @@ function onErrorProfile(err){
  * @param {*} data 
  */
 function showData(data){
-  console.log("DATA", data)
   $("#photoDuProfile").attr("src",data.image64);
 }
 
@@ -237,10 +234,6 @@ function editPassword(e){
     oldPassword : $("#oldPassword").val(),
     email : infoUser.email
   }
-
-  console.log($("#newPassword").val())
-  console.log($("#oldPassword").val())
-  console.log(infoUser.email)
 
   fetch("/api/users/profil/editPw" , {
     method : "POST" , 

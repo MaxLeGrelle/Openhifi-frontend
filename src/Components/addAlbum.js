@@ -1,9 +1,5 @@
-import {
-    redirectUrl
-} from "./Router";
-import {
-    getUserStorageData
-} from "../Utils/storage.js";
+import {redirectUrl} from "./Router";
+import {getUserStorageData} from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
 import imageDefault from "../img/defaultImg.jpg";
 import { displayFooter } from "./Footer";
@@ -51,15 +47,12 @@ function displayAddAlbum() {
 }
 
 let listMusicToAdd;
-let currentSongDuration;
 let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
     setFileInfo($("#music").prop('files')[0])
     let showFormAddAlbum = true;
     listMusicToAdd = new Array();
-    console.log("showFormAddAlbum",showFormAddAlbum)
-    console.log("listMusicToAdd",listMusicToAdd)
     if (showFormAddAlbum) {
         $("#AddAlbumPlace").append(`
         <div class="container">
@@ -143,12 +136,12 @@ function onSubmitAlbum(e) {
             if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
             return response.json();
         })
-        .then((data) => onAddingAlbum(data))
+        .then(() => onAddingAlbum())
         .catch((err) => onErrorAddingAlbum(err));
     })
 }
 
-function onAddingAlbum(data) {
+function onAddingAlbum() {
     redirectUrl("/");
 }
 
@@ -175,9 +168,8 @@ function fileToBase64(file) {
 
 /**
  * when the user put a new image, show it directly
- * @param {} e 
  */
-function changeImage(e){
+function changeImage(){
     let promise = fileToBase64($("#image").prop('files')[0]);
     promise.then( (image64) => {
         $("#imageAddAlbum").attr("src", image64);
