@@ -48,7 +48,7 @@ function getAlbumData() {
         return response.json();
     })
     .then((data) => displayAlbumData(data))
-    // .catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
+    //.catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
 }
 
 /**
@@ -184,6 +184,7 @@ function onLike(e) {
  * @param {*} data data fetched
  */
 function onSelectMusic(e, data) {
+    console.log(musics)
     let indexMusicSelected = e.target.parentElement.dataset.id
     displayLecture(musics, indexMusicSelected, data)
 }
