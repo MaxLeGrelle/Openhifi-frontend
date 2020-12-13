@@ -4,7 +4,6 @@ import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
-import displayTrends from "./Trends.js";
 import {displayFavorite} from "./Favorite.js";
 import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
@@ -17,7 +16,6 @@ const routes = {
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
-    "/trends": displayTrends,
     "/favorite": displayFavorite,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
@@ -31,12 +29,14 @@ const routes = {
 function router(){
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
-        if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
+        if (!getUserStorageData() && window.location.pathname != "/error" && window.location.pathname != "/legalMentions") {
+            pageToRender = routes["/login"]; //if not connected => display login/register page
+            window.history.pushState({}, "/login", window.location.origin + "/login")
+        }
         if(!pageToRender){
             displayError(new Error(`l'url ${window.location.pathname} n'existe pas`));
             return;
         }
-
         pageToRender();
     })
 

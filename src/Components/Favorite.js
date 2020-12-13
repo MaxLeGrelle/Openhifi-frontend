@@ -19,9 +19,7 @@ function displayFavorite() {
       displayFooter();
   } 
     $("#favorite").empty();
-    $("#trends").empty();
     $("#favorite").append(`<div id ="blue"><a href="#" data-url ="/favorite"> Favoris <i class="fas fa-heart fa-2x"></i> </a></div>`)
-    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
     getMusiquesData()
 }
 

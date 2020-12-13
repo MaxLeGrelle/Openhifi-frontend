@@ -31,9 +31,7 @@ function displayHome() {
         <div id="discover"></div>
       </div>
     `);
-    $("#trends").empty()
     $("#favorite").empty();
-    $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
     $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
   if($("#navbar").text().length == 0){
     displayNavBar();
@@ -52,7 +50,6 @@ function displayHome() {
 function displayNavBar() {
   $("#navbar").append(` 
     <div id="logo"></div>
-    <div id="search"></div>
     <div id="add"></div>
     <div id="profile"></div>`);
   
@@ -61,14 +58,6 @@ function displayNavBar() {
   <a href = "#"><div class="row">
   <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
 
-  //seach bar on top
-  $("#search").append(`
-    <div class="input-group md-form form-sm form-2 pl-0">
-    <input size ="100" class="form-control my-0 py-1 red-border" type="text" placeholder="Rechercher" aria-label="Search">
-    <div class="input-group-append">
-      <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search "aria-hidden="true"></i></span>
-    </div>
-    </div>`)
   //add button on top  
 
   $('#add').append(`<a class="btn btn-bluegradient" href="#" data-url="/addAlbum">Ajouter</a> `)
@@ -123,11 +112,8 @@ function getImageNavbar() {
 function displayMenu() {
 
   $("#menu").append(`
-   <div id="favorite"></div>
-   <div id="trends"></div>`);
-  //trends button/link on middle left (star)
-  $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
-
+   <div id="favorite"></div>`);
+  
   //favorite button/link on middle left (heart)
   $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
   $("#menu").on("click", onNavigate)
