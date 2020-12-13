@@ -8,4 +8,4 @@ In order to use the fontend you'll have to follow these steps :
   5) npm start to run it !
   6) Have fun and if you want to fully use OpenHifi don't forget to check the backend : https://github.com/MaxLeGrelle/OpenHifi-backend
   
-Created by : Max le Grelle, Thomas Lempereur, Jehan de Foy, Thomas Dorrekens.
+Created by : Jehan de Foy, Thomas Dorrekens, Max le Grelle, Thomas Lempereur.
