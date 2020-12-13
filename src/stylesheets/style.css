@@ -178,6 +178,11 @@ body {
     border-color: unset;
 }
 
+.card{
+    min-width: 240px !important;
+    background-color: var(--main-bg) !important;
+}
+
 #discover .container-card, #recently .container-card{
     padding: 0 !important;
     width: 15% !important;

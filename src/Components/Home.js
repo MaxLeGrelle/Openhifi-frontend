@@ -220,7 +220,7 @@ function displayRecently(data) {
         <div class="container-card" style="float:left">
           <div class="card mb-2">
             <a href="#" data-url="/albums" data-id="${album.id}">
-              <img class="card-img-top imageAlbum" src="${data.image64List[i]}" alt="album cover">
+              <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
             </a>
             <div class="card-body">
               <a href="#" data-url="/albums" data-id="${album.id}">
@@ -302,7 +302,7 @@ function displayDiscover(data) {
 
     $(`#discoverCarouselItem${j}`).append(`
         <div class="container-card" style="float:left">
-          <div class="card mb-2">
+          <div class="card mb-2 ">
             <a href="#" data-url="/albums" data-id="${album.id}">
               <img class="card-img-top" src="${data.image64List[i]}" alt="album cover">
             </a>
