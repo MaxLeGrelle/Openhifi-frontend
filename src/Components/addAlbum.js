@@ -3,6 +3,7 @@ import {getUserStorageData} from "../Utils/storage.js";
 import {displayNavBar,displayMenu} from './Home.js';
 import imageDefault from "../img/defaultImg.jpg";
 import { displayFooter } from "./Footer";
+import { verifyType } from "../Utils/checkInputFile";
 const jwt = require("jsonwebtoken");
 const escape = require("escape-html")
 
@@ -24,12 +25,13 @@ function displayAddAlbum() {
             </div>
             <div class="form-group">
                 <label for="music">Musique :</label>
-                <input type="file" class="form-control" id="music">
+                <input type="file" class="form-control" id="music" accept="audio/*">
             </div>
             <div class="form-group w-25">
                 <input value="Ajouter la musique" type="submit" class="form-control" id="submitAddMusic">
             </div>
         </form>
+        <div id="errorAddingMusic"></div>
         <div id ="AddAlbumPlace"> </div>
     </div>
     </div>`)
@@ -37,7 +39,16 @@ function displayAddAlbum() {
     $("#favorite").empty();
     $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
     $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
-    $("#formAddMusic").on("submit", onSubmitMusic);
+    $("#formAddMusic").on("submit", (e) => {
+        e.preventDefault()
+        if (!verifyType($("#music").prop('files')[0], "audio")) {
+            onErrorAddingMusic(new Error("Mauvais type de fichier.\n Types acceptés : mp3, aif, flac, mid, wav"))
+        }else {
+            $("#errorAddingMusic").empty()
+            onSubmitMusic(e)
+        }
+        
+    });
     // document.getElementById("music").onchange = setFileInfo
     if($("#navbar").text().length == 0){
         displayNavBar();
@@ -46,14 +57,13 @@ function displayAddAlbum() {
       }
 }
 
-let listMusicToAdd;
+let listMusicToAdd = new Array();
 let songsDuration = [];
 function onSubmitMusic(e) {
     e.preventDefault();
     setFileInfo($("#music").prop('files')[0])
-    let showFormAddAlbum = true;
-    listMusicToAdd = new Array();
-    if (showFormAddAlbum) {
+    console.log($("#AddAlbumPlace").text().length)
+    if ($("#AddAlbumPlace").text().length == 1) { //this div length equals 1 when it's empty
         $("#AddAlbumPlace").append(`
         <div class="container">
             <form id="formAddAlbum">
@@ -63,7 +73,7 @@ function onSubmitMusic(e) {
                 </div>
                 <div class="form-group">
                     <label for="image">Image :</label>
-                    <input type="file" class="form-control" id="image">
+                    <input type="file" class="form-control" id="image" accept="image/*">
                 </div>
                 <div class="form-group w-25">
                     <input value="Créer l'album" type="submit" class="form-control" id="submitAddAlbum">
@@ -71,10 +81,18 @@ function onSubmitMusic(e) {
             </form>
             <div id="errorAddingAlbum"></div>
         </div>`)
-        showFormAddAlbum = false
-        listMusicToAdd = new Array();
-        $("#formAddAlbum").on("submit", onSubmitAlbum);
-        $('#image').on("change",changeImage);
+        let submitAlbumListenerOn = false;
+        $('#image').on("change",() => {
+            if (!verifyType($("#image").prop('files')[0], "image")) {
+                onErrorAddingAlbum(new Error("Mauvais type de fichier.\n Types acceptés : png, jpg/jpeg, ico"))
+            }else {
+                $("#errorAddingAlbum").empty()
+                changeImage()
+                if (!submitAlbumListenerOn) $("#formAddAlbum").on("submit", onSubmitAlbum);
+                submitAlbumListenerOn = true;
+            }
+            
+        });
     }
     $("#listMusicsToAdd").append(`
             <li id= "newMusic">${escape($("#musicTitle").val())}</li>
@@ -145,11 +163,17 @@ function onAddingAlbum() {
     redirectUrl("/");
 }
 
-//TODO
 function onErrorAddingAlbum(err) {
-    $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
+    $("#errorAddingAlbum").empty()
+    if (err.message) $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
+    else $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3">Erreur lors de l'ajout de l'album</p>`);
 }
 
+function onErrorAddingMusic(err) {
+    $("#errorAddingMusic").empty()
+    if (err.message) $("#errorAddingMusic").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
+    else $("#errorAddingMusic").append(`<p class="alert alert-danger mt-3">Erreur lors de l'ajout de la musique</p>`);
+}
 
 /**
  * transform a file to a b64

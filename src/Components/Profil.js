@@ -3,6 +3,7 @@ import {displayNavBar,displayMenu} from './Home.js'
 import{getUserStorageData} from '../Utils/storage.js'
 import{fileToBase64} from './addAlbum.js'
 import { displayFooter} from './Footer.js'
+import { verifyType } from "../Utils/checkInputFile"
 const jwt = require("jsonwebtoken")
 let showEditPhoto = false;
 let userInformations;
@@ -67,15 +68,14 @@ function displayGeneral(){
     <hr id = "whiteHR">
     <form id= "formChangeBio">
       <textarea cols = "60" rows = "5" id ="bio" name="bioInput"> 
-      </textarea> 
-      <input  id = "btnChangeBio" type = "submit" value = "confirmer changements" class="btn btn-primary form-control">
+      </textarea>
     </form>
   </div>`)
   $("#trends").empty()
   $("#favorite").empty();
   $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
   $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
-$("#formChangeBio").on("submit",editBio)
+$("#formChangeBio").on("change",editBio)
 $('#hoverPhoto').on("mouseover", opacityPhotoLess) 
 $('#hoverPhoto').on("mouseleave", opacityPhotoMore)  
 
@@ -138,7 +138,7 @@ function editPhoto (){
   $("#modifierPhoto").append(`
   <form id = "submitEditPhoto">
     <div id="form-group">
-      <label for = "inputPhoto">nouvelle photo :</label>
+      <label for = "inputPhoto" class="text-white font-weight-bold">nouvelle photo :</label>
       <input type="file" class="form-control" id="inputPhoto" accept="image/*">
     </div>
     <div id="form-group">
@@ -146,7 +146,15 @@ function editPhoto (){
     </div>
   </form>
   `);
-  $("#submitEditPhoto").on("submit", sendPhoto);
+  $("#submitEditPhoto").on("submit", (e) => {
+    e.preventDefault()
+    $("#alertMdp").empty()
+    if (!verifyType($("#inputPhoto").prop("files")[0], "image")) {
+      onErrorProfile(new Error("Mauvais type de fichier.\n Types acceptés : png, jpeg, ico"))
+    }else {
+      sendPhoto(e)
+    }
+  })
 }
 
 /**
