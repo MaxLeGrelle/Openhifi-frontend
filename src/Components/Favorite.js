@@ -81,7 +81,7 @@ function displayMusicsData(data){
   data.forEach(musicInfo => {
       //hide the id of the music in order to know which music has been clicked
       //All musics will have a unique html id in order to change dynamicaly its style when it's played
-      if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
+      if(getMusicLikedDataStorage().includes(musicInfo.music.id.toString())){
           $("#albumMusicList tbody").append(`
           <tr class="scope" data-id="${i}">
                 <td id="music${musicInfo.music.id+"-"+i}" href="#" data-url="/albums" data-id="${musicInfo.music.idAlbum}"><span id="span${musicInfo.music.id+"-"+i}">${musicInfo.music.title}</span></td>
