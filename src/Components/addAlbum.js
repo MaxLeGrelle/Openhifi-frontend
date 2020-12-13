@@ -7,8 +7,12 @@ import { verifyType } from "../Utils/checkInputFile";
 const jwt = require("jsonwebtoken");
 const escape = require("escape-html")
 
+/**
+ * Display the form to add a music, when at least one music has been chosen, displays the form to create an album.
+ * It also verifies the type & MIME type of the input's file.
+ */
 function displayAddAlbum() {
-    $("#loading-wrapper").css("display", "none")
+    $("#loading-wrapper").css("display", "none") //prevent the loading-wrapper to display when refreshing the page
     $("#container").empty()
     $("#container").append(`
     <div id="main">
@@ -49,7 +53,6 @@ function displayAddAlbum() {
         }
         
     });
-    // document.getElementById("music").onchange = setFileInfo
     if($("#navbar").text().length == 0){
         displayNavBar();
         displayMenu();
@@ -59,10 +62,15 @@ function displayAddAlbum() {
 
 let listMusicToAdd = new Array();
 let songsDuration = [];
+
+/**
+ * Set the duration of the music submitted. Append the form to create an album once.
+ * Verifies the input's file type & MIME type. 
+ * @param {*} e event
+ */
 function onSubmitMusic(e) {
     e.preventDefault();
     setFileInfo($("#music").prop('files')[0])
-    console.log($("#AddAlbumPlace").text().length)
     if ($("#AddAlbumPlace").text().length == 1) { //this div length equals 1 when it's empty
         $("#AddAlbumPlace").append(`
         <div class="container">
@@ -106,13 +114,13 @@ function onSubmitMusic(e) {
             "duration" : songsDuration[0]
         })
     })
-
-
-
 }
 
-
-//https://stackoverflow.com/questions/29285056/get-video-duration-when-input-a-video-file/29285597
+/**
+ * Get the duration of a song
+ * source : https://stackoverflow.com/questions/29285056/get-video-duration-when-input-a-video-file/29285597
+ * @param {*} song an input file which represents an audio.
+ */
 function setFileInfo(song) { 
     let audioDOM = document.createElement('audio');
     audioDOM.preload = 'metadata';
@@ -126,9 +134,12 @@ function setFileInfo(song) {
     audioDOM.src = URL.createObjectURL(song);
 
 }
+
 /**
- * send the album to the backend
- * @param {} e 
+ * Send the album to the backend.
+ * It will contains its name, its list of musics in base64,
+ * the creator's id, the album's image in base64 and its name.
+ * @param {} e event
  */
 function onSubmitAlbum(e) {
     e.preventDefault();
@@ -143,7 +154,7 @@ function onSubmitAlbum(e) {
             image64 : image64,
             imageName : $("#image").prop('files')[0].name
         }
-        fetch("/api/albums/add/", {
+        fetch("/api/albums/add/", { //TODO authorize
             method : "POST",
             body : JSON.stringify(album),
             headers : {
@@ -159,10 +170,17 @@ function onSubmitAlbum(e) {
     })
 }
 
+/**
+ * When the album has been submitted, redirect to the home page.
+ */
 function onAddingAlbum() {
     redirectUrl("/");
 }
 
+/**
+ * If an error has been sent during the album's creation process, displays it in the page
+ * @param {*} err an Error, if it contains a message, It will be shown.
+ */
 function onErrorAddingAlbum(err) {
     $("#errorAddingAlbum").empty()
     if (err.message) $("#errorAddingAlbum").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
@@ -176,8 +194,9 @@ function onErrorAddingMusic(err) {
 }
 
 /**
- * transform a file to a b64
- * @param {*} file 
+ * transform a file to base64
+ * source : https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript
+ * @param {*} file the file to transform in base64
  */
 function fileToBase64(file) {
     return new Promise(function (resolve, reject) {
@@ -191,7 +210,7 @@ function fileToBase64(file) {
 }
 
 /**
- * when the user put a new image, show it directly
+ * When the user put a new image, shows it directly
  */
 function changeImage(){
     let promise = fileToBase64($("#image").prop('files')[0]);
@@ -199,4 +218,5 @@ function changeImage(){
         $("#imageAddAlbum").attr("src", image64);
     });
 }
+
 export {displayAddAlbum, fileToBase64};
