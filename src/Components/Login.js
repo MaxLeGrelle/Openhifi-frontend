@@ -1,13 +1,49 @@
-import {setUserDataStorage} from '../Utils/storage.js';
-import { redirectUrl } from './Router.js';
+import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
+import { stopMusic } from './Player.js';
+import { onNavigate, redirectUrl } from './Router.js';
+import logo from '../img/open-hifi-logo-transparent.png';
+import { removeLoadingAnimation } from '../Utils/animations.js';
+import {getImageNavbar} from './Home.js'
 
-const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
 
+const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" //regex for verifying the input email
+
+
+/**
+ * Prepare the page and add event listeners
+ */
+function displayLogin() {
+  $("#container").empty();
+  $("#container").append(`<div id = "login"> </div>`)
+  $("#login").append(`
+  <div id = "connection"> </div>
+  <img id = "logoLogin" href= "logo" src ="${logo}">
+  <div id = "registration"> </div>`)
+
+  Login();
+  $("#formRegistration").on("submit", onRegister);
+  $("#formConnection").on("submit", onLogin);
+
+}
+
+/**
+ * Call all functions to display the login page 
+ */
 function Login() {
-
+  removeLoadingAnimation()
   displayConnection();
   displayRegistration();
+  stopMusic()
+  $("#player").empty()
+  $("#navbar").empty()
+  $("#menu").css("display", "none");
+  $("#menu").empty()
+  $("#footer").css("display", "none");
 }
+
+/**
+ * Display regsitration form
+ */
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>
     <form  id= "formRegistration">
@@ -27,37 +63,20 @@ function displayRegistration() {
   <div class="form-group">
   <label for="formGroupExampleInput2">Confirmer mot de passe :</label>
   <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation" required>
-
-</div>
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="homme">
-    <label class="form-check-label" for="gridRadios1">
-    Homme
-    </label>
-</div>
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="femme">
-    <label class="form-check-label" for="gridRadios1">
-    Femme
-    </label>
-</div>
-<div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="autre">
-    <label class="form-check-label" for="gridRadios1">
-    Autre
-    </label>
-</div>
-<div class="form-group col-md-4">
-<label for="inputState">Style</label>
-<select id="inputState" class="form-control">
-  <option selected>Style</option>
-  <option>pop</option>
-</select>
-</div>
+  <div class="form-group">
+    <br>
+    <label id="legalMentionsRegister">J'ai lu et j'accepte <br> les <a href="#" data-url="/legalMentions">conditions générales <br>d'utilisation</a></label>
+    <input type="checkbox" class="form-control" id="readAcceptRGPD" required>
+  </div>
 <button type="submit" class="btn btn-primary">S'inscrire</button>
   </form>
   <div id ="errorRegistration" ></div>`);
+  $("#legalMentionsRegister").on("click",onNavigate);
 }
+
+/**
+ * Displays login form
+ */
 function displayConnection() {
   $("#connection").append(`<p>Connectez-vous !</p>
     <form id="formConnection">
@@ -75,17 +94,10 @@ function displayConnection() {
 
 }
 
-function displayLogin() {
-  $("#page").empty();
-  $("#page").append(`<div id = "login"> </div>`)
-  $("#login").append(`<div id = "connection"> </div>  <div id = "registration"> </div>`)
-
-  Login();
-  $("#formRegistration").on("submit", onRegister);
-  $("#formConnection").on("submit", onLogin);
-
-}
-
+/**
+ * Send the new user's data to backend
+ * @param {*} e event
+ */
 function onRegister(e){
   e.preventDefault();
   $("#errorRegistration").empty()
@@ -116,17 +128,32 @@ function onRegister(e){
 
 }
 
-//TODO
+/**
+ * Displays an error in the page when registering
+ * @param {*} err Error, if it contains a message, it will be shown.
+ */
 function onErrorRegistration(err){
   $("#errorRegistration").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
+/**
+ * Set the local storage data and redirect to home
+ * @param {*} data user's data
+ */
 function onRegistration(data){
+  $("#menu").css("display", "");
+  setMusicLikedDataStorage([])
+  setRecentlyDataStorage([])
   setUserDataStorage(data);
+  getImageNavbar()
   redirectUrl("/");
 
 }
 
+/**
+ * Send the user's pseudo & password to backend in order to compare with the back
+ * @param {*} e event
+ */
 function onLogin(e) {
   e.preventDefault();
   $("#errorConnection").empty()
@@ -149,11 +176,23 @@ function onLogin(e) {
   .catch((err) => onErrorLogin(err))
 }
 
+/**
+ * Set the local storage in relation with the data  in the backend and redirect to home
+ * @param {*} data data in the backend
+ */
 function onConnection(data) {
+  $("#menu").css("display", "");
+  setMusicLikedDataStorage(data.musicsLiked)
+  setRecentlyDataStorage(data.recentlyListened)
   setUserDataStorage(data);
+  getImageNavbar()
   redirectUrl("/");
 }
 
+/**
+ * Displays an error in the login page
+ * @param {*} err Error
+ */
 function onErrorLogin(err) {
   let errorMessage;
   if (err.message.includes("401")) errorMessage = "Mauvais mot de passe ou email";
@@ -161,4 +200,5 @@ function onErrorLogin(err) {
   $("#errorConnection").append(`<p class="alert alert-danger"> ${errorMessage} </p>`);
   
 }
+
 export default displayLogin;

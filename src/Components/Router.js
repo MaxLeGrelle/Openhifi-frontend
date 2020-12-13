@@ -1,35 +1,42 @@
-import {displayAccueil} from "./Home.js";
+import {displayHome} from "./Home.js";
 import displayLogin from "./Login.js";
 import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
-import displayTrends from "./Trends.js";
-import displayFavorite from "./Favorite.js";
-
+import {displayFavorite} from "./Favorite.js";
+import {displayAddAlbum} from "./addAlbum.js";
+import {displayAlbum} from "./Album.js";
+import displayLegalMentions from "./LegalMentions.js";
 let pageToRender;
 
-let navbar;
+//Dictionnary of all routes
 const routes = {
-    "/": displayAccueil,
+    "/": displayHome,
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
-    "/trends": displayTrends,
     "/favorite": displayFavorite,
-    "/error" : displayError
+    "/addAlbum" : displayAddAlbum,
+    "/albums": displayAlbum,
+    "/error" : displayError,
+    "/legalMentions" : displayLegalMentions
 }
 
+/**
+ * allow to render the right page in relation with the current url
+ */
 function router(){
-    
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
-        if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
+        if (!getUserStorageData() && window.location.pathname != "/error" && window.location.pathname != "/legalMentions") {
+            pageToRender = routes["/login"]; //if not connected => display login/register page
+            window.history.pushState({}, "/login", window.location.origin + "/login")
+        }
         if(!pageToRender){
             displayError(new Error(`l'url ${window.location.pathname} n'existe pas`));
             return;
         }
-
         pageToRender();
     })
 
@@ -37,20 +44,27 @@ function router(){
         pageToRender = routes[window.location.pathname]
         pageToRender();
     })
-    
-
 }
 
+/**
+ * Change the url when interacting with DOM elements which have data-url and render the right page
+ * @param {*} e event 
+ */
 function onNavigate(e){
-    console.log(e.target);
     let url;
-    if(e.target.tagName === "A" || e.target.tagName === "IMG"){
-        
+    let id;
+    if(e.target.tagName === "A"){
         e.preventDefault();
         url = e.target.dataset.url;
+    }else if (e.target.tagName === "IMG" || e.target.tagName === "H4" || e.target.tagName === "P" || e.target.tagName === "SPAN") {
+        id = e.target.parentElement.dataset.id;
+        url = e.target.parentElement.dataset.url;
+        if (!url) url = e.target.dataset.url
     }
+
     if(url){
-        window.history.pushState({}, url, window.location.origin + url)
+        if (id) window.history.pushState({}, url, window.location.origin + url + '?no=' + id) 
+        else window.history.pushState({}, url, window.location.origin + url)
         pageToRender = routes[url];
         
         if(routes[url]){
@@ -61,16 +75,21 @@ function onNavigate(e){
         }
     }
 }
+
+/**
+ * Redirect to the url url
+ * @param {*} url url to redirect
+ */
 function redirectUrl(url){
     window.history.pushState({}, url, window.location.origin + url)
 
     pageToRender = routes[url]
     if(routes[url]){
-        //TODO
         pageToRender();
     }
     else{
         displayError(new Error(`L'url ${url} n'existe pas`))
     }
 }
+
 export {router, redirectUrl, onNavigate} ;

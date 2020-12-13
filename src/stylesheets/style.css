@@ -6,31 +6,41 @@
     --main-bg: #1b212c;
     --navbar-bg: #253145ff;
     --menu-bg: #253145ff;
+    --footer-bg: #253145ff;
     --blue : #0761ebff;
     --redAlert : #bf2424;
     --greenAlert : #218838;
 }
 
-/*Body/HTML/contenair*/
+/*Body/HTML/container*/
 html *{
     font-family: 'Montserrat', sans-serif;
    
 }
-body, html, #container, #page{
-    width: 100%;
-    height: 100%; 
-}
-body {
-    margin: 0;
-    background-color: var(--main-bg) !important;
-    overflow-x:hidden
+body, #container, #page{
+    width: 100% !important;
+    height: 100% !important; 
 }
 
 #container{
-    display:flex;
-    flex-wrap: wrap;
+    padding-bottom: 4%;
+    margin-bottom: 300px;
 }
-
+#page{
+    position: relative;
+    min-height: 100vh;
+}
+body {
+    background-color: var(--main-bg) !important;
+    overflow-x:hidden
+}
+#middlePage{
+    display: flex;
+}
+#content-wrap{
+    padding-bottom: 200px;
+    
+}
 
 /*NavBar*/
 #navbar{
@@ -40,15 +50,13 @@ body {
     width: 100%;
     padding: 0%;
     margin-left: 0%;
-}
-
-#search{
-    align-self: center;
-    margin-left: 4%;
+    position: fixed;
+    z-index: 2;
 }
 
 #add{
     align-self: center;
+    margin-left: 60%;
 
 }
 
@@ -69,17 +77,13 @@ body {
     border-radius:30px !important;  
 }
 
-.dropdown{
+.dropdown-menu{
     
     z-index: 1;
-    margin-left: 20px;
-
+    margin-top: -50px !important;
+    margin-left:-100px!important;
 }
 
-input{
-    background-color: var(--main-bg) !important;
-    border-color: var(--blue) !important;
-}
 #profile{
     align-self: center;
     margin-right: 2%;
@@ -87,13 +91,13 @@ input{
 
 /*Menu*/
 #menu{
-    float: left;
-    display: flex;
-    flex-direction: column;
+    margin-top: 120px;
     background-color: var(--menu-bg);
-    width: 9%;
-    height: 100% ; 
     color: white;
+    width: 10%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
 }
 
 #menu a{
@@ -124,30 +128,27 @@ input{
     display: flex;
     flex-direction: column;
     width: 91%;
-
+    position: relative;
+    top: 20%;
+    left: 10%;
+    margin-top: 170px !important;
 }
+
 #main > .display-4{
     text-align: center;
     color: white;
     margin-top: 40px;
 }
 
-#recently{
+#recently, #discover{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 
 }
-
-.carousel-inner{
-    margin-left: 5%;
-}
-
-
-#recently img{
-    margin-left: 9%;
-    margin-right: 0.5%;
+#carouselExampleControls{
+    width:100% !important;
 }
 
 #main h2{
@@ -156,8 +157,69 @@ input{
     padding-left: 9%;
     padding-bottom: 2%;
 }
-#main  .row{
+#main .row{
     width: 100% !important;
+}
+/*carousel discover*/
+
+/* #discoverCarouselInner .active, .carousel-item-left, .carousel-item-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
+#discover .card, #recently .card {
+    width: 100% !important;
+    margin: 0 !important;
+    border-color: unset;
+}
+
+.card{
+    min-width: 240px !important;
+    background-color: var(--main-bg) !important;
+}
+
+#discover .container-card, #recently .container-card{
+    padding: 0 !important;
+    width: 15% !important;
+    margin-left: 4% !important;
+}
+
+#discover .carousel-item, #recently .carousel-item{
+    margin-left: 10% !important;
+}
+
+#discover .card-body, #recently .card-body{
+    background-color: #0d1015;
+    color: white;
+}
+
+/* #discover .carousel img {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+} */
+
+/*view album*/
+
+#albumDisplay * {
+    color: white;
+}
+
+/* .musicPlay:hover {
+    border-bottom: white;
+} */
+
+.musicPlayingHover {
+    color: var(--blue) !important;
+}
+
+.musicPlaying {
+    color: var(--blue) !important;
+}
+
+.randomActive {
+    color: var(--blue)
 }
 
 .alert-success{
@@ -170,38 +232,59 @@ input{
     color: white !important;
 }
 
-/*When the page is minimize or on a small screen all element are smaller*/
-@media (max-width: 1600px){
-    .row img, #logo img{
-        width: 120px ;
-        height: 120px ;
-    }
+
+/*footer*/
+
+#footer{
+    width: 100%;
+    height: 150px;
+    margin-bottom: 0;
+    margin-left: 10%;
+    display: inline-block;
+    background-color: var(--footer-bg);
+    color: white;
+    font-size: 0.8em;
+    column-count: 3;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+    position: absolute;
+    bottom: 0;
+    
+    
 }
+
+.footerBloc{
+    padding: 5%;
+    break-before: column;
+    break-inside: avoid-column;
+}
+
+/*When the page is minimize or on a small screen all elements are smaller*/
 @media (max-width: 1600px){
     #profile img{
         width: 50px ;
         height: 50px ;
     }
-}
-@media (max-width: 1600px){
+
     #add button{
         width: 90px !important;
         height: 35px !important;
         font-size: 0.8em !important;
     }
-}
 
-@media (max-width: 1600px){
+    .row img, #logo img{
+        width: 120px ;
+        height: 120px ;
+    }
+
     #trends , #favorite {
         font-size: 0.7em ;
     }
-}
-@media (max-width: 1600px){
+
     #search input {
         width: 450px ;
     }
-}
-@media (max-width: 1600px){
+
     .display-4 {
         font-size: 1.5em !important;
     }
@@ -210,16 +293,23 @@ input{
 Register / Login page
 ###########################################################################*/
 #login{
-    display:flex;
+    background-color: var(--main-bg);
+    display: flex;
     color: white;
-    margin-top: 10%;
+    padding-top: 10%;
+    padding: 5%;
+    padding-left: 20%;
+    margin-top:5%;
+}
+
+#logoLogin{
+    width: 30%;
+    height: 30%;
 
 }
 #connection{
     display: flex;
     flex-direction: column;
-    margin-right: 30%;
-    margin-left: 10%;
     border: solid;
     border-color:  var(--blue);
     padding-left: 5%;
@@ -242,10 +332,18 @@ Register / Login page
     
 }
 
+#readAcceptRGPD{
+    width: 10% !important;
+    margin-right: 0 !important;
+}
+
 #error{
     color: var(--blue);
 }
-/*Profil page ########################################################################################################################*/
+/*###########################################################################
+Profile page
+###########################################################################*/
+
 
 
 #BlocProfil{
@@ -259,6 +357,7 @@ Register / Login page
 }
 
 #photoDuProfile{
+    border : solid 2px var(--menu-bg);
     border-radius: 50%;
     overflow: hidden;
     width: 250px;
@@ -270,8 +369,14 @@ Register / Login page
     width: 500px;
 }
 
-#inputPhoto{
-    width: 200px;
+#tendancePage, #favPage{
+    color: white;
+    padding-bottom: 35%;
+}
+
+#inputPhoto, #btnConfirmSetImage{
+    width: 50%;
+    margin: 1%;
 }
 
 #oldPassword{
@@ -297,14 +402,24 @@ Register / Login page
     color: white;
 }
 
+#formChangeBio{
+    display: flex;
+    flex-direction: column;
+}
+
 #bio{
     border-color: var(--blue);
     border-width: 2px;
     background-color: var(--main-bg);
     color: white;
-    width: 25%;
-    height: 20%;
     border-radius: 15px;
+    width: 30%;
+    margin-bottom: 2%;
+    overflow:hidden;
+}
+
+#btnChangeBio{
+    width: 30%;
 }
 
 #blue .fa-star {
@@ -313,3 +428,276 @@ Register / Login page
 #blue .fa-heart{
     color: var(--blue) !important;
 }
+/*###########################################################################
+Lecture
+###########################################################################*/
+.time{
+	text-align: right;
+	position: absolute;
+	top: 3px;
+	right: 10px;
+	left: 0;
+	color: #335fb8;
+    z-index: 2;
+    border-radius: 5px;
+}
+
+.audio-progress{
+	height: 22px;
+	position: relative;
+    background-color: #e5eff1;
+    width: 600px;
+    margin: 15px;
+    border-radius: 5px;
+
+}
+#player-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+   
+}
+#progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 100%;
+	background-color: var(--blue);
+    z-index: 1;
+    border-radius: 5px;
+}
+#howler-loop img{
+    background-color: var(--navbar-bg);
+    height: 22px;
+    width: 22px;
+    
+}
+#generalLecture button{
+    background-color: var(--navbar-bg);
+    border: none;
+    color: white;
+}
+
+#displayPlayer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--navbar-bg);
+    height: 100px;
+    z-index: 2;
+}
+
+.playerPosition{
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerBlocInfo{
+    margin-right: 12%;
+    display: flex;
+    width: 100%;
+    height: 100px;
+}
+
+#playerBlocInfo *{
+    color: white;
+}
+
+#playerButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+#contenaire-vol{
+    align-self: center;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+
+
+/*###########################################################################
+Audio
+###########################################################################*/
+
+#player-bar span{
+    align-self: center;
+    color: white;
+    width: 30px;
+}
+
+#player-hr{
+    height: 1px;
+    background: var(--main-bg);
+}
+
+
+.hide{
+	display: none;
+}
+
+
+#bar-vol{
+    bottom: 65%;
+    position: absolute;
+    width: 20px;
+	height: 100px;
+    background-color: var(--blue);
+    border-radius: 2px;
+
+}
+#barVolProgress{
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10%;
+	background-color: white;
+    z-index: 1;
+    border-radius: 2px;
+}
+
+
+/*###########################################################################
+addAlbum page
+###########################################################################*/
+#addAlbumPage{
+    margin-left: 10%;
+}
+
+#musicTitle, #music, #nom, #image{
+    background-color: var(--main-bg) !important;
+    border-color: var(--blue) !important;
+}
+
+#formAddMusic *, #formAddAlbum *, #formAddAlbum, #listMusicsToAdd {
+    color : white
+}
+
+#topPageAddAlbum{
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#listMusicsToAdd{
+    
+    background-color : var(--navbar-bg);
+    width: 72%;
+    border: 1px solid gray;
+}
+
+#formAddMusic{
+    width: 65%;
+    position: relative;
+    left: 31%;
+}
+
+#listMusicsToAdd hr{
+    left: 10%;
+    width:100%;
+    background: gray;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+}
+
+#newMusic{
+    padding: 1%;
+}
+
+#imageAddAlbum{
+    width: 250px;
+    height: 150px;
+}
+
+#formAddAlbum{
+    width: 66.7%;
+    position: relative;
+    left: 30.5%;
+}
+
+#submitAddMusic{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-color: var(--blue);
+    border-width: 0px;
+}
+#submitAddAlbum{
+    border-radius: 10px;
+    position: relative;
+    left: 300%;
+    background-image: linear-gradient(to right, var(--blue) 13%, cyan 106%);
+    border-width: 0px;
+}
+
+/*###########################################################################
+Legal mentions page
+###########################################################################*/
+
+#legalMentionsText{
+    color: white;
+    font-size: 0.8em;
+    width: 90%;
+    padding-top: 200px !important;
+}
+
+/*ANIMATION*/
+
+#loading-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-bg);
+    z-index: 3;
+
+}
+
+#loading1, #loading2, #loading3, #loading4, #loading5{
+    border-radius: 50%;
+    z-index: 4;
+    position: absolute;
+    top:50%;
+    width: 20px;
+    height: 20px;
+}
+
+#loading-wrapper *:nth-child(odd) {
+    background-color: var(--blue);
+}
+
+#loading-wrapper *:nth-child(even) {
+    background-color: white;
+}
+
+#loading1{
+    left: 44%;
+}
+
+#loading2 {
+    left: 47%;
+}
+
+#loading3 {
+    left: 50%;
+}
+
+#loading4 {
+    left: 53%;
+}
+
+#loading5 {
+    left: 56%;
+}
+
+/*###########################
+error
+###########################*/
+h1{
+    color:var(--blue);
+}
+
+
