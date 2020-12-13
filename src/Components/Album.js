@@ -1,10 +1,10 @@
 import {displayNavBar,displayMenu} from './Home.js' 
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getUserStorageData, getMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
+import { getMusicLikedDataStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
 import { loadingAnimation, removeLoadingAnimation } from '../Utils/animations.js';
+import {onLike} from './Favorite.js'
 const howl = require("howler")
-const jwt = require("jsonwebtoken")
 
 /**
  * Append the divs to display the data of the album
@@ -136,53 +136,6 @@ function displayAlbumData(data){
 function onErrorGettingAlbums(err) {
     if (err.message) $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`)
     else $("#main").append(`<p class="alert alert-danger">Il y a eu un probléme lors de la récupération des albums</p>)`)
-}
-
-/**
- * function that displays the heart when it's clicked and send a request to the server to like or dislike the music
- * @param {*} e event
- */
-function onLike(e) { 
-    if (e.target.parentElement.classList.value === "disliked" || e.target.parentElement.parentElement.classList.value === "liked") { // svg = dislike, path = like
-        let musicLikedId ;
-        if(e.target.parentElement.classList.value === "disliked"){ //dislike becomes like
-            musicLikedId = e.target.parentElement.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("far")
-            $(`#heart-${musicLikedId}`).addClass("fas")
-            $(`#heart-${musicLikedId}`).parent().removeClass("disliked")
-            $(`#heart-${musicLikedId}`).parent().addClass("liked")
-
-        }
-        else { //like becomes dislike
-            musicLikedId = e.target.parentElement.parentElement.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("fas")
-            $(`#heart-${musicLikedId}`).addClass("far")
-            $(`#heart-${musicLikedId}`).parent().removeClass("liked")
-            $(`#heart-${musicLikedId}`).parent().addClass("disliked")
-        }
-        const userLogged = getUserStorageData()
-        const infoUser = jwt.decode(userLogged.token)
-        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, { //TODO authorize
-            method: "PUT"
-        })
-            .then((response) => {
-                if (!response.ok)
-                    throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
-                return response.json()
-            })
-            .catch((err) => onErrorLiking(err))
-        addNewMusicLikedStorage(musicLikedId)
-    }
-    
-}
-
-/**
- * Displays an error in the page when liking/disliking a music
- * @param {*} err Error, if it contains a message, it will be shown.
- */
-function onErrorLiking(err) {
-    if (err.message) $("#albumDisplay").prepend(`<p class="danger danger-alert">${err.message}</p>`)
-    else $("#albumDisplay").prepend(`<p class="danger danger-alert">Erreur lors du like/dislike</p>`)
 }
 
 /**

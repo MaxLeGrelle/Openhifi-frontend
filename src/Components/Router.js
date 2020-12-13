@@ -5,7 +5,7 @@ import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
-import displayFavorite from "./Favorite.js";
+import {displayFavorite} from "./Favorite.js";
 import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
 import displayLegalMentions from "./LegalMentions.js";
