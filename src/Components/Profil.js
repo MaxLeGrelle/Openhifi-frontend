@@ -76,26 +76,17 @@ function displayGeneral(){
   $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
   $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 $("#formChangeBio").on("change",editBio)
-$('#hoverPhoto').on("mouseover", opacityPhotoLess) 
-$('#hoverPhoto').on("mouseleave", opacityPhotoMore)  
+$('#hoverPhoto').on("mouseover", () => $("#photoDuProfile").css("opacity", "0.5")) 
+$('#hoverPhoto').on("mouseleave", () => $("#photoDuProfile").css("opacity", "1"))  
 
 $("#hoverPhoto").on("click", editPhoto);
 $("#BtnEditPassword").on("click", editPassword);
 
 }
 
-function opacityPhotoLess(){ //change the opacity when the image is hover
-  $("#photoDuProfile").css("opacity", "0.5");
-}
-
-function opacityPhotoMore(){
-  $("#photoDuProfile").css("opacity", "1");
-}
-
-
 /**
  * function to change the content of the bio
- * @param {} e (e = event)
+ * @param {*} e event
  */
 function editBio(e){
   e.preventDefault();
@@ -105,7 +96,7 @@ function editBio(e){
             bio : $("#bio").val(),
             id : userPayload.id
         }
-        fetch("/api/users/profil/bio", {
+        fetch("/api/users/profil/bio", { //TODO authorize
             method : "PUT",
             body : JSON.stringify(biographie),
             headers : {
@@ -122,7 +113,7 @@ function editBio(e){
 
 /**
  * replace the bio directly on the page
- * @param {} data 
+ * @param {*} data 
  */
 function getBio(data){
   $("#bio").empty();
@@ -175,7 +166,7 @@ function getPublicInformations(){
   const user = getUserStorageData();
   const userPayload = jwt.decode(user.token)
   let id = userPayload.id
-  fetch("/api/users/profil/"+ id,{
+  fetch("/api/users/profil/"+ id,{ //TODO authorize
 
   }).then((response) =>{
     if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
@@ -186,7 +177,7 @@ function getPublicInformations(){
 
 /**
  * set the photo of the user
- * @param {} e 
+ * @param {*} e 
  */
 function sendPhoto(e){
   e.preventDefault()
@@ -201,7 +192,7 @@ function sendPhoto(e){
           image64 : image64,
           nameImage : image.name
       }
-      fetch("/api/users/profil/setImage/", {
+      fetch("/api/users/profil/setImage/", { //TODO authorize
           method : "PUT",
           body : JSON.stringify(photo),
           headers : {
@@ -218,7 +209,8 @@ function sendPhoto(e){
    else{
      onErrorProfile(new Error("vous n'avez pas ajouté d'image"));
    }
-}   
+}
+
 /**
  * display an error on the page
  * @param {*} err 
@@ -243,7 +235,7 @@ function showData(data){
 /**
  * allow the password's change to the user
  * and set it in the back
- * @param {*} e 
+ * @param {*} e event
  */
 function editPassword(e){
   e.preventDefault();
@@ -256,7 +248,7 @@ function editPassword(e){
     email : infoUser.email
   }
 
-  fetch("/api/users/profil/editPw" , {
+  fetch("/api/users/profil/editPw" , { //TODO authorize
     method : "POST" , 
     body : JSON.stringify(userPassword),
     headers: {
