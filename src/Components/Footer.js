@@ -14,6 +14,7 @@ function displayFooter() {
         Legal : <br>
         <a  href="#" data-url="/legalMentions">Mentions légales</a><br>
     </div>
+    <br>
     <div  class = "footerBloc"id="contact">
         Contact us: <br>
         <a href="mailto:jehan.defoy@student.vinci.be">Jehan de Foy</a><br>

@@ -80,7 +80,6 @@ body {
 .dropdown-menu{
     
     z-index: 1;
-    margin-top: -50px !important;
     margin-left:-100px!important;
 }
 
@@ -241,7 +240,7 @@ body {
     margin-bottom: 0;
     margin-left: 10%;
     display: inline-block;
-    background-color: var(--footer-bg);
+    background-color: #0f1218;
     color: white;
     font-size: 0.8em;
     column-count: 3;
@@ -254,7 +253,7 @@ body {
 }
 
 .footerBloc{
-    padding: 5%;
+    padding: 4%;
     break-before: column;
     break-inside: avoid-column;
 }
