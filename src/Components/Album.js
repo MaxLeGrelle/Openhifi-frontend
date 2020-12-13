@@ -1,10 +1,7 @@
-import { layer } from '@fortawesome/fontawesome-svg-core';
-import { faCcPaypal } from '@fortawesome/free-brands-svg-icons';
 import {displayNavBar,displayMenu} from './Home.js' 
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
-import { onNavigate, redirectUrl } from './Router.js';
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
+import { getUserStorageData, getMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
 import { loadingAnimation, removeLoadingAnimation } from '../Utils/animations.js';
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
@@ -98,7 +95,7 @@ function displayAlbumData(data){
     data.listMusicsInfo.forEach(musicInfo => {
         //hide the id of the music in order to know which music has been clicked
         //All musics will have a unique html id in order to change dynamicaly its style when it's played
-        if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
+        if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){ // if the sound is liked display the filled heart if not display the empty heart
             $("#albumMusicList tbody").append(`
             <tr class="scope" data-id="${i}">
                 <td id="music${data.id+"-"+i}">${musicInfo.title}</td>
@@ -132,11 +129,11 @@ function displayAlbumData(data){
     $(".Like").on("click", onLike)
     removeLoadingAnimation()
 }
+//function that displays the heart when he is clicked and send a request to the server for add or delete this musics id
 function onLike(e) { 
-        console.log("Target :",e.target.parentElement.classList.value)
     if (e.target.parentElement.classList.value === "disliked" || e.target.parentElement.parentElement.classList.value === "liked") { // svg = dislike, path = like
         let musicLikedId ;
-        if(e.target.parentElement.classList.value === "disliked"){ //dislike become like
+        if(e.target.parentElement.classList.value === "disliked"){ //dislike becomes like
             musicLikedId = e.target.parentElement.parentElement.dataset.realid
             $(`#heart-${musicLikedId}`).removeClass("far")
             $(`#heart-${musicLikedId}`).addClass("fas")
@@ -144,7 +141,7 @@ function onLike(e) {
             $(`#heart-${musicLikedId}`).parent().addClass("liked")
 
         }
-        else { //like become dislike
+        else { //like becomes dislike
             musicLikedId = e.target.parentElement.parentElement.parentElement.dataset.realid
             $(`#heart-${musicLikedId}`).removeClass("fas")
             $(`#heart-${musicLikedId}`).addClass("far")
@@ -162,8 +159,6 @@ function onLike(e) {
                 return response.json()
             })
             .catch((err) => console.log(err.message)/*redirectUrl("/error", err.message)*/)
-        console.log("add")
-        console.log(e.target.parentElement)
         addNewMusicLikedStorage(musicLikedId)
     }
     

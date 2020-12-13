@@ -1,8 +1,7 @@
-//import music from '../sounds/m1.mp3'
 import loop from '../img/loop.png'
 import loopActive from '../img/loop-active.png'
 import loopAlbumActive from '../img/loop-album-active.png'
-const howler = require("howler")
+
 
 let sound;                  //current music
 let musicsList;             //current list
@@ -155,12 +154,12 @@ function onNext() {
         return;
     }
     stopMusic()
-    if (!onRandomList && !onLoopAlbum && currentMusicIndex == musicsList.length - 1) return
+    if (!onRandomList && !onLoopAlbum && currentMusicIndex == musicsList.length - 1) return //end of the album
     onEnd()
 }
 
 /**
- * randomise the list
+ * randomize the list
  */
 function onRandom() {
     if (!sound) return;
@@ -193,9 +192,9 @@ function fillToPlayMusicsList() {
  * @param {*} secs 
  */
 function formatTime(secs) {
-    var minutes = Math.floor(secs / 60) || 0;
-    var seconds = (secs - minutes * 60) || 0;
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    var minutes = Math.floor(secs / 60) || 0; //minutes from seconds
+    var seconds = (secs - minutes * 60) || 0; //seconds after remove minutes
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds; // display
 }
 
 /**
@@ -206,7 +205,7 @@ function updateTimeTracker() {
     var seek = sound.seek() || 0;
     var currentTime = formatTime(Math.round(seek));
     $('#timer').text(currentTime);
-    $("#progress").css("width", (((seek / self.duration()) * 100) || 0) + '%')
+    $("#progress").css("width", (((seek / self.duration()) * 100) || 0) + '%') //update the css width with the duration of the sound
 
     if (self.playing()) {
         requestAnimationFrame(updateTimeTracker.bind(self));
@@ -240,7 +239,7 @@ function onLoop() {
 
 /**
  * option play - pause
- */
+*/
 function onListening() {
     if (!sound) return;
     $("#howler-play").empty()
@@ -350,11 +349,4 @@ function displayDataPlayer() {
     }
 }
 
-export {
-    displayLecture,
-    displayPlayer,
-    onPlay,
-    onEnd,
-    stopMusic,
-    formatTime
-};
+export {displayLecture,displayPlayer,onPlay,onEnd,stopMusic,formatTime};

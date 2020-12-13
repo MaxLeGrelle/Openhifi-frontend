@@ -2,7 +2,7 @@ import { displayFooter } from './Footer.js';
 import { displayNavBar, displayMenu } from './Home.js'
 import { onNavigate } from './Router.js'
 
-
+//call all necessary function to display the page
 function displayLegalMentions() {
   $("#loading-wrapper").css("display", "none")
       $("#container").empty();
@@ -17,6 +17,7 @@ function displayLegalMentions() {
       displayMain()
       
   }
+//displays the legal sheet
 function displayMain() {
   $("#main").append(`
       <div id = "general"><div class="display-4">Mentions légales / RGPD:</div>
