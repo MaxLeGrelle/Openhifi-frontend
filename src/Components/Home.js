@@ -99,7 +99,12 @@ function displayNavBar() {
 function getImageNavbar() {
   const userData = getUserStorageData()
   const userPayload = jwt.decode(userData.token)
-  fetch("/api/users/image/"+userPayload.id) //TODO authorize
+  fetch("/api/users/image/"+userPayload.id, {
+    method : "GET",
+    headers : {
+      Authorization: userData.token,
+    }
+  }) //TODO authorize
   .then((response) => {
     if (!response) throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText)
     return response.json()
@@ -142,6 +147,7 @@ function setRecentlyListenedAlbums() {
       }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: userData.token,
       },
     }).then((response) => {
       if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
@@ -156,7 +162,12 @@ function setRecentlyListenedAlbums() {
 function getRecentyListenedAlbums() {
   const user = getUserStorageData();
   const userPayload = jwt.decode(user.token)
-  fetch("/api/users/recently/" + userPayload.id) //TODO authorize
+  fetch("/api/users/recently/" + userPayload.id, {
+    method : "GET",
+    headers : {
+      Authorization: user.token,
+    }
+  }) //TODO authorize
     .then((response) => {
       if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
       return response.json();
@@ -230,7 +241,13 @@ function displayRecently(data) {
  * get all albums from the backend
  */
 function getAllAlbums() {
-  fetch("/api/albums/") //TODO authorize
+  const user = getUserStorageData()
+  fetch("/api/albums/", {
+    method : "GET",
+    headers : {
+      Authorization: user.token,
+    }
+  }) //TODO authorize
     .then((response) => {
       if (!response.ok)
         throw new Error("Error code : " + response.status + " : " + response.statusText);

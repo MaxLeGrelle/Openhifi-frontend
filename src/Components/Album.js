@@ -1,7 +1,7 @@
 import {displayNavBar,displayMenu} from './Home.js' 
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getMusicLikedDataStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
+import { getMusicLikedDataStorage, addAlbumToRecentlyDataStorage, getUserStorageData } from '../Utils/storage.js'
 import { loadingAnimation, removeLoadingAnimation } from '../Utils/animations.js';
 import {onLike} from './Favorite.js'
 const howl = require("howler")
@@ -26,8 +26,14 @@ function displayAlbum() {
  * Gets the data of the album with its id found in the url
  */
 function getAlbumData() {
+    const user = getUserStorageData()
     let parameter = findGetParameter("no")
-    fetch("/api"+window.location.pathname+"/"+parameter) //TODO authorize
+    fetch("/api"+window.location.pathname+"/"+parameter, {
+        method : "GET",
+        headers : {
+            Authorization: user.token,
+        },
+    }) //TODO authorize
     .then((response)=> {
         if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
         return response.json();

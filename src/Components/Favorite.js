@@ -31,7 +31,12 @@ function displayFavorite() {
 function getMusiquesData(){
   const user = getUserStorageData();
   const infoUser = jwt.decode(user.token)
-  fetch(`/api/musics/${infoUser.id}`) //TODO authorize
+  fetch(`/api/musics/${infoUser.id}`, {
+    method : "GET",
+    headers : {
+      Authorization: user.token,
+    }
+  }) //TODO authorize
   .then((response) => {
     if (!response.ok)
       throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
@@ -129,7 +134,10 @@ if (e.target.parentElement.classList.value === "disliked" || e.target.parentElem
   const userLogged = getUserStorageData()
   const infoUser = jwt.decode(userLogged.token)
   fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
-      method: "PUT"
+      method: "PUT",
+      headers: {
+        Authorization : userLogged.token
+      }
   })
       .then((response) => {
           if (!response.ok)

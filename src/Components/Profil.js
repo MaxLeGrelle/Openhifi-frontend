@@ -101,6 +101,7 @@ function editBio(e){
             body : JSON.stringify(biographie),
             headers : {
                 "Content-Type" : "application/json",
+                Authorization: user.token,
             }
         })
         .then((response) => {
@@ -167,7 +168,10 @@ function getPublicInformations(){
   const userPayload = jwt.decode(user.token)
   let id = userPayload.id
   fetch("/api/users/profil/"+ id,{ //TODO authorize
-
+    method : "GET",
+    headers : {
+      Authorization: user.token,
+    }
   }).then((response) =>{
     if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
     return response.json();
@@ -197,6 +201,7 @@ function sendPhoto(e){
           body : JSON.stringify(photo),
           headers : {
               "Content-Type" : "application/json",
+              Authorization: user.token,
           }
       })
       .then((response) => {
@@ -253,6 +258,7 @@ function editPassword(e){
     body : JSON.stringify(userPassword),
     headers: {
       "Content-Type" : "application/json",
+      Authorization: userLogged.token,
     },
   }).then((response) =>{
     if(!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);

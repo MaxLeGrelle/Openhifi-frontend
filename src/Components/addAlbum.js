@@ -159,6 +159,7 @@ function onSubmitAlbum(e) {
             body : JSON.stringify(album),
             headers : {
                 "Content-Type" : "application/json",
+                Authorization: user.token,
             }
         })
         .then((response) => {
