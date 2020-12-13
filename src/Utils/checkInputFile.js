@@ -1,6 +1,11 @@
-import { faYelp } from "@fortawesome/free-brands-svg-icons";
 
-//https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+
+/**
+ * basic checking file type 
+ * source : https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+ * @param {*} file file to check
+ * @param {*} type type = audio or image
+ */
 function verifyType(file, type) {
     let acceptTypes;
     if (type == "image") acceptTypes = RegExp("image/*")
@@ -10,7 +15,13 @@ function verifyType(file, type) {
     
 }
 
-//https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+
+/**
+ * MIME type checking
+ * source : https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+ * @param {*} file file to check
+ * @param {*} fileType fileType = image or audio
+ */
 function verifyMIME(file, fileType) {
     let blob = file;
     let type;
@@ -28,6 +39,11 @@ function verifyMIME(file, fileType) {
     return type !== "unknown"
 }
 
+/**
+ * Check the 4 first bytes of an image in order to determine which type is the file thanks to his header
+ * source : https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+ * @param {*} header header of the file
+ */
 function imageMIMETypes(header) {
     let type = "unknown";
     switch (header) {
@@ -51,6 +67,11 @@ function imageMIMETypes(header) {
     return type;
 }
 
+/**
+ * Check the 2/4 first bytes of an audio in order to determine which type is the file thanks to his header
+ * source : https://stackoverflow.com/questions/18299806/how-to-check-file-mime-type-with-javascript-before-upload
+ * @param {*} header header of the file
+ */
 function audioMIMETypes(header) {
     let type = "unknown";
     if (header.startsWith("fffb") 
@@ -77,6 +98,4 @@ function audioMIMETypes(header) {
     return type;
 }
 
-export {
-    verifyType
-}
+export {verifyType}

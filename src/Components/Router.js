@@ -5,12 +5,13 @@ import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
 import displayTrends from "./Trends.js";
-import displayFavorite from "./Favorite.js";
+import {displayFavorite} from "./Favorite.js";
 import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
 import displayLegalMentions from "./LegalMentions.js";
 let pageToRender;
 
+//Dictionnary of all routes
 const routes = {
     "/": displayHome,
     "/login": displayLogin,
@@ -24,6 +25,9 @@ const routes = {
     "/legalMentions" : displayLegalMentions
 }
 
+/**
+ * allow to render the right page in relation with the current url
+ */
 function router(){
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
@@ -40,10 +44,12 @@ function router(){
         pageToRender = routes[window.location.pathname]
         pageToRender();
     })
-    
-
 }
 
+/**
+ * Change the url when interacting with DOM elements which have data-url and render the right page
+ * @param {*} e event 
+ */
 function onNavigate(e){
     let url;
     let id;
@@ -69,16 +75,21 @@ function onNavigate(e){
         }
     }
 }
+
+/**
+ * Redirect to the url url
+ * @param {*} url url to redirect
+ */
 function redirectUrl(url){
     window.history.pushState({}, url, window.location.origin + url)
 
     pageToRender = routes[url]
     if(routes[url]){
-        //TODO
         pageToRender();
     }
     else{
         displayError(new Error(`L'url ${url} n'existe pas`))
     }
 }
+
 export {router, redirectUrl, onNavigate} ;

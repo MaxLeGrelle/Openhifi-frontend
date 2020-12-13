@@ -13,6 +13,9 @@ const jwt = require("jsonwebtoken")
 library.add(fas, far)
 dom.watch()
 
+/**
+ * Displays the home page
+ */
 function displayHome() {
   loadingAnimation()
   const userLogged = getUserStorageData()
@@ -42,7 +45,10 @@ function displayHome() {
   getAllAlbums()
   adaptFooterPosition()
 }     
-//HTML of the navbar
+
+/**
+ * Displays the navbar
+ */
 function displayNavBar() {
   $("#navbar").append(` 
     <div id="logo"></div>
@@ -87,10 +93,13 @@ function displayNavBar() {
 
 }
 
+/**
+ * Get the user's image from the backend
+ */
 function getImageNavbar() {
   const userData = getUserStorageData()
   const userPayload = jwt.decode(userData.token)
-  fetch("/api/users/image/"+userPayload.id)
+  fetch("/api/users/image/"+userPayload.id) //TODO authorize
   .then((response) => {
     if (!response) throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText)
     return response.json()
@@ -99,11 +108,13 @@ function getImageNavbar() {
     if (data.image64) {
       $('#photoProfil').attr("src", data.image64)
     }
-  }).catch((err) => console.log(err))
+  }).catch((err) => onErrorDisplayAlbum(err))
 }
 
 
-//HTML for the vertical menu
+/**
+ * Displays the vertical menu
+ */
 function displayMenu() {
 
   $("#menu").append(`
@@ -117,12 +128,14 @@ function displayMenu() {
   $("#menu").on("click", onNavigate)
 }
 
-
+/**
+ * Send the list of recently listened album id from the local storage to the backend to update it
+ */
 function setRecentlyListenedAlbums() {
   const userData = getUserStorageData()
   const userRecentlyListened = getRecentlyDataStorage()
   const userPayload = jwt.decode(userData.token)
-  fetch("/api/users/recently/" + userPayload.id, {
+  fetch("/api/users/recently/" + userPayload.id, { //TODO authorize
       method: "PUT",
       body: JSON.stringify({
         recentlyListened: userRecentlyListened
@@ -134,13 +147,16 @@ function setRecentlyListenedAlbums() {
       if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
       return response.json();
     })
-    .catch((err) => console.log(err)) //TODO
+    .catch((err) => onErrorDisplayAlbum(err))
 }
 
+/**
+ * Get the list of recently listened album id from backend
+ */
 function getRecentyListenedAlbums() {
   const user = getUserStorageData();
   const userPayload = jwt.decode(user.token)
-  fetch("/api/users/recently/" + userPayload.id)
+  fetch("/api/users/recently/" + userPayload.id) //TODO authorize
     .then((response) => {
       if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
       return response.json();
@@ -148,7 +164,10 @@ function getRecentyListenedAlbums() {
     .catch((err) => onErrorDisplayAlbum(err))
 }
 
-//HTML for the main page
+/**
+ * Displays the carousel of recently listened albums
+ * @param {*} data recently listened albums data
+ */
 function displayRecently(data) {
   //carrousel made with bootstrap 
   $("#recently").append(`
@@ -207,8 +226,11 @@ function displayRecently(data) {
   $("#recently .carousel-inner a").on("click", onNavigate)
 }
 
+/**
+ * get all albums from the backend
+ */
 function getAllAlbums() {
-  fetch("/api/albums/")
+  fetch("/api/albums/") //TODO authorize
     .then((response) => {
       if (!response.ok)
         throw new Error("Error code : " + response.status + " : " + response.statusText);
@@ -218,6 +240,10 @@ function getAllAlbums() {
     .catch((err) => onErrorDisplayAlbum(err));
 }
 
+/**
+ * Displays the discover's carousel
+ * @param {*} data album's data
+ */
 function displayDiscover(data) {
   $("#discover").append(`
   <!--Carousel Wrapper-->
@@ -279,8 +305,14 @@ function displayDiscover(data) {
   removeLoadingAnimation()
 }
 
+/**
+ * Displays the error and if there's a message, displays it.
+ * @param {*} err Error
+ */
 function onErrorDisplayAlbum(err) {
-  $("#main").prepend(`<p class="alert alert-danger"> ${err.message} </p>`);
+  $(".alert").remove()
+  if (err.message) $("#main").prepend(`<p class="alert alert-danger"> ${err.message} </p>`);
+  else $("#main").prepend(`<p class="alert alert-danger">Oups, il y a eu une erreur</p>`);
 }
 
 export {

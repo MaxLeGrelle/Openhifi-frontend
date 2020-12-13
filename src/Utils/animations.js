@@ -1,5 +1,8 @@
 import anime from "animejs"
 
+/**
+ * Display the loading animation
+ */
 function loadingAnimation() {
     $("#loading-wrapper").empty()
     $("#loading-wrapper").css("display", "")
@@ -27,6 +30,9 @@ function loadingAnimation() {
     })
 }
 
+/**
+ * Remove the animation and the wrapper
+ */
 function removeLoadingAnimation() {
     $("#loading-wrapper").fadeOut("slow")
     $("#page").css("display", "")
