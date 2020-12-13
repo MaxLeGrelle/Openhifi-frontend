@@ -49,10 +49,11 @@ function displayNavBar() {
     <div id="search"></div>
     <div id="add"></div>
     <div id="profile"></div>`);
+  
   //logo on top left
   $('#logo').append(`
-    <a href = "#"><div class="row">
-    <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
+  <a href = "#"><div class="row">
+  <div class="col-md"><img src="${logo}" alt="logo" data-url ="/" height="150px" width="150px"/> </div></div></a>`)
 
   //seach bar on top
   $("#search").append(`
@@ -67,24 +68,40 @@ function displayNavBar() {
   $('#add').append(`<a class="btn btn-bluegradient" href="#" data-url="/addAlbum">Ajouter</a> `)
 
 
-
   //profil picture on top right
   $('#profile').append(`
-    <div class="dropdown" >
-    <a  href="#" role="button" id="dropdownMenuLink"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <div class="row" ><div class="col-md"><img src="${profile}"  alt="logo" id="photoProfil" height="60px" width="60px"/></div></div>
-    </a>
-  
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href= "#" data-url ="/profil">Profil</a>
-      <a class="dropdown-item" href="#" data-url ="/logout">Se déconnecter</a>
+      <div class="dropdown" >
+      <a  href="#" role="button" id="dropdownMenuLink"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="row" ><div class="col-md"><img src="${profile}"  alt="logo" id="photoProfil" height="60px" width="60px"/></div></div>
+      </a>
+    
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href= "#" data-url ="/profil">Profil</a>
+        <a class="dropdown-item" href="#" data-url ="/logout">Se déconnecter</a>
+      </div>
     </div>
-  </div>
       `)
+  getImageNavbar()
 
   $("#navbar").on("click", onNavigate)
 
 }
+
+function getImageNavbar() {
+  const userData = getUserStorageData()
+  const userPayload = jwt.decode(userData.token)
+  fetch("/api/users/image/"+userPayload.id)
+  .then((response) => {
+    if (!response) throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText)
+    return response.json()
+  })
+  .then((data) => {
+    if (data.image64) {
+      $('#photoProfil').attr("src", data.image64)
+    }
+  }).catch((err) => console.log(err))
+}
+
 
 //HTML for the vertical menu
 function displayMenu() {
@@ -270,4 +287,5 @@ export {
   displayHome,
   displayMenu,
   displayNavBar,
+  getImageNavbar
 };
