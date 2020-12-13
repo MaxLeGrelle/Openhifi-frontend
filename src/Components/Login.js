@@ -1,4 +1,4 @@
-import {getUserStorageData, setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
+import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
 import { redirectUrl } from './Router.js';
 import logo from '../img/open-hifi-logo-transparent.png';
@@ -7,6 +7,27 @@ import {getImageNavbar} from './Home.js'
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" //regex for verifying the input email
 
+
+/**
+ * Prepare the page and add event listeners
+ */
+function displayLogin() {
+  $("#container").empty();
+  $("#container").append(`<div id = "login"> </div>`)
+  $("#login").append(`
+  <div id = "connection"> </div>
+  <img id = "logoLogin" href= "logo" src ="${logo}">
+  <div id = "registration"> </div>`)
+
+  Login();
+  $("#formRegistration").on("submit", onRegister);
+  $("#formConnection").on("submit", onLogin);
+
+}
+
+/**
+ * Call all functions to display the login page 
+ */
 function Login() {
   removeLoadingAnimation()
   displayConnection();
@@ -18,6 +39,10 @@ function Login() {
   $("#menu").empty()
   $("#footer").css("display", "none");
 }
+
+/**
+ * Display regsitration form
+ */
 function displayRegistration() {
   $("#registration").append(`<p>Pas encore de compte ?</p> <p>Créez en un!</p>
     <form  id= "formRegistration">
@@ -42,6 +67,10 @@ function displayRegistration() {
   </form>
   <div id ="errorRegistration" ></div>`);
 }
+
+/**
+ * Displays login form
+ */
 function displayConnection() {
   $("#connection").append(`<p>Connectez-vous !</p>
     <form id="formConnection">
@@ -59,20 +88,10 @@ function displayConnection() {
 
 }
 
-function displayLogin() {
-  $("#container").empty();
-  $("#container").append(`<div id = "login"> </div>`)
-  $("#login").append(`
-  <div id = "connection"> </div>
-  <img id = "logoLogin" href= "logo" src ="${logo}">
-  <div id = "registration"> </div>`)
-
-  Login();
-  $("#formRegistration").on("submit", onRegister);
-  $("#formConnection").on("submit", onLogin);
-
-}
-
+/**
+ * Send the new user's data to backend
+ * @param {*} e event
+ */
 function onRegister(e){
   e.preventDefault();
   $("#errorRegistration").empty()
@@ -103,11 +122,18 @@ function onRegister(e){
 
 }
 
-//TODO
+/**
+ * Displays an error in the page when registering
+ * @param {*} err Error, if it contains a message, it will be shown.
+ */
 function onErrorRegistration(err){
   $("#errorRegistration").append(`<p class="alert alert-danger mt-3"> ${err.message} </p>`);
 }
 
+/**
+ * Set the local storage data and redirect to home
+ * @param {*} data user's data
+ */
 function onRegistration(data){
   $("#menu").css("display", "");
   setMusicLikedDataStorage([])
@@ -118,6 +144,10 @@ function onRegistration(data){
 
 }
 
+/**
+ * Send the user's pseudo & password to backend in order to compare with the back
+ * @param {*} e event
+ */
 function onLogin(e) {
   e.preventDefault();
   $("#errorConnection").empty()
@@ -140,6 +170,10 @@ function onLogin(e) {
   .catch((err) => onErrorLogin(err))
 }
 
+/**
+ * Set the local storage in relation with the data  in the backend and redirect to home
+ * @param {*} data data in the backend
+ */
 function onConnection(data) {
   $("#menu").css("display", "");
   setMusicLikedDataStorage(data.musicsLiked)
@@ -149,6 +183,10 @@ function onConnection(data) {
   redirectUrl("/");
 }
 
+/**
+ * Displays an error in the login page
+ * @param {*} err Error
+ */
 function onErrorLogin(err) {
   let errorMessage;
   if (err.message.includes("401")) errorMessage = "Mauvais mot de passe ou email";
@@ -156,4 +194,5 @@ function onErrorLogin(err) {
   $("#errorConnection").append(`<p class="alert alert-danger"> ${errorMessage} </p>`);
   
 }
+
 export default displayLogin;

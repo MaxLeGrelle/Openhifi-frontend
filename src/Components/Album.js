@@ -1,10 +1,10 @@
 import {displayNavBar,displayMenu} from './Home.js' 
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getUserStorageData, getMusicLikedDataStorage, addNewMusicLikedStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
+import { getMusicLikedDataStorage, addAlbumToRecentlyDataStorage } from '../Utils/storage.js'
 import { loadingAnimation, removeLoadingAnimation } from '../Utils/animations.js';
+import {onLike} from './Favorite.js'
 const howl = require("howler")
-const jwt = require("jsonwebtoken")
 
 /**
  * Append the divs to display the data of the album
@@ -19,7 +19,6 @@ function displayAlbum() {
         displayFooter();
     }
     getAlbumData()
-    
     adaptFooterPosition();
 }
 
@@ -28,13 +27,13 @@ function displayAlbum() {
  */
 function getAlbumData() {
     let parameter = findGetParameter("no")
-    fetch("/api"+window.location.pathname+"/"+parameter)
+    fetch("/api"+window.location.pathname+"/"+parameter) //TODO authorize
     .then((response)=> {
         if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
         return response.json();
     })
     .then((data) => displayAlbumData(data))
-    //.catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
+    .catch((err) => onErrorGettingAlbums(err))
 }
 
 /**
@@ -58,7 +57,8 @@ function findGetParameter(parameterName) {
 let musics //It will contains all the musics of the album ordered as it is displayed
 
 /**
- * Appends the divs to display the data of the album fetched
+ * Appends the divs to display the data of the album fetched.
+ * Create a list of Howler in order to send them to the player.
  * @param {*} data all the data related to the album
  */
 function displayAlbumData(data){
@@ -91,7 +91,6 @@ function displayAlbumData(data){
         }))
     }
     let i = 0;
-    //TODO
     data.listMusicsInfo.forEach(musicInfo => {
         //hide the id of the music in order to know which music has been clicked
         //All musics will have a unique html id in order to change dynamicaly its style when it's played
@@ -129,40 +128,16 @@ function displayAlbumData(data){
     $(".Like").on("click", onLike)
     removeLoadingAnimation()
 }
-//function that displays the heart when he is clicked and send a request to the server for add or delete this musics id
-function onLike(e) { 
-    if (e.target.parentElement.classList.value === "disliked" || e.target.parentElement.parentElement.classList.value === "liked") { // svg = dislike, path = like
-        let musicLikedId ;
-        if(e.target.parentElement.classList.value === "disliked"){ //dislike becomes like
-            musicLikedId = e.target.parentElement.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("far")
-            $(`#heart-${musicLikedId}`).addClass("fas")
-            $(`#heart-${musicLikedId}`).parent().removeClass("disliked")
-            $(`#heart-${musicLikedId}`).parent().addClass("liked")
 
-        }
-        else { //like becomes dislike
-            musicLikedId = e.target.parentElement.parentElement.parentElement.dataset.realid
-            $(`#heart-${musicLikedId}`).removeClass("fas")
-            $(`#heart-${musicLikedId}`).addClass("far")
-            $(`#heart-${musicLikedId}`).parent().removeClass("liked")
-            $(`#heart-${musicLikedId}`).parent().addClass("disliked")
-        }
-        const userLogged = getUserStorageData()
-        const infoUser = jwt.decode(userLogged.token)
-        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
-            method: "PUT"
-        })
-            .then((response) => {
-                if (!response.ok)
-                    throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
-                return response.json()
-            })
-            .catch((err) => console.log(err.message)/*redirectUrl("/error", err.message)*/)
-        addNewMusicLikedStorage(musicLikedId)
-    }
-    
+/**
+ * Displays an error in the page when getting albums datas
+ * @param {} err Error, if it contains a message, it will be shown.
+ */
+function onErrorGettingAlbums(err) {
+    if (err.message) $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`)
+    else $("#main").append(`<p class="alert alert-danger">Il y a eu un probléme lors de la récupération des albums</p>)`)
 }
+
 /**
  * Fires when we click on a music, it will get the hided id and all the data fetched
  * @param {*} e event
