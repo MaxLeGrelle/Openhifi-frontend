@@ -12,6 +12,7 @@ const escape = require("escape-html")
  * It also verifies the type & MIME type of the input's file.
  */
 function displayAddAlbum() {
+    listMusicToAdd = new Array();
     $("#loading-wrapper").css("display", "none") //prevent the loading-wrapper to display when refreshing the page
     $("#container").empty()
     $("#container").append(`
