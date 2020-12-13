@@ -1,9 +1,10 @@
 import {setMusicLikedDataStorage, setRecentlyDataStorage, setUserDataStorage} from '../Utils/storage.js';
 import { stopMusic } from './Player.js';
-import { redirectUrl } from './Router.js';
+import { onNavigate, redirectUrl } from './Router.js';
 import logo from '../img/open-hifi-logo-transparent.png';
 import { removeLoadingAnimation } from '../Utils/animations.js';
 import {getImageNavbar} from './Home.js'
+
 
 const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" //regex for verifying the input email
 
@@ -62,10 +63,15 @@ function displayRegistration() {
   <div class="form-group">
   <label for="formGroupExampleInput2">Confirmer mot de passe :</label>
   <input type="password" class="form-control" id="passwordRegistrationVerif" placeholder="Confirmation" required>
-  <br><br>
+  <div class="form-group">
+    <br>
+    <label id="legalMentionsRegister">J'ai lu et j'accepte <br> les <a href="#" data-url="/legalMentions">conditions générales <br>d'utilisation</a></label>
+    <input type="checkbox" class="form-control" id="readAcceptRGPD" required>
+  </div>
 <button type="submit" class="btn btn-primary">S'inscrire</button>
   </form>
   <div id ="errorRegistration" ></div>`);
+  $("#legalMentionsRegister").on("click",onNavigate);
 }
 
 /**

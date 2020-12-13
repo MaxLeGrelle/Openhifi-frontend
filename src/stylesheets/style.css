@@ -331,6 +331,11 @@ Register / Login page
     
 }
 
+#readAcceptRGPD{
+    width: 10% !important;
+    margin-right: 0 !important;
+}
+
 #error{
     color: var(--blue);
 }

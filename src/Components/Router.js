@@ -31,12 +31,14 @@ const routes = {
 function router(){
     $(window).on("load", () => {
         pageToRender = routes[window.location.pathname];
-        if (!getUserStorageData() && window.location.pathname != "/error") pageToRender = routes["/login"]; //if not connected => display login/register page
+        if (!getUserStorageData() && window.location.pathname != "/error" && window.location.pathname != "/legalMentions") {
+            pageToRender = routes["/login"]; //if not connected => display login/register page
+            window.history.pushState({}, "/login", window.location.origin + "/login")
+        }
         if(!pageToRender){
             displayError(new Error(`l'url ${window.location.pathname} n'existe pas`));
             return;
         }
-
         pageToRender();
     })
 

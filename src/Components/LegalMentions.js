@@ -1,6 +1,7 @@
 import { displayFooter } from './Footer.js';
 import { displayNavBar, displayMenu } from './Home.js'
 import { onNavigate } from './Router.js'
+import { getUserStorageData } from "../Utils/storage.js";
 
 /**
  * call all necessary function to display the page
@@ -9,7 +10,7 @@ function displayLegalMentions() {
   $("#loading-wrapper").css("display", "none")
       $("#container").empty();
       $("#container").append(`<div id="main"></div>`);
-      if($("#navbar").text().length == 0){
+      if($("#navbar").text().length == 0 && getUserStorageData()){
         displayNavBar();
         displayMenu();
         displayFooter();
@@ -83,6 +84,8 @@ function displayMain() {
         <h2>5. Propriété intellectuelle et contrefaçons.</h2>
 
         <p>Toute exploitation non autorisée du site ou de l’un quelconque des éléments qu’il contient sera considérée comme constitutive d’une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.</p>
+        <p>Tous les utilisateurs s'engagent à publier du contenu audio et des images libres de droits et tout public. Groupe 9 se réserve le droit de sanctionner tout utilisateur ne respectant pas ces règles.</p>
+        <p>Groupe 9 n'est en aucun cas résponsable de la publication de contenu non libre de droit ou qui pourrait heurter la sensibilité de certaines personnes par un utilisateur.</p>
 
         <h2>6. Limitations de responsabilité.</h2>
 
