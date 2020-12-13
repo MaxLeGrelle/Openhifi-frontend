@@ -19,7 +19,6 @@ function displayAlbum() {
         displayFooter();
     }
     getAlbumData()
-    
     adaptFooterPosition();
 }
 
@@ -28,13 +27,13 @@ function displayAlbum() {
  */
 function getAlbumData() {
     let parameter = findGetParameter("no")
-    fetch("/api"+window.location.pathname+"/"+parameter)
+    fetch("/api"+window.location.pathname+"/"+parameter) //TODO authorize
     .then((response)=> {
         if (!response.ok) throw new Error("Code d'erreur : " + response.status + " : " + response.statusText);
         return response.json();
     })
     .then((data) => displayAlbumData(data))
-    //.catch((err) => $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`))
+    .catch((err) => onErrorGettingAlbums(err))
 }
 
 /**
@@ -58,7 +57,8 @@ function findGetParameter(parameterName) {
 let musics //It will contains all the musics of the album ordered as it is displayed
 
 /**
- * Appends the divs to display the data of the album fetched
+ * Appends the divs to display the data of the album fetched.
+ * Create a list of Howler in order to send them to the player.
  * @param {*} data all the data related to the album
  */
 function displayAlbumData(data){
@@ -91,7 +91,6 @@ function displayAlbumData(data){
         }))
     }
     let i = 0;
-    //TODO
     data.listMusicsInfo.forEach(musicInfo => {
         //hide the id of the music in order to know which music has been clicked
         //All musics will have a unique html id in order to change dynamicaly its style when it's played
@@ -129,7 +128,20 @@ function displayAlbumData(data){
     $(".Like").on("click", onLike)
     removeLoadingAnimation()
 }
-//function that displays the heart when he is clicked and send a request to the server for add or delete this musics id
+
+/**
+ * Displays an error in the page when getting albums datas
+ * @param {} err Error, if it contains a message, it will be shown.
+ */
+function onErrorGettingAlbums(err) {
+    if (err.message) $("#main").append(`<p class="alert alert-danger">${err.message}</p>)`)
+    else $("#main").append(`<p class="alert alert-danger">Il y a eu un probléme lors de la récupération des albums</p>)`)
+}
+
+/**
+ * function that displays the heart when it's clicked and send a request to the server to like or dislike the music
+ * @param {*} e event
+ */
 function onLike(e) { 
     if (e.target.parentElement.classList.value === "disliked" || e.target.parentElement.parentElement.classList.value === "liked") { // svg = dislike, path = like
         let musicLikedId ;
@@ -150,7 +162,7 @@ function onLike(e) {
         }
         const userLogged = getUserStorageData()
         const infoUser = jwt.decode(userLogged.token)
-        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, {
+        fetch(`/api/musics/fav/${infoUser.id}/${musicLikedId}`, { //TODO authorize
             method: "PUT"
         })
             .then((response) => {
@@ -158,11 +170,21 @@ function onLike(e) {
                     throw new Error("Code d'erreur : " + reponse.status + " : " + reponse.statusText);
                 return response.json()
             })
-            .catch((err) => console.log(err.message)/*redirectUrl("/error", err.message)*/)
+            .catch((err) => onErrorLiking(err))
         addNewMusicLikedStorage(musicLikedId)
     }
     
 }
+
+/**
+ * Displays an error in the page when liking/disliking a music
+ * @param {*} err Error, if it contains a message, it will be shown.
+ */
+function onErrorLiking(err) {
+    if (err.message) $("#albumDisplay").prepend(`<p class="danger danger-alert">${err.message}</p>`)
+    else $("#albumDisplay").prepend(`<p class="danger danger-alert">Erreur lors du like/dislike</p>`)
+}
+
 /**
  * Fires when we click on a music, it will get the hided id and all the data fetched
  * @param {*} e event
