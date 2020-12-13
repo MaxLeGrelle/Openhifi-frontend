@@ -178,6 +178,11 @@ body {
     border-color: unset;
 }
 
+.card{
+    min-width: 240px !important;
+    background-color: var(--main-bg) !important;
+}
+
 #discover .container-card, #recently .container-card{
     padding: 0 !important;
     width: 15% !important;
@@ -193,6 +198,12 @@ body {
     color: white;
 }
 
+
+#homeAlbumCard{
+    width: 150px !important; 
+    height: 100px !important;
+
+}
 /* #discover .carousel img {
     width: 100%;
     height: 15vw;
