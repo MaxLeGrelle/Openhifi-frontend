@@ -1,7 +1,7 @@
 import { onNavigate } from "./Router";
-
 const footer = document.getElementById("footer");
 
+//display the footer
 function displayFooter() {
     $("#footer").append(`
     <div class = "footerBloc" id="credits">

@@ -5,7 +5,7 @@ import logo from '../img/open-hifi-logo-transparent.png';
 import { removeLoadingAnimation } from '../Utils/animations.js';
 import {getImageNavbar} from './Home.js'
 
-const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$"
+const EMAIL_REGEX =  "^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" //regex for verifying the input email
 
 function Login() {
   removeLoadingAnimation()

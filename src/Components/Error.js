@@ -1,8 +1,10 @@
-
+import {removeLoadingAnimation} from "../Utils/animations.js"
+//display the error page  
 function displayError(err){
     if(!err) $("#page").html(`<p class ="alert alert-danger"> oups, il y a eu une erreur <h1> (╬▔皿▔)╯ </h1> </p>`);
     else if (!err.message)  $("#page").html(`<p class ="alert alert-danger" > ${err} <h1> (╬▔皿▔)╯ </h1></p>`)
     else  $("#page").html(`<p class ="alert alert-danger"> ${err.message}  <h1 id="error"> (╬▔皿▔)╯ </h1></p>`);
+    removeLoadingAnimation()
 }
 
 export default displayError;

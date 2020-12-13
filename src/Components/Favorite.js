@@ -1,7 +1,7 @@
 import {displayNavBar,displayMenu} from './Home.js'
 import {onNavigate} from './Router.js'
-import {displayLecture, onPlay, onEnd, displayPlayer, formatTime} from './Player';
-import { getUserStorageData, getMusicLikedDataStorage, setMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
+import {onPlay, onEnd, formatTime} from './Player';
+import { getUserStorageData, getMusicLikedDataStorage, addNewMusicLikedStorage } from '../Utils/storage.js'
 import { displayFooter } from './Footer.js';
 const howl = require("howler")
 const jwt = require("jsonwebtoken")
@@ -45,7 +45,6 @@ const jwt = require("jsonwebtoken")
         <tbody></tbody>
         </table>
     </div>`)
-    console.log(data)
     musics = new Array() //empty the array to avoid duplicated songs
     for (let i = 0; i < data.length; i++) {
         musics.push(new howl.Howl({
@@ -95,7 +94,6 @@ function getMusiquesData(){
   .catch((err) =>  onErrorFavorite(err))
 }
 function onLike(e) { 
-  console.log("Target :",e.target.parentElement.classList.value)
 if (e.target.parentElement.classList.value === "disliked" || e.target.parentElement.parentElement.classList.value === "liked") { // svg = dislike, path = like
   let musicLikedId ;
   if(e.target.parentElement.classList.value === "disliked"){ //dislike become like
@@ -124,8 +122,6 @@ if (e.target.parentElement.classList.value === "disliked" || e.target.parentElem
           return response.json()
       })
       .catch((err) => onErrorFavorite(err))
-  console.log("add")
-  console.log(e.target.parentElement)
   addNewMusicLikedStorage(musicLikedId)
 }
 

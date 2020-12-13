@@ -1,31 +1,10 @@
 import logo from "../img/open-hifi-logo-transparent2.png"
 import profile from "../img/default_profile.png"
-import r1 from "../img/rooster.jpg"
-import r2 from "../img/camel.jpg"
-import {
-  library,
-  dom
-} from '@fortawesome/fontawesome-svg-core'
-import {
-  fas
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  far
-} from '@fortawesome/free-regular-svg-icons'
-import {
-  fab
-} from '@fortawesome/free-brands-svg-icons'
-import {
-  onNavigate
-} from './Router.js'
-import {
-  getRecentlyDataStorage,
-  getUserStorageData
-} from '../Utils/storage.js'
-import {
-  displayPlayer
-} from "./Player"
-import displayTrends from "./Trends"
+import {library,dom} from '@fortawesome/fontawesome-svg-core'
+import {fas} from '@fortawesome/free-solid-svg-icons'
+import {far} from '@fortawesome/free-regular-svg-icons'
+import {onNavigate} from './Router.js'
+import {getRecentlyDataStorage,getUserStorageData} from '../Utils/storage.js'
 import {loadingAnimation, removeLoadingAnimation} from "../Utils/animations.js"
 import {displayFooter,adaptFooterPosition} from "./Footer.js";
 const jwt = require("jsonwebtoken")
@@ -39,7 +18,6 @@ function displayHome() {
   const userLogged = getUserStorageData()
   $("#container").empty();
   $("#footer").css("display", "");
-  console.log("affiche accueil");
   $("#container").append(`
       <div id="main">
         <div class="display-4">Bienvenue ${userLogged.pseudo}, quelle agréable journée pour écouter de la musique</div>
