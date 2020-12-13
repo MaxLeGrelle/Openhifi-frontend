@@ -84,21 +84,21 @@ function displayMusicsData(data){
       if(getMusicLikedDataStorage().includes(musicInfo.id.toString())){
           $("#albumMusicList tbody").append(`
           <tr class="scope" data-id="${i}">
-              <td id="music${data.id+"-"+i}" href="#" data-url="/albums" data-id="${musicInfo.idAlbum}"><span>${musicInfo.title}</span></td>
-              <td>${musicInfo.idCreator}</td>
-              <td>${musicInfo.album}</td>
-              <td>${formatTime(Math.round(musicInfo.duration))}</td>
-              <td class = "Like" data-realid = "${musicInfo.id}"><div class ="liked"><i id = "heart-${musicInfo.id}" class="fas fa-heart fa-2x"></i></div></td>
-          </tr>`)
-      }
+                <td id="music${musicInfo.music.id+"-"+i}" href="#" data-url="/albums" data-id="${musicInfo.music.idAlbum}"><span id="span${musicInfo.music.id+"-"+i}">${musicInfo.music.title}</span></td>
+                <td>${musicInfo.creator}</td>
+                <td>${musicInfo.music.album}</td>
+                <td>${formatTime(Math.round(musicInfo.music.duration))}</td>
+                <td class = "Like" data-realid = "${musicInfo.music.id}"><div class ="liked"><i id = "heart-${musicInfo.music.id}" class="fas fa-heart fa-2x"></i></div></td>
+            </tr>`)
+        }
 
-      $(`#music${data.id+"-"+i}`).on("click", onNavigate)
-      $(`#music${data.id+"-"+i}`).on("mouseover", (e) => {
-          $(e.target).addClass("musicPlayingHover")
-      })
-      $(`#music${data.id+"-"+i}`).on("mouseleave", (e) => {
-          $(e.target).removeClass("musicPlayingHover")
-      })
+        $(`#music${musicInfo.music.id+"-"+i}`).on("click", onNavigate)
+        $(`#span${musicInfo.music.id+"-"+i}`).on("mouseover", (e) => {
+            $(e.target).addClass("musicPlayingHover")
+        })
+        $(`#span${musicInfo.music.id+"-"+i}`).on("mouseleave", (e) => {
+            $(e.target).removeClass("musicPlayingHover")
+        })
       i++
   });
   $(".Like").on("click", onLike)
