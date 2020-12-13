@@ -71,9 +71,7 @@ function displayGeneral(){
       </textarea>
     </form>
   </div>`)
-  $("#trends").empty()
   $("#favorite").empty();
-  $('#trends').append(`<a href="#" data-url="/trends"> Tendances <i class="far fa-star fa-2x"></i> </a>`)
   $('#favorite').append(`<a href="#" data-url ="/favorite"> Favoris <i class="far fa-heart fa-2x"></i> </a>`)
 $("#formChangeBio").on("change",editBio)
 $('#hoverPhoto').on("mouseover", () => $("#photoDuProfile").css("opacity", "0.5")) 

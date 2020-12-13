@@ -54,13 +54,9 @@ body {
     z-index: 2;
 }
 
-#search{
-    align-self: center;
-    margin-left: 4%;
-}
-
 #add{
     align-self: center;
+    margin-left: 60%;
 
 }
 

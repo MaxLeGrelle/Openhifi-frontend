@@ -4,7 +4,6 @@ import displayError from "./Error.js";
 import logout from "./Logout.js";
 import { getUserStorageData } from "../Utils/storage.js";
 import displayProfil from "./Profil.js";
-import displayTrends from "./Trends.js";
 import {displayFavorite} from "./Favorite.js";
 import {displayAddAlbum} from "./addAlbum.js";
 import {displayAlbum} from "./Album.js";
@@ -17,7 +16,6 @@ const routes = {
     "/login": displayLogin,
     "/logout" : logout,
     "/profil" : displayProfil,
-    "/trends": displayTrends,
     "/favorite": displayFavorite,
     "/addAlbum" : displayAddAlbum,
     "/albums": displayAlbum,
