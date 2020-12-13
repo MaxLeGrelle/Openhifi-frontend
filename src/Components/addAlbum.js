@@ -49,7 +49,7 @@ function displayAddAlbum() {
             onErrorAddingMusic(new Error("Mauvais type de fichier.\n Types acceptés : mp3, aif, flac, mid, wav"))
         }else {
             $("#errorAddingMusic").empty()
-            onSubmitMusic(e)
+            setFileInfo(e, $("#music").prop("files")[0])
         }
         
     });
@@ -70,7 +70,6 @@ let songsDuration = [];
  */
 function onSubmitMusic(e) {
     e.preventDefault();
-    setFileInfo($("#music").prop('files')[0])
     if ($("#AddAlbumPlace").text().length == 1) { //this div length equals 1 when it's empty
         $("#AddAlbumPlace").append(`
         <div class="container">
@@ -106,6 +105,7 @@ function onSubmitMusic(e) {
             <li id= "newMusic">${escape($("#musicTitle").val())}</li>
             <hr>
     `)
+
     const promise = fileToBase64($("#music").prop('files')[0]);
     promise.then((music64) => {
         listMusicToAdd.push({
@@ -121,7 +121,7 @@ function onSubmitMusic(e) {
  * source : https://stackoverflow.com/questions/29285056/get-video-duration-when-input-a-video-file/29285597
  * @param {*} song an input file which represents an audio.
  */
-function setFileInfo(song) { 
+function setFileInfo(e, song) { 
     let audioDOM = document.createElement('audio');
     audioDOM.preload = 'metadata';
 
@@ -130,6 +130,7 @@ function setFileInfo(song) {
         let duration = audioDOM.duration;
         if (songsDuration.length > 0) songsDuration.pop()
         songsDuration.push(duration)
+        onSubmitMusic(e)
     }
     audioDOM.src = URL.createObjectURL(song);
 
@@ -175,6 +176,7 @@ function onSubmitAlbum(e) {
  * When the album has been submitted, redirect to the home page.
  */
 function onAddingAlbum() {
+    listMusicToAdd = new Array();
     redirectUrl("/");
 }
 
