@@ -1,7 +1,9 @@
 import { onNavigate } from "./Router";
-const footer = document.getElementById("footer");
+const footer = $("#footer")
 
-//display the footer
+/**
+ * Displays the footer
+ */
 function displayFooter() {
     $("#footer").append(`
     <div class = "footerBloc" id="credits">
@@ -23,10 +25,12 @@ function displayFooter() {
     $("#legalMentionsFooter").on("click",onNavigate);
 }
 
-//Adapts the position of the footer when the player is there
+/**
+ * Adapts the position of the footer when the player is there
+ */
 function adaptFooterPosition() {
-    if( !$('#player').is(':empty')){
-        footer.style.marginBottom = "100px";
+    if(!$('#player').is(':empty')){
+        footer.css("margin-bottom", "100px")
     }
 }
 
