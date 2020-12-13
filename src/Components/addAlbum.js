@@ -87,6 +87,10 @@ function onSubmitMusic(e) {
             <div id="errorAddingAlbum"></div>
         </div>`)
         let submitAlbumListenerOn = false;
+        $("#formAddAlbum").on("submit", (e) => {
+            e.preventDefault()
+            if ($("#image").prop('files')[0] == undefined) onSubmitAlbum(e)
+        })
         $('#image').on("change",() => {
             if (!verifyType($("#image").prop('files')[0], "image")) {
                 onErrorAddingAlbum(new Error("Mauvais type de fichier.\n Types acceptés : png, jpg/jpeg, ico"))
@@ -142,16 +146,21 @@ function setFileInfo(e, song) {
  */
 function onSubmitAlbum(e) {
     e.preventDefault();
-    const promise = fileToBase64($("#image").prop('files')[0]);
+    let file; 
+    if($("#image").prop('files')[0] == undefined) file ="";
+    else file = $("#image").prop('files')[0];
+    const promise = fileToBase64(file);
     promise.then((image64) => {
         const user = getUserStorageData();
         const userPayload = jwt.decode(user.token)
+        let imageName = ""
+        if (file != "") imageName = $("#image").prop('files')[0].name
         let album = {
             name : $("#nom").val(),
             listMusics : listMusicToAdd,
             idCreator : userPayload.id,
             image64 : image64,
-            imageName : $("#image").prop('files')[0].name
+            imageName : imageName
         }
         fetch("/api/albums/add/", { //TODO authorize
             method : "POST",
@@ -201,6 +210,7 @@ function onErrorAddingMusic(err) {
  */
 function fileToBase64(file) {
     return new Promise(function (resolve, reject) {
+        if (file == "") resolve("")
         var reader = new FileReader();
         reader.onload = function () {
             resolve(reader.result);
